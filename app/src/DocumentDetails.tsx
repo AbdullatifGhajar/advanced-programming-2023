@@ -1,9 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
+const exampleFields = {
+    "name": "Paul",
+    "age": 25,
+}
+
 const DocumentDetails = () => {
     const [name, setName] = React.useState<string>("");
-    const [fields, setFields] = React.useState<string[]>([]);
+    const [fields, setFields] = React.useState<{ [key: string]: any }>({}); // Adjusting the type
     const { id } = useParams<{ id: string }>(); // Extracting id from URL
 
     React.useEffect(() => {
@@ -17,7 +22,7 @@ const DocumentDetails = () => {
                 .catch((error) => {
                     console.error('Error:', error);
                     setName("Mock document name");
-                    setFields(["field 1", "field 2"]);
+                    setFields(exampleFields);
                 });
         }
     }, [id]);
@@ -26,9 +31,9 @@ const DocumentDetails = () => {
         <div>
             <h1>{name}</h1>
             <ul>
-                {fields.map((field) => (
-                    <li key={field}>
-                        <input type="text" placeholder={field} />
+                {Object.entries(fields).map(([fieldKey, fieldValue]) => (
+                    <li key={fieldKey}>
+                        {fieldKey}: <input type="text" value={fieldValue} onChange={() => {}} />
                     </li>
                 ))}
             </ul>
