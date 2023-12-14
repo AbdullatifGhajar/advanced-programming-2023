@@ -1,10 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 const documentRoutes = require("./documents/src/routes/documents")
 
 app.use(express.json());
-
+app.use(cors());
 app.use('/documents', documentRoutes);
 
 
