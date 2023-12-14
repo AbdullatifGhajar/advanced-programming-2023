@@ -1,0 +1,18 @@
+const express = require('express')
+const app = express()
+
+const documentRoutes = require("./documents/src/routes/documents")
+
+app.use(express.json());
+
+app.use('/documents', documentRoutes);
+
+
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
+
+app.listen(8081, () => {
+  console.log(`[server]: Server is running at https://localhost:8081`);
+});
