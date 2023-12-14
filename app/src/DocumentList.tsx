@@ -1,38 +1,41 @@
 import React from 'react';
-import DocumentForm from './DocumentForm';
 
-const dataFromApi: { [key: string]: { fields: string[] } } = {
-    document1: {
-        fields: ["surname", "family name"]
+import DocumentOverview from './DocumentOverview';
+
+const mockDocumentList: DocumentOverview[] = [
+    {
+        id: "1",
+        name: "Document 1",
     },
-    document2: {
-        fields: ["given name", "first name", "age"]
+    {
+        id: "2",
+        name: "Document 2",
     },
-}
+]
 
 
 const DocumentList = () => {
-    const [documentData, setDocumentData] = React.useState<{ [key: string]: { fields: string[] } }>({});
-    
+    const [documentOverviewList, setDocumentOverviewList] = React.useState<DocumentOverview[]>([]);
+
     React.useEffect(() => {
-        fetch('localhost:3000/api/documents')
-        .then((response) => response.json())
-        .then((data) => {
-            setDocumentData(data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            setDocumentData(dataFromApi);
-        });
+        fetch('localhost:8081/documents')
+            .then((response) => response.json())
+            .then((data) => {
+                setDocumentOverviewList(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setDocumentOverviewList(mockDocumentList);
+            });
     }, []);
-    
+
     return (
         <div>
             <h1>Document List</h1>
             <ul>
-                {Object.keys(documentData).map((documentId) => (
-                    <li key={documentId}>
-                        <DocumentForm documentId={documentId} fields={dataFromApi[documentId].fields} />
+                {documentOverviewList.map((documentOverview) => (
+                    <li key={documentOverview.id}>
+                        <a href={`/documents/${documentOverview.id}`}>{documentOverview.name}</a>
                     </li>
                 ))}
             </ul>
