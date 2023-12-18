@@ -8,7 +8,7 @@ class DocumentService {
         {
             id: 2,
             name: 'document2',
-            fields: ['givenName', 'first name','age']
+            fields: ['name', 'major', 'age']
         },
     ]
 
