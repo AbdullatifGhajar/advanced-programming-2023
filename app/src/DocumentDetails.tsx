@@ -69,7 +69,8 @@ const DocumentDetails = () => {
                     <Button
                         color="primary"
                         variant="contained"
-                        fullWidth type="submit"
+                        fullWidth 
+                        type="submit"
                     >
                         Save
                     </Button>

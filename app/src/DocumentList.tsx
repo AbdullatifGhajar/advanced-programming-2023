@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Box, List, ListItem, Button } from '@mui/material';
 
 import DocumentOverview from './DocumentOverview';
 
@@ -35,18 +36,24 @@ const DocumentList = () => {
     };
 
     return (
-        <div>
-            <h1>Document List</h1>
-            <ul>
-                {documentOverviewList.map((documentOverview) => (
-                    <li key={documentOverview.id}>
-                        <button onClick={() => handleDocumentClick(documentOverview.id)}>
-                            {documentOverview.name}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <Box display="flex" justifyContent="center">
+            <Box display="flex" flexDirection="column" justifyContent="center" sx={{ width: '60%' }}>
+                <h1>Document List</h1>
+                <List>
+                    {documentOverviewList.map((documentOverview) => (
+                        <ListItem key={documentOverview.id}>
+                            <Button 
+                                onClick={() => handleDocumentClick(documentOverview.id)}
+                                fullWidth
+                                variant="contained"
+                            >
+                                {documentOverview.name}
+                            </Button>
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
+        </Box>
     )
 }
 
