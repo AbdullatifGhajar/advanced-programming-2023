@@ -17,7 +17,7 @@ class DocumentService {
     }
 
     async document(id) {
-        return this.documents.filter(doc => doc.id == id);
+        return this.documents.find(doc => doc.id == id);
     }
 }
 
