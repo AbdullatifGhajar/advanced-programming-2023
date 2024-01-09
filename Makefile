@@ -15,13 +15,13 @@ install:			## Install requirements for both backend and frontend
 .PHONY: run-backend
 run-backend:			## Run the backend
 	@echo "-------- Running the backend --------"
-	@cd $(BACKEND_DIR) && npm start &
+	@cd $(BACKEND_DIR) && npm start
 	@cd ..
 
 .PHONY: run-frontend
 run-frontend:			## Run the frontend
 	@echo "-------- Running the frontend --------"
-	@cd $(FRONTEND_DIR) && npm start &
+	@cd $(FRONTEND_DIR) && npm start
 	@cd ..
 
 .PHONY: help
