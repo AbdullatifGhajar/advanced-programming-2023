@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { TextField, Button, Box } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 const DocumentDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [initialValues, setInitialValues] = useState<{ [key: string]: string }>({});
     const [validationSchema, setValidationSchema] = useState({});
+
+    const navigate = useNavigate();
 
 
     // Fetch form template from backend
@@ -50,7 +53,14 @@ const DocumentDetails = () => {
     return (
         <Box display="flex" justifyContent="center">
             <Box display="flex" flexDirection="column" justifyContent="center" sx={{ width: '60%' }}>
-                <h1>Edit Document</h1>
+                <Box display="flex">
+                    <Button
+                        color="primary"
+                        onClick={() => navigate('/')}
+                        startIcon={<ArrowBack />}
+                    />
+                    <h1>Edit Document</h1>
+                </Box>
                 <form onSubmit={formik.handleSubmit} >
                     {Object.keys(initialValues).map(key => (
                         <TextField
@@ -69,7 +79,7 @@ const DocumentDetails = () => {
                     <Button
                         color="primary"
                         variant="contained"
-                        fullWidth 
+                        fullWidth
                         type="submit"
                     >
                         Save
