@@ -1,23 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, List, ListItem, Button } from '@mui/material';
+import { Box, List } from '@mui/material';
 
 import DocumentOverview from './DocumentOverview';
-
-const mockDocumentList: DocumentOverview[] = [
-    {
-        id: "1",
-        name: "Document 1",
-    },
-    {
-        id: "2",
-        name: "Document 2",
-    },
-]
+import DocumentListItem from './DocumentListItem';
 
 const DocumentList = () => {
     const [documentOverviewList, setDocumentOverviewList] = React.useState<DocumentOverview[]>([]);
-    const navigate = useNavigate(); // Using useNavigate hook
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         fetch('http://localhost:8081/documents')
@@ -27,7 +17,6 @@ const DocumentList = () => {
             })
             .catch((error) => {
                 console.error('Error:', error);
-                setDocumentOverviewList(mockDocumentList);
             });
     }, []);
 
@@ -41,15 +30,11 @@ const DocumentList = () => {
                 <h1>Document List</h1>
                 <List>
                     {documentOverviewList.map((documentOverview) => (
-                        <ListItem key={documentOverview.id}>
-                            <Button 
-                                onClick={() => handleDocumentClick(documentOverview.id)}
-                                fullWidth
-                                variant="contained"
-                            >
-                                {documentOverview.name}
-                            </Button>
-                        </ListItem>
+                        <DocumentListItem
+                            key={documentOverview.id}
+                            documentOverview={documentOverview}
+                            onClick={handleDocumentClick}
+                        />
                     ))}
                 </List>
             </Box>
