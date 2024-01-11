@@ -34,7 +34,7 @@ help:            		## Show the help
 	@fgrep "##" Makefile | fgrep -v fgrep
 
 .PHONY: install-db
-install-db:
+install-db:			## Install the database
 	@echo '------- Installing the database --------'
 	@cd $(BACKEND_DIR)
 	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=database --env MARIADB_ROOT_PASSWORD=root -p 8080:3306  mariadb:latest
