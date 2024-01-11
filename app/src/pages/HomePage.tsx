@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { Box } from '@mui/material';
+
+import PageTitle from '../components/PageTitle';
 
 
 const HomePage = () => {
     return (
-        <>
-            <Box sx={{ mx: 2 }}>
-                <h1> Welcome to the Home Page</h1>
-            </Box>
-        </>
+        <Box display="flex" flexDirection="column">
+            <PageTitle title='Welcome to the home page' />
+            this is the home page
+        </Box>
     )
 }
 

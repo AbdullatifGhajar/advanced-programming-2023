@@ -5,6 +5,8 @@ import * as yup from 'yup';
 import { TextField, Button, Box } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
+import PageTitle from './components/PageTitle';
+
 const DocumentDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [initialValues, setInitialValues] = useState<{ [key: string]: string }>({});
@@ -56,10 +58,11 @@ const DocumentDetails = () => {
                 <Box display="flex">
                     <Button
                         color="primary"
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/documents')}
                         startIcon={<ArrowBack />}
                     />
-                    <h1>Edit Document</h1>
+                    {/* TODO: use document name instead */}
+                    <PageTitle title={"Edit Document"}/>
                 </Box>
                 <form onSubmit={formik.handleSubmit} >
                     {Object.keys(initialValues).map(key => (
