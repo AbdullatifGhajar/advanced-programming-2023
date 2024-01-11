@@ -5,10 +5,10 @@ import Header from '../components/Header';
 
 const HomePage = () => {
 
-   
+
     return (
         <>
-            <Box sx={{mx:2}}>
+            <Box sx={{ mx: 2 }}>
                 <h1> Welcome to the Home Page</h1>
             </Box>
         </>
