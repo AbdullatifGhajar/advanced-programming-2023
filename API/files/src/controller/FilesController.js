@@ -10,6 +10,20 @@ const storage = multer.diskStorage({
     }
 });
 
+const upload = multer({ storage: storage });
+
+exports.uploadFile = (req, res) => {
+    upload.single('file')(req, res, function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        console.log(req);
+        
+        res.json({ fileId: req.file.filename });
+    });
+};
+
 exports.downloadFile = (req, res) => {
     const file = `./uploads/${req.params.fileId}`;
     res.sendFile(path.resolve(file));
