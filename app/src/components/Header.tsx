@@ -11,7 +11,6 @@ import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 
-
 const Header = () => {
 
   const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(null);
