@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import DocumentDetails from './DocumentDetails';
 import Header from './components/Header';
 import PageBody from './components/PageBody';
+import DocumentList from './DocumentList';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <PageBody>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/document/1" element={<DocumentDetails />}></Route>
+            <Route path="/documents" element={<DocumentList />} />
+            <Route path="/documents/:id" element={<DocumentDetails />} />
           </Routes>
         </PageBody>
       </Router>
