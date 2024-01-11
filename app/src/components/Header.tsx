@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 
-
 const Header = () => {
 
       const [menuOptions, setMenuOptions] = React.useState<null | HTMLElement>(null);
@@ -29,7 +28,6 @@ const Header = () => {
         navigate("/document/1");
       }
 
-    
       return (
         <Box>
             <AppBar position="static">
@@ -68,7 +66,7 @@ const Header = () => {
                         onClose={handleClose}
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
-                          }}>
+                        }}>
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleClose}>Log out</MenuItem>
                         </Menu> 

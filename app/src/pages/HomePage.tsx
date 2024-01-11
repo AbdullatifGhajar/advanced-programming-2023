@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Box, Container } from '@mui/material';
-import Header from '../components/Header';
+import { Box } from '@mui/material';
 
 
 const HomePage = () => {
