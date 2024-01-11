@@ -53,42 +53,40 @@ const DocumentDetails = () => {
     });
 
     return (
-        <Box display="flex" justifyContent="center">
-            <Box display="flex" flexDirection="column" justifyContent="center" sx={{ width: '60%' }}>
-                <Box display="flex">
-                    <Button
-                        color="primary"
-                        onClick={() => navigate('/documents')}
-                        startIcon={<ArrowBack />}
-                    />
-                    {/* TODO: use document name instead */}
-                    <PageTitle title={"Edit Document"}/>
-                </Box>
-                <form onSubmit={formik.handleSubmit} >
-                    {Object.keys(initialValues).map(key => (
-                        <TextField
-                            key={key}
-                            id={key}
-                            name={key}
-                            label={key.charAt(0).toUpperCase() + key.slice(1)}
-                            value={formik.values[key]}
-                            onChange={formik.handleChange}
-                            error={formik.touched[key] && Boolean(formik.errors[key])}
-                            helperText={formik.touched[key] && formik.errors[key]}
-                            margin="normal"
-                            fullWidth
-                        />
-                    ))}
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        fullWidth
-                        type="submit"
-                    >
-                        Save
-                    </Button>
-                </form>
+        <Box display="flex" flexDirection="column" justifyContent="center">
+            <Box display="flex" justifyContent="center">
+                <Button
+                    color="primary"
+                    onClick={() => navigate('/documents')}
+                    startIcon={<ArrowBack />}
+                />
+                {/* TODO: use document name instead */}
+                <PageTitle title={"Edit Document"} />
             </Box>
+            <form onSubmit={formik.handleSubmit} >
+                {Object.keys(initialValues).map(key => (
+                    <TextField
+                        key={key}
+                        id={key}
+                        name={key}
+                        label={key.charAt(0).toUpperCase() + key.slice(1)}
+                        value={formik.values[key]}
+                        onChange={formik.handleChange}
+                        error={formik.touched[key] && Boolean(formik.errors[key])}
+                        helperText={formik.touched[key] && formik.errors[key]}
+                        margin="normal"
+                        fullWidth
+                    />
+                ))}
+                <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                >
+                    Save
+                </Button>
+            </form>
         </Box>
     );
 }

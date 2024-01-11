@@ -26,19 +26,17 @@ const DocumentList = () => {
     };
 
     return (
-        <Box display="flex" justifyContent="center">
-            <Box display="flex" flexDirection="column" justifyContent="center" sx={{ width: '60%' }}>
-                <PageTitle title="Documents" />
-                <List>
-                    {documentOverviewList.map((documentOverview) => (
-                        <DocumentListItem
-                            key={documentOverview.id}
-                            documentOverview={documentOverview}
-                            onClick={handleDocumentClick}
-                        />
-                    ))}
-                </List>
-            </Box>
+        <Box display="flex" flexDirection="column" justifyContent="center">
+            <PageTitle title="Documents" />
+            <List>
+                {documentOverviewList.map((documentOverview) => (
+                    <DocumentListItem
+                        key={documentOverview.id}
+                        documentOverview={documentOverview}
+                        onClick={handleDocumentClick}
+                    />
+                ))}
+            </List>
         </Box>
     )
 }
