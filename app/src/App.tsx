@@ -1,19 +1,27 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import DocumentList from './DocumentList';
+import HomePage from './pages/HomePage';
 import DocumentDetails from './DocumentDetails';
+import Header from './components/Header';
+import PageBody from './components/PageBody';
+import DocumentList from './DocumentList';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<DocumentList />} />
-        <Route path="/document/:id" element={<DocumentDetails />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Header />
+        <PageBody>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/documents" element={<DocumentList />} />
+            <Route path="/documents/:id" element={<DocumentDetails />} />
+          </Routes>
+        </PageBody>
+      </Router>
+    </>
   );
 }
 

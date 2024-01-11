@@ -4,6 +4,7 @@ import { Box, List } from '@mui/material';
 
 import DocumentOverview from './DocumentOverview';
 import DocumentListItem from './DocumentListItem';
+import PageTitle from './components/PageTitle';
 
 const DocumentList = () => {
     const [documentOverviewList, setDocumentOverviewList] = React.useState<DocumentOverview[]>([]);
@@ -21,23 +22,21 @@ const DocumentList = () => {
     }, []);
 
     const handleDocumentClick = (id: string) => {
-        navigate(`/document/${id}`);
+        navigate(`/documents/${id}`);
     };
 
     return (
-        <Box display="flex" justifyContent="center">
-            <Box display="flex" flexDirection="column" justifyContent="center" sx={{ width: '60%' }}>
-                <h1>Document List</h1>
-                <List>
-                    {documentOverviewList.map((documentOverview) => (
-                        <DocumentListItem
-                            key={documentOverview.id}
-                            documentOverview={documentOverview}
-                            onClick={handleDocumentClick}
-                        />
-                    ))}
-                </List>
-            </Box>
+        <Box display="flex" flexDirection="column" justifyContent="center">
+            <PageTitle title="Documents" />
+            <List>
+                {documentOverviewList.map((documentOverview) => (
+                    <DocumentListItem
+                        key={documentOverview.id}
+                        documentOverview={documentOverview}
+                        onClick={handleDocumentClick}
+                    />
+                ))}
+            </List>
         </Box>
     )
 }
