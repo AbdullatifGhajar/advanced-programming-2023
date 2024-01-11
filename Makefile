@@ -1,3 +1,5 @@
+include API/.env
+
 .ONESHELL:
 BACKEND_DIR = API
 FRONTEND_DIR = app
@@ -30,3 +32,12 @@ help:            		## Show the help
 	@echo ""
 	@echo "Targets:"
 	@fgrep "##" Makefile | fgrep -v fgrep
+
+.PHONY: install-db
+install-db:
+	@echo '------- Installing the database --------'
+	@cd $(BACKEND_DIR)
+	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=database --env MARIADB_ROOT_PASSWORD=root -p 8080:3306  mariadb:latest
+	@echo 'Installed docker image'
+	@sleep 2
+	@knex migrate:latest

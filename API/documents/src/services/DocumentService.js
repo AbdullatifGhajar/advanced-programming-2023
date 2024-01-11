@@ -1,23 +1,20 @@
-class DocumentService {
-    documents = [
-        {
-            id: 1,
-            name: 'document1',
-            fields: ['name', 'surname']
-        },
-        {
-            id: 2,
-            name: 'document2',
-            fields: ['name', 'major', 'age']
-        },
-    ]
+const knex = require('../../../db/connection');
 
+class DocumentService {
     async list() {
-        return this.documents.map(({id, name}) => ({id, name}));
+        let documents = await knex('documents').select('id', 'name')
+        return documents
     }
 
     async document(id) {
-        return this.documents.find(doc => doc.id == id);
+        let document = await knex('documents').where({id: id})
+        let fields_id = await knex('document_fields').where({document_id: id})
+        document.fields = []
+        for(let field_id of fields_id) {
+            field = await knex('fields').where({id: field_id}).select('name')
+            document.fields.push(field)
+        }
+        return document
     }
 }
 
