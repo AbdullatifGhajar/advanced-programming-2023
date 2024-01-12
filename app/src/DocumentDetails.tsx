@@ -6,36 +6,34 @@ import { TextField, Button, Box } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
 import PageTitle from './components/PageTitle';
+import Field from './models/Field';
 
 const DocumentDetails = () => {
     const { id } = useParams<{ id: string }>();
-    const [initialValues, setInitialValues] = useState<{ [key: string]: string }>({});
-    const [validationSchema, setValidationSchema] = useState({});
+    const [fields, setFields] = useState<Field[]>([]);
 
     const navigate = useNavigate();
 
+    const initialValues = (fields: Field[]) => {
+        return fields.map((field: Field) => ({
+            [field.name]: field.value
+        }))
+    }
+
+    const validationSchema = (fields: Field[]) => {
+        return fields.map((field: Field) => ({
+            // schema is for now optional, set all to string
+            [field.name]: yup.string(),
+        }))
+    }
 
     // Fetch form template from backend
     useEffect(() => {
         fetch(`http://localhost:8081/documents/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                const fetchedFields: string[] = data.fields;
-                const fieldsSchema: { [key: string]: yup.Schema<any> } = {};
-                const fieldsValues: { [key: string]: string } = {};
-
-                // Build the initial values and validation schema
-                fetchedFields.forEach((field: string) => {
-                    if (field === "age") {
-                        fieldsSchema[field] = yup.number();
-                        fieldsValues[field] = "18";
-                    } else {
-                        fieldsSchema[field] = yup.string();
-                        fieldsValues[field] = ""; // empty for now
-                    }
-                });
-                setInitialValues(fieldsValues);
-                setValidationSchema(yup.object().shape(fieldsSchema));
+                const fetchedFields: Field[] = data.fields;
+                setFields(fetchedFields);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -43,8 +41,8 @@ const DocumentDetails = () => {
     }, [id]);
 
     const formik = useFormik({
-        initialValues: initialValues,
-        validationSchema: validationSchema,
+        initialValues: initialValues(fields),
+        validationSchema: validationSchema(fields),
         onSubmit: (values) => {
             console.log(values);
             // add submission logic here
@@ -64,16 +62,14 @@ const DocumentDetails = () => {
                 <PageTitle title={"Edit Document"} />
             </Box>
             <form onSubmit={formik.handleSubmit} >
-                {Object.keys(initialValues).map(key => (
+                {fields.map((field) => (
                     <TextField
-                        key={key}
-                        id={key}
-                        name={key}
-                        label={key.charAt(0).toUpperCase() + key.slice(1)}
-                        value={formik.values[key]}
+                        key={field.id}
+                        id={field.id}
+                        name={field.name}
+                        label={field.name}
+                        value={field.value}
                         onChange={formik.handleChange}
-                        error={formik.touched[key] && Boolean(formik.errors[key])}
-                        helperText={formik.touched[key] && formik.errors[key]}
                         margin="normal"
                         fullWidth
                     />

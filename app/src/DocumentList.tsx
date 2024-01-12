@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, List } from '@mui/material';
 
-import DocumentOverview from './DocumentOverview';
+import DocumentOverview from './models/DocumentOverview';
 import DocumentListItem from './DocumentListItem';
 import PageTitle from './components/PageTitle';
 

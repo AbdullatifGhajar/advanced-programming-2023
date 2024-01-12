@@ -7,12 +7,14 @@ class DocumentService {
     }
 
     async document(id) {
-        let document = await knex('documents').where({id: id})
-        let fields_id = await knex('document_fields').where({document_id: id})
+        let documents_with_id = await knex('documents').where({id: id})
+        let document_fields_for_document = await knex('document_fields').where({document_id: id})
+        
+        let document = documents_with_id[0]
         document.fields = []
-        for(let field_id of fields_id) {
-            field = await knex('fields').where({id: field_id}).select('name')
-            document.fields.push(field)
+        for(let document_field of document_fields_for_document) {
+            let field = await knex('fields').where({id: document_field.field_id})
+            document.fields.push(field[0])
         }
         return document
     }
