@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, Button } from '@mui/material';
 
-import DocumentOverview from './DocumentOverview';
+import DocumentOverview from './models/DocumentOverview';
 
 interface DocumentListItemProps {
     documentOverview: DocumentOverview;
