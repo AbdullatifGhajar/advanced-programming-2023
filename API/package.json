@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "add-data": "ts-node db/addData.ts",
     "clear-data": "ts-node db/clearData.ts",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "create-migration": "npm run typeorm -- migration:generate migrations/migration -d data-source.ts",
+    "migrate": "npm run typeorm -- migration:run -d data-source.ts"
   },
   "author": "",
   "license": "ISC",

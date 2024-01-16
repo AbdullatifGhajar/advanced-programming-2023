@@ -32,10 +32,12 @@ install-db:			## Install the database
 	@cd $(BACKEND_DIR)
 	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=database --env MARIADB_ROOT_PASSWORD=root -p 8080:3306  mariadb:latest
 	
-	@echo "------- Installed docker image --------"
-	@sleep 2
-	@sudo npm install knex -g
-	@knex migrate:latest
+	@echo "------- Add tables to the database --------"
+	@rm -rf $(BACKEND_DIR)/migrations/**.ts
+	@sleep 5
+	@npm run create-migration
+	@npm run migrate
+
 
 .PHONY: add-data
 add-data:			## Add data to the database
