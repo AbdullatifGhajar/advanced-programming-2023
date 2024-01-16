@@ -26,13 +26,6 @@ run-frontend:			## Run the frontend
 	@cd $(FRONTEND_DIR) && npm start
 	@cd ..
 
-.PHONY: help
-help:            		## Show the help
-	@echo "Usage: make <target>"
-	@echo ""
-	@echo "Targets:"
-	@fgrep "##" Makefile | fgrep -v fgrep
-
 .PHONY: install-db
 install-db:			## Install the database
 	@echo "------- Installing the database --------"
@@ -49,3 +42,10 @@ add-data:			## Add data to the database
 	@echo "------- Adding data to the database --------"
 	@cd $(BACKEND_DIR)
 	@npm run add-data
+
+.PHONY: help
+help:            		## Show the help
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@fgrep "##" Makefile | fgrep -v fgrep
