@@ -8,7 +8,7 @@ class DocumentService {
         return await db.manager.find(Document);
     }
 
-    async document(id: string): Promise<Document | undefined> {
+    async document(id: string): Promise<Document> {
         const db = await DB.getInstance();
         const document: Document | null = await db.getRepository(Document)
             .createQueryBuilder("document")

@@ -11,9 +11,13 @@ class DocumentController {
 
     async document(req: Request, res: Response) {
         const documentService = new DocumentService();
-        const document = await documentService.document(req.params.id);
-        console.log(document)
-        return res.json(document)
+        try {
+            const document = await documentService.document(req.params.id);
+            console.log(document);
+            return res.json(document);
+        } catch (error: any) {
+            return res.status(404).json({ error: error.message });
+        }
     }
 }
 
