@@ -1,13 +1,15 @@
-const DocumentService = require('../services/DocumentService');
+import { Request, Response } from 'express';
+import DocumentService from '../services/DocumentService';
+
 class DocumentController {
-	async documentList(req, res) {
+	async documentList(req: Request, res: Response) {
         const documentService = new DocumentService();
         const list = await documentService.list()
         console.log(list)
         return res.json(list)
     }
 
-    async document(req, res) {
+    async document(req: Request, res: Response) {
         const documentService = new DocumentService();
         const document = await documentService.document(req.params.id);
         console.log(document)
@@ -15,4 +17,4 @@ class DocumentController {
     }
 }
 
-module.exports = DocumentController;
+export default DocumentController;
