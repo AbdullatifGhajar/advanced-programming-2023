@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import Field from './Field';
+import User from './User';
 
 @Entity()
 class Document {    
@@ -12,6 +13,9 @@ class Document {
     @ManyToMany(() => Field)
     @JoinTable()
     fields!: Field[];
+
+    @ManyToOne(() => User, user => user.documents)
+    user!: User;
 }
 
 export default Document;
