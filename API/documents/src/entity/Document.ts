@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Field } from './Field';
+import Field from './Field';
 
 @Entity()
-export class Document {
+class Document {    
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -13,3 +13,5 @@ export class Document {
     @JoinTable()
     fields!: Field[];
 }
+
+export default Document;

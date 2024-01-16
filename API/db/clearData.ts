@@ -1,7 +1,7 @@
 import DB from './DB';
 
-import { Document } from '../documents/src/entity/Document';
-import { Field } from '../documents/src/entity/Field';
+import Document from '../documents/src/entity/Document';
+import Field from '../documents/src/entity/Field';
 
 
 async function clearData() {

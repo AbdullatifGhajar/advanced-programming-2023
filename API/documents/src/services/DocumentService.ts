@@ -1,34 +1,25 @@
-import knex from '../../../db/connection';
+import Document from '../entity/Document';
+import DB from '../../../db/DB';
 
-interface Document {
-    id: string;
-    name: string;
-    fields: Field[];
-}
-
-interface Field {
-    id: string;
-    // Add other field properties here
-}
 
 class DocumentService {
     async list(): Promise<Document[]> {
-        let documents: Document[] = await knex('documents').select('id', 'name');
-        return documents;
+        const db = await DB.getInstance();
+        return await db.manager.find(Document);
     }
 
     async document(id: string): Promise<Document | undefined> {
-        let documents_with_id: Document[] = await knex('documents').where({ id: id });
-        let document_fields_for_document = await knex('document_fields').where({ document_id: id });
+        const db = await DB.getInstance();
+        const document: Document | null = await db.getRepository(Document)
+            .createQueryBuilder("document")
+            .leftJoinAndSelect("document.fields", "fields")
+            .where("document.id = :id", { id: id })
+            .getOne();
 
-        let document: Document | undefined = documents_with_id[0];
-        if (document) {
-            document.fields = [];
-            for (let document_field of document_fields_for_document) {
-                let field: Field[] = await knex('fields').where({ id: document_field.field_id });
-                document.fields.push(field[0]);
-            }
+        if (document === null) {
+            throw new Error("Document not found");
         }
+
         return document;
     }
 }

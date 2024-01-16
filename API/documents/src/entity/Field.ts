@@ -1,7 +1,7 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 
 @Entity()
-export class Field {
+class Field {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -11,3 +11,5 @@ export class Field {
     @Column({ type: 'text', nullable: true })
     value: string | undefined;
 }
+
+export default Field;
