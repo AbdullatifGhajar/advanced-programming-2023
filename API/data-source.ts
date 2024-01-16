@@ -1,15 +1,16 @@
+import "reflect-metadata"
 import { DataSource } from "typeorm";
 
 require('dotenv').config();
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
     type: "mysql",
     host: "127.0.0.1",
     port: 8080,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: "database",
-    synchronize: false,
+    synchronize: true,
     logging: false,
     entities: [
         "**/src/entity/**/*.ts"
@@ -19,10 +20,8 @@ export const AppDataSource = new DataSource({
         "migrations/"
     ],
     subscribers: [
-        "src/subscriber/**/*.ts"
+        "src/subscriber/*.ts"
     ]
 });
 
-module.exports = {
-    AppDataSource
-};
+export default AppDataSource;

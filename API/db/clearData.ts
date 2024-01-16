@@ -1,11 +1,19 @@
-const db = require('../db/connection');
+import DB from './DB';
+
+import { Document } from '../documents/src/entity/Document';
+import { Field } from '../documents/src/entity/Field';
+
 
 async function clearData() {
-    await db('document_fields').del();
-    await db('documents').del();
-    await db('fields').del();
+    const db = await DB.getInstance();
+   
+    await db.createQueryBuilder().delete().from(Document).execute();
+    console.log('Documents cleared successfully');
 
-    console.log('Data cleared successfully');
+    await db.createQueryBuilder().delete().from(Field).execute();
+    console.log('Fields cleared successfully');
+
+    await db.destroy();
 }
 
-clearData();
+clearData()

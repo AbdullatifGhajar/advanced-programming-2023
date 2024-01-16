@@ -9,5 +9,5 @@ export class Field {
     name!: string;
 
     @Column({ type: 'text', nullable: true })
-    value: string | null = null;
+    value: string | undefined;
 }

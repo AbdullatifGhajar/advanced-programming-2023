@@ -1,26 +1,33 @@
-const db = require('./connection');
+import DB from './DB';
+
+import { Document } from '../documents/src/entity/Document';
+import { Field } from '../documents/src/entity/Field';
+
 
 async function addData() {
-    await db('documents').insert([
-        { id: 1, name: 'Document 1' },
-        { id: 2, name: 'Document 2' },
-    ]);
+    const db = await DB.getInstance();
 
-    await db('fields').insert([
-        { id: 1, name: 'Name', value: '' },
-        { id: 2, name: 'Major', value: 'Software Engineering' },
-        { id: 3, name: 'Age', value: '22' },
-    ]);
+    // add fields
+    const fieldRepository = db.getRepository(Field);
+    const fields = [
+        { id: 1, name: 'name' },
+        { id: 2, name: 'major', value: 'Software Engineering' },
+        { id: 3, name: 'age', value: '42' },
+    ];
+    await fieldRepository.save(fields);
+    console.log('Fields added successfully');
 
-    await db('document_fields').insert([
-        { document_id: 1, field_id: 1 },
-        { document_id: 1, field_id: 2 },
-        { document_id: 2, field_id: 1 },
-        { document_id: 2, field_id: 2 },
-        { document_id: 2, field_id: 3 },
-    ]);
+    // add documents
+    const documentRepository = db.getRepository(Document);
+    const documents = [
+        { id: 1, name: 'Document 1', fields: [{ id: 1 }, { id: 2 }, { id: 3 }] },
+        { id: 2, name: 'Document 2', fields: [{ id: 1 }, { id: 2 }] },
+    ];
+    await documentRepository.save(documents);
+    console.log('Documents added successfully');
 
-    console.log('Test data added successfully');
+    await db.destroy();
 }
 
-addData().catch(console.error);
+addData();
+
