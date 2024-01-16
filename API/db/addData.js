@@ -2,14 +2,14 @@ const db = require('./connection');
 
 async function addData() {
     await db('documents').insert([
-        { id: 1, name: 'Test Document 1' },
-        { id: 2, name: 'Test Document 2' },
+        { id: 1, name: 'Document 1' },
+        { id: 2, name: 'Document 2' },
     ]);
 
     await db('fields').insert([
-        { id: 1, name: 'Test Field 1', value: 'Test Value 1' },
-        { id: 2, name: 'Test Field 2', value: '' },
-        { id: 3, name: 'Test Field 3', value: 'Test Value 3' },
+        { id: 1, name: 'Name', value: '' },
+        { id: 2, name: 'Major', value: 'Software Engineering' },
+        { id: 3, name: 'Age', value: '22' },
     ]);
 
     await db('document_fields').insert([
