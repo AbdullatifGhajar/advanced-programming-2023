@@ -18,7 +18,7 @@ class UserService {
           }
 
         let encryptionService = new EncryptionService()
-        let passwordMatch: boolean = await encryptionService.comparePass(password, user.password);
+        let passwordMatch: boolean = await encryptionService.comparePassword(password, user.password);
 
         if (!passwordMatch) throw new Error("WRONG_PASSWORD");
 

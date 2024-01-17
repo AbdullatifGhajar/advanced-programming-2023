@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 export class EncryptionService {
-	async comparePass(formPassword: String, dbPassword: String) {
+	async comparePassword(formPassword: String, dbPassword: String) {
 		try {
 			const compare = await bcrypt.compareSync(formPassword, dbPassword);
 			return compare;
