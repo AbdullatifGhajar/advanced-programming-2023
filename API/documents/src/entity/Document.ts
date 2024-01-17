@@ -3,12 +3,18 @@ import Field from './Field';
 import User from '../../../users/src/entity/User';
 
 @Entity()
-class Document {    
+class Document {
     @PrimaryGeneratedColumn()
     id!: number;
 
     @Column()
     name!: string;
+
+    @Column({
+        type: 'timestamp',
+        default: () => "CURRENT_TIMESTAMP + INTERVAL 7 DAY"
+    })
+    deadline!: Date;
 
     @ManyToMany(() => Field)
     @JoinTable()
