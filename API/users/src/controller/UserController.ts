@@ -29,6 +29,16 @@ class UserController {
             return res.status(500).json({ error: error.message });
         }
     }
+
+    async info(req: Request, res: Response) {
+        const userService = new UserService();
+        try {
+            const jwt: Jwt = await userService.info(req.body.user);
+            return res.json(jwt);
+        } catch (error: any) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export default UserController;

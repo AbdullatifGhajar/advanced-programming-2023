@@ -64,6 +64,10 @@ class UserService {
 
         return jwtoken;
     }
+
+    async info(user: User) {
+        return {id: user.id, name: user.name, email: user.email }
+    }
 }
 
 export default UserService;
