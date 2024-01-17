@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import Field from './Field';
+import User from '../../../users/src/entity/User';
 
 @Entity()
 class Document {
@@ -9,15 +10,18 @@ class Document {
     @Column()
     name!: string;
 
-    @ManyToMany(() => Field)
-    @JoinTable()
-    fields!: Field[];
-
     @Column({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP + INTERVAL 7 DAY"
     })
     deadline!: Date;
+
+    @ManyToMany(() => Field)
+    @JoinTable()
+    fields!: Field[];
+
+    @ManyToOne(() => User, user => user.documents)
+    user!: User;
 }
 
 export default Document;
