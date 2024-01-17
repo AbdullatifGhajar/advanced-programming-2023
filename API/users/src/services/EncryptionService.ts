@@ -1,35 +1,27 @@
-import { Jwt } from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import User from "../entity/User";
+import bcrypt from 'bcrypt';
+import moment from 'moment';
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
+const daysForJwtToExpire = 14;
 
-export class EncryptionService {
-	async comparePassword(formPassword: String, dbPassword: String) {
+class EncryptionService {
+
+	async comparePassword(formPassword: string, dbPassword: string): Promise<Boolean> {
 		try {
-			const compare = await bcrypt.compareSync(formPassword, dbPassword);
-			return compare;
+			return await bcrypt.compareSync(formPassword, dbPassword);
 		} catch (e) {
 			return false;
 		}
 	}
 
-	async encodeToken(user: User) {
+	async encodeToken(user: User): Promise<string> {
 		const payload = {
-			exp: moment().add(14, 'days').unix(),
+			exp: moment().add(daysForJwtToExpire, 'days').unix(),
 			iat: moment().unix(),
 			sub: user.id,
 		};
-		const token = await jwt.sign(payload, process.env.TOKEN_SECRET);
-		return token;
-	}
-
-	async decodeToken(token: Jwt) {
-		const payload = await jwt.verify(token, process.env.TOKEN_SECRET);
-		const now = moment().unix();
-		if (now > payload.exp) return({error: true});
-		else return(payload);
+		return await sign(payload, process.env.TOKEN_SECRET!);
 	}
 }
 

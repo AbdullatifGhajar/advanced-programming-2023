@@ -1,13 +1,12 @@
 import express from 'express';
 import UserController from '../controller/UserController';
-const { ensureAuthenticated } = require('../auth/_helpers');
+
+import AuthenticationHandler from '../auth/AuthenticationHandler';
 
 const UsersRouter = express.Router();
 
 const userController = new UserController();
 
-UsersRouter.post("/login", userController.login);
-UsersRouter.post("/register", userController.register);
-UsersRouter.get("/me", ensureAuthenticated, userController.userInfo)
+UsersRouter.get("/me", AuthenticationHandler, userController.userInfo)
 
 export default UsersRouter;

@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
-import { Jwt } from 'jsonwebtoken';
 
 class UserController {
     async login(req: Request, res: Response) {
         const userService = new UserService();
         try {
-            const jwt: Jwt = await userService.login(
+            const jwt = await userService.login(
                 req.body.email,
                 req.body.password,
             );
@@ -19,7 +18,7 @@ class UserController {
     async register(req: Request, res: Response) {
         const userService = new UserService();
         try {
-            const jwt: Jwt = await userService.register(
+            const jwt = await userService.register(
                 req.body.email,
                 req.body.password,
                 req.body.name
