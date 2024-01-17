@@ -1,7 +1,7 @@
 import { Jwt } from "jsonwebtoken";
-import User from "../../documents/src/entity/User";
+import User from "../entity/User";
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
@@ -21,16 +21,16 @@ export class EncryptionService {
 			iat: moment().unix(),
 			sub: user.id,
 		};
-		const token = await jwt.encode(payload, process.env.TOKEN_SECRET);
+		const token = await jwt.sign(payload, process.env.TOKEN_SECRET);
 		return token;
 	}
 
 	async decodeToken(token: Jwt) {
-		const payload = await jwt.decode(token, process.env.TOKEN_SECRET);
+		const payload = await jwt.verify(token, process.env.TOKEN_SECRET);
 		const now = moment().unix();
 		if (now > payload.exp) return({error: true});
 		else return(payload);
 	}
 }
 
-module.exports = EncryptionService;
+export default EncryptionService;

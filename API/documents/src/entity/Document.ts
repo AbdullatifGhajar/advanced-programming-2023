@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import Field from './Field';
-import User from './User';
+import User from '../../../users/src/entity/User';
 
 @Entity()
 class Document {    

@@ -1,11 +1,11 @@
-import User from '../../entity/User';
+import User from '../entity/User';
 import DB from '../../../db/DB';
 import { Jwt } from 'jsonwebtoken';
-import {EncryptionService} from './EncryptionService'
-const bcrypt = require("bcrypt")
+import EncryptionService from './EncryptionService'
+import bcrypt from "bcrypt";
 
 class UserService {
-    async login(email: String, password: String): Promise<Jwt> {
+    async login(email: string, password: string): Promise<Jwt> {
         const db = await DB.getInstance();
 
         const user: User | null = await db.getRepository(User)
@@ -27,7 +27,7 @@ class UserService {
         return jwtoken;
     }
 
-    async register(email: String, password: String, name: String): Promise<Jwt> {
+    async register(email: string, password: string, name: string): Promise<Jwt> {
         const db = await DB.getInstance();
 
         const user: User | null = await db.getRepository(User)
@@ -35,7 +35,7 @@ class UserService {
         .where("user.email = :email", { email: email })
         .getOne();
 
-        if (!user) {
+        if (user) {
             throw new Error("USER_ALREADY_EXISTS");
         }
 
@@ -50,8 +50,17 @@ class UserService {
             ])
             .execute()
 
+        const createdUser: User | null = await db.getRepository(User)
+            .createQueryBuilder("user")
+            .where("user.email = :email", { email: email })
+            .getOne();
+
+        if (!createdUser) {
+            throw new Error("FAILURE_DURING_CREATION_OF_USER")
+        }
+
         let encryptionService = new EncryptionService()
-        const jwtoken: Jwt = await encryptionService.encodeToken(user);
+        const jwtoken: Jwt = await encryptionService.encodeToken(createdUser);
 
         return jwtoken;
     }
