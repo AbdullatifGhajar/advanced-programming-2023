@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 't
 import Field from './Field';
 
 @Entity()
-class Document {    
+class Document {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -12,6 +12,12 @@ class Document {
     @ManyToMany(() => Field)
     @JoinTable()
     fields!: Field[];
+
+    @Column({
+        type: 'timestamp',
+        default: () => "CURRENT_TIMESTAMP + INTERVAL 7 DAY"
+    })
+    deadline!: Date;
 }
 
 export default Document;
