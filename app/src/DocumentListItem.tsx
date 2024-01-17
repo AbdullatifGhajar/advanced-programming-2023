@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, Button } from '@mui/material';
+import { ListItem, Card, CardHeader, Avatar } from '@mui/material';
 
 import DocumentOverview from './models/DocumentOverview';
 
@@ -9,15 +9,17 @@ interface DocumentListItemProps {
 }
 
 const DocumentListItem: React.FC<DocumentListItemProps> = ({ documentOverview, onClick }) => {
+    const formattedDeadline =  new Date(documentOverview.deadline).toLocaleDateString();
+
     return (
         <ListItem key={documentOverview.id}>
-            <Button
-                onClick={() => onClick(documentOverview.id)}
-                fullWidth
-                variant="contained"
-            >
-                {documentOverview.name}
-            </Button>
+            <Card onClick={() => onClick(documentOverview.id)} sx={{ width: "100%", cursor: "pointer" }}>
+                <CardHeader
+                    avatar={<Avatar sx={{ bgcolor: "#1976d2" }} aria-label="Document">D</Avatar>}
+                    title={documentOverview.name}
+                    subheader={`deadline: ${formattedDeadline}`}
+                />
+            </Card>
         </ListItem>
     );
 }
