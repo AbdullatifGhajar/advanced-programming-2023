@@ -93,17 +93,27 @@ export default function RegisterPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="lg"
+        sx={{
+          marginLeft: "21%",
+          borderLeft: "3px solid #ccc",
+          backgroundColor: "#f0f0f0",
+            paddingBottom: "8%",
+          height: "100vh",
+          
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main", marginTop: "15%" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
