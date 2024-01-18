@@ -6,12 +6,13 @@ import Field from '../documents/src/entity/Field';
 
 async function clearData() {
     const db = await DB.getInstance();
-   
-    await db.createQueryBuilder().delete().from(Document).execute();
-    console.log('Documents cleared successfully');
 
-    await db.createQueryBuilder().delete().from(Field).execute();
-    console.log('Fields cleared successfully');
+    const tableNames = await db.entityMetadatas.map((entity) => entity.tableName);
+    // Clear each table
+    for (const tableName of tableNames) {
+        await db.createQueryBuilder().delete().from(tableName).execute();
+        console.log(`${tableName} cleared successfully`);
+    }
 
     await db.destroy();
 }
