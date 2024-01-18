@@ -45,6 +45,13 @@ add-data:			## Add data to the database
 	@cd $(BACKEND_DIR)
 	@npm run add-data
 
+.PHONY: lint
+lint:				## Run the the formatter and the linter
+	@echo "------- Running the Formatter --------"
+	@npm run format
+	@echo "------- Running the Linter --------"
+	@npm run lint
+
 .PHONY: help
 help:            		## Show the help
 	@echo "Usage: make <target>"
