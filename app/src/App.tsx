@@ -15,17 +15,23 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
-        <PageBody>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/documents" element={<DocumentList />} />
-            <Route path="/documents/:id" element={<DocumentDetails />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="*" element={
+            <>
+              <Header />
+              <PageBody>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/documents" element={<DocumentList />} />
+                  <Route path="/documents/:id" element={<DocumentDetails />} />
+                </Routes>
+              </PageBody>
+            </>
+          } />
           </Routes>
-        </PageBody>
       </Router>
     </>
   );
