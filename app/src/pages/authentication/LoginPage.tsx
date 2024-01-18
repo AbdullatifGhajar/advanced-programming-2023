@@ -5,10 +5,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import AuthenticationPage from './AuthenticationPage';
+import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 
-export default function LoginPage() {
+const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -47,7 +47,7 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthenticationPage>
+    <AuthenticationLayout>
       <Typography component="h1" variant="h5">
         Login
       </Typography>
@@ -102,6 +102,8 @@ export default function LoginPage() {
         </Grid>
       </Box>
 
-    </AuthenticationPage>
+    </AuthenticationLayout>
   );
 }
+
+export default LoginPage;

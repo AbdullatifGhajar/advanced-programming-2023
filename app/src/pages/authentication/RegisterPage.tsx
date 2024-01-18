@@ -6,9 +6,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import AuthenticationPage from './AuthenticationPage';
+import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
-export default function RegisterPage() {
+const RegisterPage = () => {
   const [nameError, setNameError] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
@@ -74,7 +74,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <AuthenticationPage>
+    <AuthenticationLayout>
       <Typography component="h1" variant="h5">
         Register
       </Typography>
@@ -142,6 +142,8 @@ export default function RegisterPage() {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationPage>
+    </AuthenticationLayout>
   );
 }
+
+export default RegisterPage;

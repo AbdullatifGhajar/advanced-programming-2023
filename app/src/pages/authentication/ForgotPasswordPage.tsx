@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 
-import AuthenticationPage from './AuthenticationPage';
+import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -20,7 +20,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <AuthenticationPage>
+    <AuthenticationLayout>
       <Typography component="h1" variant="h5">
         Forgot Password
       </Typography>
@@ -60,6 +60,8 @@ export default function ForgotPassword() {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationPage>
+    </AuthenticationLayout>
   );
 }
+
+export default ForgotPassword;

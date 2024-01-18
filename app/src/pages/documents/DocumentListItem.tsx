@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, Card, CardHeader, Avatar } from '@mui/material';
 
-import DocumentOverview from './models/DocumentOverview';
+import DocumentOverview from '../../models/DocumentOverview';
 
 interface DocumentListItemProps {
     documentOverview: DocumentOverview;

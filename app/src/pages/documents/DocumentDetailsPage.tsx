@@ -5,10 +5,12 @@ import * as yup from 'yup';
 import { TextField, Button, Box } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
-import PageTitle from './components/PageTitle';
-import Field from './models/Field';
+import PageTitle from '../../components/PageTitle';
+import Field from '../../models/Field';
 
-const DocumentDetails = () => {
+import MainLayout from '../../layouts/MainLayout';
+
+const DocumentDetailsPage = () => {
     const { id } = useParams<{ id: string }>();
     const [fields, setFields] = useState<Field[]>([]);
 
@@ -51,40 +53,42 @@ const DocumentDetails = () => {
     });
 
     return (
-        <Box display="flex" flexDirection="column" justifyContent="center">
-            <Box display="flex" justifyContent="center">
-                <Button
-                    color="primary"
-                    onClick={() => navigate('/documents')}
-                    startIcon={<ArrowBack />}
-                />
-                {/* TODO: use document name instead */}
-                <PageTitle title={"Edit Document"} />
-            </Box>
-            <form onSubmit={formik.handleSubmit} >
-                {fields.map((field) => (
-                    <TextField
-                        key={field.id}
-                        id={field.id}
-                        name={field.name}
-                        label={field.name}
-                        value={field.value}
-                        onChange={formik.handleChange}
-                        margin="normal"
-                        fullWidth
+        <MainLayout>
+            <Box display="flex" flexDirection="column" justifyContent="center">
+                <Box display="flex" justifyContent="center">
+                    <Button
+                        color="primary"
+                        onClick={() => navigate('/documents')}
+                        startIcon={<ArrowBack />}
                     />
-                ))}
-                <Button
-                    color="primary"
-                    variant="contained"
-                    fullWidth
-                    type="submit"
-                >
-                    Save
-                </Button>
-            </form>
-        </Box>
+                    {/* TODO: use document name instead */}
+                    <PageTitle title={"Edit Document"} />
+                </Box>
+                <form onSubmit={formik.handleSubmit} >
+                    {fields.map((field) => (
+                        <TextField
+                            key={field.id}
+                            id={field.id}
+                            name={field.name}
+                            label={field.name}
+                            value={field.value}
+                            onChange={formik.handleChange}
+                            margin="normal"
+                            fullWidth
+                        />
+                    ))}
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        fullWidth
+                        type="submit"
+                    >
+                        Save
+                    </Button>
+                </form>
+            </Box>
+        </MainLayout>
     );
 }
 
-export default DocumentDetails;
+export default DocumentDetailsPage;

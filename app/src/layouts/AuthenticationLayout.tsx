@@ -4,11 +4,11 @@ import React from "react";
 
 const defaultTheme = createTheme();
 
-interface AuthenticationPageProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AuthenticationLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const AuthenticationPage: React.FC<AuthenticationPageProps> = ({ children }) => {
+const AuthenticationLayout: React.FC<AuthenticationLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box display="flex" alignItems="left" flexDirection="row-reverse" sx={{ backgroundColor: "#1976d2", height: "100vh" }}>
@@ -37,4 +37,4 @@ const AuthenticationPage: React.FC<AuthenticationPageProps> = ({ children }) => 
   );
 }
 
-export default AuthenticationPage;
+export default AuthenticationLayout;
