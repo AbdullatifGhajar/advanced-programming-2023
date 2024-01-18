@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, OneToMany, Entity, TableInheritance } from 'typeorm';
 import Document from '../../../documents/src/entity/Document';
 
 @Entity()
-class User {    
+@TableInheritance({ column: { type: "varchar", name: "type" } })
+abstract class User {    
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -30,6 +31,8 @@ class User {
             return ''; // needed for migration
         return bcrypt.hashSync(password, 10);
     }
+
+    abstract get role(): string
 }
 
 export default User;

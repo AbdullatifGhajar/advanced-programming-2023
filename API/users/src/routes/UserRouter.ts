@@ -9,4 +9,7 @@ const userController = new UserController();
 
 UsersRouter.get("/me", AuthenticationHandler, userController.userInfo)
 
+UsersRouter.post("/login", userController.login)
+UsersRouter.post("/register", userController.register)
+
 export default UsersRouter;

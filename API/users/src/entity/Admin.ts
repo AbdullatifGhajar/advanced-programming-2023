@@ -1,9 +1,11 @@
-import { Entity } from 'typeorm';
+import { ChildEntity } from 'typeorm';
 import User from "./User";
 
-@Entity()
+@ChildEntity()
 class Admin extends User {    
-    
+    get role(): string {
+        return 'admin';
+    }
 }
 
 export default Admin;

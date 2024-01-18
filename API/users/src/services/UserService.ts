@@ -2,6 +2,9 @@ import User from '../entity/User';
 import DB from '../../../db/DB';
 
 import EncryptionService from './EncryptionService'
+import Student from '../entity/Student';
+import Admin from '../entity/Admin';
+import Tutor from '../entity/Tutor';
 
 class UserService {
     private encryptionService: EncryptionService;
@@ -22,7 +25,7 @@ class UserService {
             throw new Error("EMAIL_NOT_FOUND");
 
         let passwordMatch = await this.encryptionService.comparePassword(password, user.passwordHash);
-        if (!passwordMatch) 
+        if (!passwordMatch)
             throw new Error("WRONG_PASSWORD");
 
         const jwt = await this.encryptionService.encodeToken(user);
@@ -41,13 +44,18 @@ class UserService {
             throw new Error("USER_ALREADY_EXISTS");
         }
 
-        const newUser = await db.manager.save(User, new User(email, password, name));
+        const newUser = await db.manager.save(Student, new Student(email, password, name));
         const jwt = await this.encryptionService.encodeToken(newUser);
         return jwt;
     }
 
     async userInfo(user: User) {
-        return { id: user.id, name: user.name, email: user.email }
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+        }
     }
 }
 

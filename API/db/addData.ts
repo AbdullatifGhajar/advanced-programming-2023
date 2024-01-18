@@ -2,7 +2,9 @@ import DB from './DB';
 
 import Document from '../documents/src/entity/Document';
 import Field from '../documents/src/entity/Field';
-import Student from '../users/src/entity/User';
+import Student from '../users/src/entity/Student';
+import Admin from '../users/src/entity/Admin';
+import Tutor from '../users/src/entity/Tutor';
 
 
 async function addData() {
@@ -18,8 +20,8 @@ async function addData() {
 
     // add a student, admin, and tutor
     const student = await db.manager.save(Student, new Student("student@example.com", "password", "John Student"));
-    const admin = await db.manager.save(Student, new Student("admin@example.com", "password", "John Admin"));
-    const tutor = await db.manager.save(Student, new Student("tutor@example.com", "password", "John Tutor"));
+    const admin = await db.manager.save(Admin, new Admin("admin@example.com", "password", "John Admin"));
+    const tutor = await db.manager.save(Tutor, new Tutor("tutor@example.com", "password", "John Tutor"));
     console.log('Student added successfully', student);
     console.log('Admin added successfully', admin);
     console.log('Tutor added successfully', tutor);
