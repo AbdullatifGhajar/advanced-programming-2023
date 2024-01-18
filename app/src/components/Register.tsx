@@ -1,19 +1,12 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+import AuthenticationPage from './AuthenticationPage';
 
 export default function RegisterPage() {
   const [nameError, setNameError] = React.useState("");
@@ -25,42 +18,35 @@ export default function RegisterPage() {
 
     const formData = new FormData(event.currentTarget);
 
-    // Vérifier chaque champ
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    // Réinitialiser les messages d'erreur
     setNameError("");
     setEmailError("");
     setPasswordError("");
 
     let hasError = false;
 
-    // Vérifier le champ du nom
     if (!name) {
-      setNameError("Veuillez saisir votre nom");
+      setNameError("Please enter your name");
       hasError = true;
     }
 
-    // Vérifier le champ d'email
     if (!email) {
-      setEmailError("Veuillez saisir votre adresse e-mail");
+      setEmailError("Please enter your email address");
       hasError = true;
     }
 
-    // Vérifier le champ de mot de passe
     if (!password) {
-      setPasswordError("Veuillez saisir votre mot de passe");
+      setPasswordError("Please enter your password");
       hasError = true;
     }
 
     if (hasError) {
-      // Il y a des erreurs, ne pas continuer avec la soumission
       return;
     }
 
-    // Créer l'objet de données à envoyer
     const registrationData = {
       name,
       email,
@@ -68,7 +54,6 @@ export default function RegisterPage() {
     };
 
     try {
-      // Envoyer la requête POST à l'API /register
       const response = await fetch("/register", {
         method: "POST",
         headers: {
@@ -77,112 +62,86 @@ export default function RegisterPage() {
         body: JSON.stringify(registrationData),
       });
 
-      // Gérer la réponse de l'API
       if (response.ok) {
-        console.log("Enregistrement réussi !");
-        // Rediriger vers une nouvelle page après l'enregistrement réussi
-        // Vous pouvez remplacer "/nouvelle-page" par le chemin de la nouvelle page
+        console.log("Registration successful!");
         window.location.href = "/";
       } else {
-        console.error("Erreur lors de l'enregistrement");
+        console.error("Error during registration");
       }
     } catch (error) {
-      console.error("Erreur lors de la requête API :", error);
+      console.error("API request error:", error);
     }
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container
-        component="main"
-        maxWidth="lg"
-        sx={{
-          marginLeft: "21%",
-          borderLeft: "3px solid #ccc",
-          backgroundColor: "#f0f0f0",
-            paddingBottom: "8%",
-          height: "100vh",
-          
-        }}
+    <AuthenticationPage>
+      <Typography component="h1" variant="h5">
+        Register
+      </Typography>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        sx={{ mt: 3 }}
       >
-        <CssBaseline />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main", marginTop: "15%" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            S'inscrire
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Nom"
-                  autoFocus
-                  error={Boolean(nameError)}
-                  helperText={nameError}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Adresse e-mail"
-                  name="email"
-                  autoComplete="email"
-                  error={Boolean(emailError)}
-                  helperText={emailError}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Mot de passe"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  error={Boolean(passwordError)}
-                  helperText={passwordError}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              autoComplete="name"
+              name="name"
+              required
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              S'inscrire
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Vous avez déjà un compte ? Connectez-vous
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+              id="name"
+              label="Name"
+              autoFocus
+              error={Boolean(nameError)}
+              helperText={nameError}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              error={Boolean(emailError)}
+              helperText={emailError}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+              error={Boolean(passwordError)}
+              helperText={passwordError}
+            />
+          </Grid>
+        </Grid>
+        <Box display="flex"
+          justifyContent="center">
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 2, width: "50%" }}
+          >
+            Register
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+        <Grid container justifyContent="flex-end">
+          <Grid item>
+            <Link href="/login" variant="body2">
+              Already have an account? Sign in
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </AuthenticationPage>
   );
 }
