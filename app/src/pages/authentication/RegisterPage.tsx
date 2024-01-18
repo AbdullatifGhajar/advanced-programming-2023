@@ -1,45 +1,45 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 const RegisterPage = () => {
-  const [nameError, setNameError] = React.useState("");
-  const [emailError, setEmailError] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("");
+  const [nameError, setNameError] = React.useState('');
+  const [emailError, setEmailError] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-    setNameError("");
-    setEmailError("");
-    setPasswordError("");
+    setNameError('');
+    setEmailError('');
+    setPasswordError('');
 
     let hasError = false;
 
     if (!name) {
-      setNameError("Please enter your name");
+      setNameError('Please enter your name');
       hasError = true;
     }
 
     if (!email) {
-      setEmailError("Please enter your email address");
+      setEmailError('Please enter your email address');
       hasError = true;
     }
 
     if (!password) {
-      setPasswordError("Please enter your password");
+      setPasswordError('Please enter your password');
       hasError = true;
     }
 
@@ -54,22 +54,22 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await fetch("/register", {
-        method: "POST",
+      const response = await fetch('/register', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(registrationData),
       });
 
       if (response.ok) {
-        console.log("Registration successful!");
-        window.location.href = "/";
+        console.log('Registration successful!');
+        window.location.href = '/';
       } else {
-        console.error("Error during registration");
+        console.error('Error during registration');
       }
     } catch (error) {
-      console.error("API request error:", error);
+      console.error('API request error:', error);
     }
   };
 
@@ -78,12 +78,7 @@ const RegisterPage = () => {
       <Typography component="h1" variant="h5">
         Register
       </Typography>
-      <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit}
-        sx={{ mt: 3 }}
-      >
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -124,12 +119,11 @@ const RegisterPage = () => {
             />
           </Grid>
         </Grid>
-        <Box display="flex"
-          justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <Button
             type="submit"
             variant="contained"
-            sx={{ mt: 3, mb: 2, width: "50%" }}
+            sx={{ mt: 3, mb: 2, width: '50%' }}
           >
             Register
           </Button>
@@ -144,6 +138,6 @@ const RegisterPage = () => {
       </Box>
     </AuthenticationLayout>
   );
-}
+};
 
 export default RegisterPage;

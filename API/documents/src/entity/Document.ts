@@ -1,27 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+  ManyToOne,
+} from 'typeorm';
 import Field from './Field';
 import User from '../../../users/src/entity/User';
 
 @Entity()
 class Document {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column()
-    name!: string;
+  @Column()
+  name!: string;
 
-    @Column({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP + INTERVAL 7 DAY"
-    })
-    deadline!: Date;
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP + INTERVAL 7 DAY',
+  })
+  deadline!: Date;
 
-    @ManyToMany(() => Field)
-    @JoinTable()
-    fields!: Field[];
+  @ManyToMany(() => Field)
+  @JoinTable()
+  fields!: Field[];
 
-    @ManyToOne(() => User, user => user.documents)
-    user!: User;
+  @ManyToOne(() => User, (user) => user.documents)
+  user!: User;
 }
 
 export default Document;

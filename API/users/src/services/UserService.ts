@@ -1,62 +1,70 @@
 import User from '../entity/User';
 import DB from '../../../db/DB';
 
-import EncryptionService from './EncryptionService'
+import EncryptionService from './EncryptionService';
 import Student from '../entity/Student';
-import Admin from '../entity/Admin';
-import Tutor from '../entity/Tutor';
 
 class UserService {
-    private encryptionService: EncryptionService;
+  private encryptionService: EncryptionService;
 
-    constructor() {
-        this.encryptionService = new EncryptionService();
+  constructor() {
+    this.encryptionService = new EncryptionService();
+  }
+
+  async login(email: string, password: string): Promise<string> {
+    const db = await DB.getInstance();
+
+    const user = await db
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email: email })
+      .getOne();
+
+    if (!user) throw new Error('EMAIL_NOT_FOUND');
+
+    const passwordMatch = await this.encryptionService.comparePassword(
+      password,
+      user.passwordHash,
+    );
+    if (!passwordMatch) throw new Error('WRONG_PASSWORD');
+
+    const jwt = await this.encryptionService.encodeToken(user);
+    return jwt;
+  }
+
+  async register(
+    email: string,
+    password: string,
+    name: string,
+  ): Promise<string> {
+    const db = await DB.getInstance();
+
+    const user = await db
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email: email })
+      .getOne();
+
+    if (user) {
+      throw new Error('USER_ALREADY_EXISTS');
     }
 
-    async login(email: string, password: string): Promise<string> {
-        const db = await DB.getInstance();
+    const newUser = await db.manager.save(
+      Student,
+      new Student(email, password, name),
+    );
+    const jwt = await this.encryptionService.encodeToken(newUser);
+    return jwt;
+  }
 
-        const user = await db.getRepository(User)
-            .createQueryBuilder("user")
-            .where("user.email = :email", { email: email })
-            .getOne();
-
-        if (!user)
-            throw new Error("EMAIL_NOT_FOUND");
-
-        let passwordMatch = await this.encryptionService.comparePassword(password, user.passwordHash);
-        if (!passwordMatch)
-            throw new Error("WRONG_PASSWORD");
-
-        const jwt = await this.encryptionService.encodeToken(user);
-        return jwt;
-    }
-
-    async register(email: string, password: string, name: string): Promise<string> {
-        const db = await DB.getInstance();
-
-        const user = await db.getRepository(User)
-            .createQueryBuilder("user")
-            .where("user.email = :email", { email: email })
-            .getOne();
-
-        if (user) {
-            throw new Error("USER_ALREADY_EXISTS");
-        }
-
-        const newUser = await db.manager.save(Student, new Student(email, password, name));
-        const jwt = await this.encryptionService.encodeToken(newUser);
-        return jwt;
-    }
-
-    async userInfo(user: User) {
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-        }
-    }
+  async userInfo(user: User) {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+  }
 }
 
 export default UserService;

@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/documents', DocumentsRouter);
 app.use('/files', FilesRouter);
-app.use('/users', UsersRouter)
+app.use('/users', UsersRouter);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {

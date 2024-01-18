@@ -12,11 +12,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 
 const Header = () => {
-
-  const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(null);
+  const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(
+    null,
+  );
   const open = Boolean(userOptionMenu);
   const navigate = useNavigate();
-  const userName = "User1"
+  const userName = 'User1';
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuOptions(event.currentTarget);
@@ -27,30 +28,39 @@ const Header = () => {
   };
 
   const goToHome = () => {
-    navigate("/");
-  }
+    navigate('/');
+  };
 
   const goToDocuments = () => {
-    navigate("/documents");
-  }
-
+    navigate('/documents');
+  };
 
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} >
+        <Toolbar
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           {/* NAVIGATION BUTTONS */}
           <Box>
             {/* HOME BUTTON */}
-            <IconButton
-              onClick={goToHome}><HomeIcon fontSize="large" style={{ color: 'white' }} /></IconButton>
+            <IconButton onClick={goToHome}>
+              <HomeIcon fontSize="large" style={{ color: 'white' }} />
+            </IconButton>
             {/* DOCUMENTS BUTTON */}
-            <IconButton
-              onClick={goToDocuments}><ArticleIcon fontSize="large" style={{ color: 'white' }} /></IconButton>
+            <IconButton onClick={goToDocuments}>
+              <ArticleIcon fontSize="large" style={{ color: 'white' }} />
+            </IconButton>
           </Box>
 
           {/* USER */}
-          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <Box
+            sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+          >
             <Button
               variant="outlined"
               size="large"
@@ -59,7 +69,8 @@ const Header = () => {
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               onClick={handleMenu}
-              color="inherit">
+              color="inherit"
+            >
               <AccountCircle />
               <Typography sx={{ ml: 2 }}>Hi, {userName}! </Typography>
             </Button>
@@ -81,7 +92,8 @@ const Header = () => {
               onClose={handleClose}
               MenuListProps={{
                 'aria-labelledby': 'basic-button',
-              }}>
+              }}
+            >
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>Log out</MenuItem>
             </Menu>
@@ -90,6 +102,6 @@ const Header = () => {
       </AppBar>
     </Box>
   );
-}
+};
 
 export default Header;

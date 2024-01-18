@@ -1,16 +1,16 @@
 import { Box } from '@mui/material';
-import { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes } from 'react';
 
 interface PageBodyProps extends HTMLAttributes<HTMLDivElement> {
-    title: string;
+  title: string;
 }
 
 const PageTitle = ({ title }: PageBodyProps) => {
-    return (
-        <Box display="flex" justifyContent="center">
-            <h1>{title}</h1>
-        </Box>
-    );
+  return (
+    <Box display="flex" justifyContent="center">
+      <h1>{title}</h1>
+    </Box>
+  );
 };
 
 export default PageTitle;
