@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import FilesService from '../services/FilesService';
 
 class FilesController {
-  uploadFile(req: Request, res: Response) {
+  upload(req: Request, res: Response) {
     const filesService = new FilesService();
     filesService
-      .extractFileFromRequest(req, res)
+      .saveFileFromRequest(req, res)
       .then((fileId: string) => {
         res.json({ fileId: fileId });
       })
@@ -14,9 +14,9 @@ class FilesController {
       });
   }
 
-  downloadFile(req: Request, res: Response) {
+  async download(req: Request, res: Response) {
     const filesService = new FilesService();
-    res.sendFile(filesService.resolveFile(req.params.fileId));
+    res.sendFile(await filesService.downloadFile(req.params.fileId));
   }
 }
 
