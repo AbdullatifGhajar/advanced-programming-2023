@@ -5,16 +5,18 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from 'react-router-dom';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 const RegisterPage = () => {
   const [nameError, setNameError] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
 
     const formData = new FormData(event.currentTarget);
 
@@ -54,7 +56,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await fetch('/register', {
+      const response = await fetch('http://localhost:8081/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,8 +65,10 @@ const RegisterPage = () => {
       });
 
       if (response.ok) {
+        const jwt = await response.json()
+        localStorage.setItem('token', jwt);
         console.log('Registration successful!');
-        window.location.href = '/';
+        navigate("/");
       } else {
         console.error('Error during registration');
       }

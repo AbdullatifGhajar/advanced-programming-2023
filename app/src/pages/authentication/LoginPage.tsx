@@ -6,8 +6,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -27,7 +32,7 @@ const LoginPage = () => {
     };
 
     try {
-      const response = await fetch('/login', {
+      const response = await fetch('http://localhost:8081/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +41,14 @@ const LoginPage = () => {
       });
 
       if (response.ok) {
+        const jwt = await response.json()
+        localStorage.setItem('token', jwt);
         console.log('Connexion réussie !');
+        if(location.state && location.state.origin) {
+          navigate(location.state.origin)
+        } else {
+          navigate("/");
+        }
       } else {
         console.error('Erreur lors de la connexion');
       }

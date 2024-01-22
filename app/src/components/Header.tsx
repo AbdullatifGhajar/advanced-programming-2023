@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
+import JsonWebToken from '../models/JsonWebToken';
 
 const Header = () => {
   const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(
@@ -17,7 +19,22 @@ const Header = () => {
   );
   const open = Boolean(userOptionMenu);
   const navigate = useNavigate();
-  const userName = 'User1';
+
+  function getUserName() {
+    const token = localStorage.getItem("token");
+    if(token == null) {
+      navigate('/login', {
+        state: { 
+          origin: window.location.pathname
+        }
+      });
+    } else {
+      const payload = jwtDecode<JsonWebToken>(token!)
+      return payload.name;
+    }
+  }
+
+  const userName = getUserName();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuOptions(event.currentTarget);
