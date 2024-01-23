@@ -20,10 +20,10 @@ class DocumentController {
     }
   }
 
-  async saveDocument(req:Request, res: Response){
+  async saveDocument(req: Request, res: Response) {
     const documentService = new DocumentService();
     try {
-      const updatedDocument = await documentService.saveDocument(req.params.id, req.body);
+      const updatedDocument = await documentService.saveDocument(req.body);
       return res.json(updatedDocument);
     } catch (error: any) {
       return res.status(404).json({ error: error.message });

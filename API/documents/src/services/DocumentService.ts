@@ -29,9 +29,9 @@ class DocumentService {
     return document;
   }
 
-  async saveDocument(id:string, updatedData: Field[]):Promise<void> {
+  async saveDocument(updatedFields: Field[]): Promise<void> {
     const db = await DB.getInstance();
-    for (const field of updatedData) {
+    for (const field of updatedFields) {
       await db
         .createQueryBuilder()
         .update(Field)
