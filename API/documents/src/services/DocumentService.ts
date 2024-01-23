@@ -13,6 +13,7 @@ class DocumentService {
       .getRepository(Document)
       .createQueryBuilder('document')
       .leftJoinAndSelect('document.fields', 'fields')
+      .leftJoinAndSelect('fields.file', 'file')
       .where('document.id = :id', { id: id })
       .getOne();
 

@@ -9,6 +9,8 @@ import PageTitle from '../../components/PageTitle';
 import Field from '../../models/Field';
 
 import MainLayout from '../../layouts/MainLayout';
+import FileUploadField from './FileUploadField';
+import CenteredElement from '../../components/CenteredElement';
 
 const DocumentDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -77,9 +79,26 @@ const DocumentDetailsPage = () => {
               fullWidth
             />
           ))}
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Save
-          </Button>
+
+          <FileUploadField
+            label="certificate"
+            value={null}
+            onChange={() => {}}
+          />
+
+          <CenteredElement>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => navigate('/documents')}
+              sx={{
+                marginTop: '3em',
+                width: '60%',
+              }}
+            >
+              Save
+            </Button>
+          </CenteredElement>
         </form>
       </Box>
     </MainLayout>

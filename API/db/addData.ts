@@ -1,21 +1,46 @@
 import DB from './DB';
 
 import Document from '../documents/src/entity/Document';
-import Field from '../documents/src/entity/Field';
+
+import TextField from '../documents/src/entity/TextField';
+import CheckboxField from '../documents/src/entity/CheckboxField';
+import FileField from '../documents/src/entity/FileField';
+
 import Student from '../users/src/entity/Student';
 import Admin from '../users/src/entity/Admin';
 import Tutor from '../users/src/entity/Tutor';
 
+import File from '../files/src/entity/File';
+
 async function addData() {
   const db = await DB.getInstance();
 
-  // add fields
-  const fields = await db.manager.save(Field, [
+  // add text and checkbox fields
+  const textFields = await db.manager.save(TextField, [
     { id: 1, name: 'name' },
     { id: 2, name: 'major', value: 'Software Engineering' },
     { id: 3, name: 'age', value: '42' },
   ]);
-  console.log('Fields added successfully', fields);
+  const checkboxFields = await db.manager.save(CheckboxField, [
+    { id: 4, name: 'happy?', value: true },
+    { id: 5, name: 'ready?', value: false },
+  ]);
+
+  // add file fields
+  const file = await db.manager.save(File, {
+    id: 1,
+    name: 'resume.txt',
+  });
+  const fileFields = await db.manager.save(FileField, [
+    { id: 6, name: 'resume', file: { id: 1 } },
+  ]);
+
+  console.log(
+    'Fields added successfully',
+    textFields,
+    checkboxFields,
+    fileFields,
+  );
 
   // add a student, admin, and tutor
   const student = await db.manager.save(
@@ -39,7 +64,14 @@ async function addData() {
     {
       id: 1,
       name: 'Document 1',
-      fields: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      fields: [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        { id: 4 },
+        { id: 5 },
+        { id: 6 },
+      ],
       user: student,
     },
     {
