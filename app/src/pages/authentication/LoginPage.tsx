@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -6,9 +8,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+
 import CenteredElement from '../../components/CenteredElement';
 
+
+
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -18,7 +26,7 @@ const LoginPage = () => {
     const password = formData.get('password') as string;
 
     if (!email || !password) {
-      console.error('Veuillez remplir tous les champs');
+      console.error('Please fill in all fields');
       return;
     }
 
@@ -27,23 +35,32 @@ const LoginPage = () => {
       password,
     };
 
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
+    fetch('http://localhost:8081/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error during login');
+        }
+      })
+      .then((jwt) => {
+        localStorage.setItem('token', jwt);
+        console.log('Login successful!');
+        if (location.state && location.state.origin) {
+          navigate(location.state.origin);
+        } else {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.error('Error during API request:', error);
       });
-
-      if (response.ok) {
-        console.log('Connexion réussie !');
-      } else {
-        console.error('Erreur lors de la connexion');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la requête API :', error);
-    }
   };
 
   return (

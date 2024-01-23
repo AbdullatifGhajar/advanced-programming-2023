@@ -10,14 +10,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
+import AuthenticationHandler from '../services/AuthenticationHandler';
 
-const Header = () => {
+interface HeaderProps {
+  username: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ username }) => {
   const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(
     null,
   );
   const open = Boolean(userOptionMenu);
   const navigate = useNavigate();
-  const userName = 'User1';
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuOptions(event.currentTarget);
@@ -33,6 +37,15 @@ const Header = () => {
 
   const goToDocuments = () => {
     navigate('/documents');
+  };
+
+  const handleLoggedOut = () => {
+    const authenticationHandler = new AuthenticationHandler(navigate);
+    authenticationHandler.logout();
+  };
+
+  const handleClickedOnProfile = () => {
+    navigate('/profile');
   };
 
   return (
@@ -72,7 +85,7 @@ const Header = () => {
               color="inherit"
             >
               <AccountCircle />
-              <Typography sx={{ ml: 2 }}>Hi, {userName}! </Typography>
+              <Typography sx={{ ml: 2 }}>Hi, {username}! </Typography>
             </Button>
 
             {/* USER OPTION MENU */}
@@ -94,8 +107,8 @@ const Header = () => {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Log out</MenuItem>
+              <MenuItem onClick={handleClickedOnProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleLoggedOut}>Log out</MenuItem>
             </Menu>
           </Box>
         </Toolbar>

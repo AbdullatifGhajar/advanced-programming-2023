@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from 'react-router-dom';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import CenteredElement from '../../components/CenteredElement';
 
@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [nameError, setNameError] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,24 +55,28 @@ const RegisterPage = () => {
       password,
     };
 
-    try {
-      const response = await fetch('/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registrationData),
-      });
-
-      if (response.ok) {
+    fetch('http://localhost:8081/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(registrationData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error during registration');
+        }
+      })
+      .then((jwt) => {
+        localStorage.setItem('token', jwt);
         console.log('Registration successful!');
-        window.location.href = '/';
-      } else {
-        console.error('Error during registration');
-      }
-    } catch (error) {
-      console.error('API request error:', error);
-    }
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error('API request error:', error);
+      });
   };
 
   return (
