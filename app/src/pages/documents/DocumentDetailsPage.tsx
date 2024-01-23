@@ -31,7 +31,6 @@ const DocumentDetailsPage = () => {
   const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
 
   const documentService = new DocumentService();
-
   // ensure that the documentId is defined
   useEffect(() => {
     if (!documentId) {
@@ -112,7 +111,6 @@ const DocumentDetailsPage = () => {
           {/* TODO: use document name instead */}
           <PageTitle title={'Edit Document'} />
         </Box>
-
         <form onSubmit={handleSave}>
           {fields.map((field) => (
             <React.Fragment key={field.id}>
