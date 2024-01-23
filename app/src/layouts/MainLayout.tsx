@@ -11,12 +11,12 @@ interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if(token == null) {
-      navigate("/login", {
-        state: { 
-          origin: window.location.pathname
-        }
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      navigate('/login', {
+        state: {
+          origin: window.location.pathname,
+        },
       });
     }
   });

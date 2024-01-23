@@ -9,7 +9,6 @@ import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,13 +40,13 @@ const LoginPage = () => {
       });
 
       if (response.ok) {
-        const jwt = await response.json()
+        const jwt = await response.json();
         localStorage.setItem('token', jwt);
         console.log('Connexion réussie !');
-        if(location.state && location.state.origin) {
-          navigate(location.state.origin)
+        if (location.state && location.state.origin) {
+          navigate(location.state.origin);
         } else {
-          navigate("/");
+          navigate('/');
         }
       } else {
         console.error('Erreur lors de la connexion');

@@ -1,8 +1,8 @@
 interface JsonWebToken {
-    exp: number,
-    iat: number,
-    sub: number,
-    name: string
+  exp: number;
+  iat: number;
+  sub: number;
+  name: string;
 }
 
 export default JsonWebToken;

@@ -21,15 +21,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   function getUserName() {
-    const token = localStorage.getItem("token");
-    if(token == null) {
+    const token = localStorage.getItem('token');
+    if (token == null) {
       navigate('/login', {
-        state: { 
-          origin: window.location.pathname
-        }
+        state: {
+          origin: window.location.pathname,
+        },
       });
     } else {
-      const payload = jwtDecode<JsonWebToken>(token!)
+      const payload = jwtDecode<JsonWebToken>(token!);
       return payload.name;
     }
   }

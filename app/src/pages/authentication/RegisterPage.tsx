@@ -17,7 +17,6 @@ const RegisterPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-
     const formData = new FormData(event.currentTarget);
 
     const name = formData.get('name') as string;
@@ -65,10 +64,10 @@ const RegisterPage = () => {
       });
 
       if (response.ok) {
-        const jwt = await response.json()
+        const jwt = await response.json();
         localStorage.setItem('token', jwt);
         console.log('Registration successful!');
-        navigate("/");
+        navigate('/');
       } else {
         console.error('Error during registration');
       }

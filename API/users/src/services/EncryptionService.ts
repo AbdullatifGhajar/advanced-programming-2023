@@ -22,7 +22,7 @@ class EncryptionService {
       exp: moment().add(daysForJwtToExpire, 'days').unix(),
       iat: moment().unix(),
       sub: user.id,
-      name: user.name
+      name: user.name,
     };
     return await sign(payload, process.env.TOKEN_SECRET!);
   }
