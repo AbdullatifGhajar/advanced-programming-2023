@@ -19,6 +19,16 @@ class DocumentController {
       return res.status(404).json({ error: error.message });
     }
   }
+
+  async saveDocument(req: Request, res: Response) {
+    const documentService = new DocumentService();
+    try {
+      const updatedDocument = await documentService.saveDocument(req.body);
+      return res.json(updatedDocument);
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 export default DocumentController;
