@@ -21,7 +21,7 @@ const LoginPage = () => {
     const password = formData.get('password') as string;
 
     if (!email || !password) {
-      console.error('Veuillez remplir tous les champs');
+      console.error('Please fill in all fields');
       return;
     }
 
@@ -30,30 +30,32 @@ const LoginPage = () => {
       password,
     };
 
-    try {
-      const response = await fetch('http://localhost:8081/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      if (response.ok) {
-        const jwt = await response.json();
+    fetch('http://localhost:8081/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error during login');
+        }
+      })
+      .then((jwt) => {
         localStorage.setItem('token', jwt);
-        console.log('Connexion réussie !');
+        console.log('Login successful!');
         if (location.state && location.state.origin) {
           navigate(location.state.origin);
         } else {
           navigate('/');
         }
-      } else {
-        console.error('Erreur lors de la connexion');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la requête API :', error);
-    }
+      })
+      .catch((error) => {
+        console.error('Error during API request:', error);
+      });
   };
 
   return (

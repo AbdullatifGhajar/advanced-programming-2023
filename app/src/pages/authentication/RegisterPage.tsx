@@ -54,26 +54,28 @@ const RegisterPage = () => {
       password,
     };
 
-    try {
-      const response = await fetch('http://localhost:8081/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registrationData),
-      });
-
-      if (response.ok) {
-        const jwt = await response.json();
+    fetch('http://localhost:8081/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(registrationData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error during registration');
+        }
+      })
+      .then((jwt) => {
         localStorage.setItem('token', jwt);
         console.log('Registration successful!');
         navigate('/');
-      } else {
-        console.error('Error during registration');
-      }
-    } catch (error) {
-      console.error('API request error:', error);
-    }
+      })
+      .catch((error) => {
+        console.error('API request error:', error);
+      });
   };
 
   return (

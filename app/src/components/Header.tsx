@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
+import AuthenticationHandler from '../services/AuthenticationHandler';
 
 interface HeaderProps {
   username: string;
@@ -39,8 +40,8 @@ const Header: React.FC<HeaderProps> = ({ username }) => {
   };
 
   const handleLoggedOut = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+    const authenticationHandler = new AuthenticationHandler(navigate);
+    authenticationHandler.logout();
   };
 
   const handleClickedOnProfile = () => {

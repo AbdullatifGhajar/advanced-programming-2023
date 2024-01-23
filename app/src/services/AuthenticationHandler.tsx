@@ -28,6 +28,12 @@ class AuthenticationHandler {
     }
     return jwtDecode<JsonWebToken>(this.token).name;
   }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.token = null;
+    this.redirect();
+  }
 }
 
 export default AuthenticationHandler;
