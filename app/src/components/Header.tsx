@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,30 +10,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
-import JsonWebToken from '../models/JsonWebToken';
 
-const Header = () => {
+interface HeaderProps {
+  username: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ username }) => {
   const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(
     null,
   );
   const open = Boolean(userOptionMenu);
   const navigate = useNavigate();
-
-  function getUserName() {
-    const token = localStorage.getItem('token');
-    if (token == null) {
-      navigate('/login', {
-        state: {
-          origin: window.location.pathname,
-        },
-      });
-    } else {
-      const payload = jwtDecode<JsonWebToken>(token!);
-      return payload.name;
-    }
-  }
-
-  const userName = getUserName();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuOptions(event.currentTarget);
@@ -50,6 +36,15 @@ const Header = () => {
 
   const goToDocuments = () => {
     navigate('/documents');
+  };
+
+  const handleLoggedOut = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  const handleClickedOnProfile = () => {
+    navigate('/profile');
   };
 
   return (
@@ -89,7 +84,7 @@ const Header = () => {
               color="inherit"
             >
               <AccountCircle />
-              <Typography sx={{ ml: 2 }}>Hi, {userName}! </Typography>
+              <Typography sx={{ ml: 2 }}>Hi, {username}! </Typography>
             </Button>
 
             {/* USER OPTION MENU */}
@@ -111,8 +106,8 @@ const Header = () => {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Log out</MenuItem>
+              <MenuItem onClick={handleClickedOnProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleLoggedOut}>Log out</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
