@@ -11,19 +11,29 @@ import MainLayout from '../../layouts/MainLayout';
 
 
 const DocumentDetailsPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const { id: documentId } = useParams<{ id: string }>();
   const [fields, setFields] = useState<Field[]>([]);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>({});
 
   const documentService = new DocumentService();
-  const navigate = useNavigate();
 
   const hasError = Object.values(fieldErrors).some((error) => error);
   const hasEmptyOrNullUndefinedValues = fields.some((field) => field.value == null || field.value.trim() === '');
 
+  // ensure that the documentId is defined
+  useEffect(() => {
+    if (!documentId) {
+      navigate('/documents');
+    }
+  }, [documentId]);
+
   // Fetch form template from backend
   useEffect(() => {
-    fetch(`http://localhost:8081/documents/${id}`)
+    if (documentId == null) return;
+
+    fetch(`http://localhost:8081/documents/${documentId}`)
       .then((response) => response.json())
       .then((data) => {
         const fetchedFields: Field[] = data.fields;
@@ -32,16 +42,19 @@ const DocumentDetailsPage = () => {
       .catch((error) => {
         console.error('Error:', error);
       });
-  }, [id]);
-    
+  }, [documentId]);
+
+  // documentId is now defined for the rest of the component
+  if (!documentId) return null;
+
   const handleFieldChange = (fieldId: string, newValue: string) => {
     setFields((prevFields) => {
       // Copy of previous fields
       const updatedFields = [...prevFields];
-  
+
       // Find the right fields with the given id
       const index = updatedFields.findIndex((field) => field.id === fieldId);
-  
+
       // fields is found so update it
       if (index !== -1) {
         updatedFields[index] = { ...updatedFields[index], value: newValue };
@@ -50,51 +63,40 @@ const DocumentDetailsPage = () => {
     });
   };
 
+  const handleSave = async (event: React.FormEvent) => {
+    event.preventDefault();
+    // Check for null or undefined values
+    const hasEmptyOrNullUndefinedValues = fields.some((field) => field.value == null || field.value.trim() === '');
 
-  
-    const handleSave = async (event: React.FormEvent) => {
-      event.preventDefault();
-      // Check for null or undefined values
-      const hasEmptyOrNullUndefinedValues = fields.some((field) => field.value == null || field.value.trim() === '');
-
-      if (hasEmptyOrNullUndefinedValues) {
-        setFieldErrors((prevErrors) => { //add the errors in the array of errors
-          const updatedErrors: { [key: string]: boolean } = {};
-          fields.forEach((field) => {
-            if (field.value == null || field.value.trim() === '') {
-              updatedErrors[field.id] = true;
-            }
-          });
-          return updatedErrors;
+    if (hasEmptyOrNullUndefinedValues) {
+      setFieldErrors((prevErrors) => { //add the errors in the array of errors
+        const updatedErrors: { [key: string]: boolean } = {};
+        fields.forEach((field) => {
+          if (field.value == null || field.value.trim() === '') {
+            updatedErrors[field.id] = true;
+          }
         });
-      }
-  
-      try {
-        if (id) {
-          // Map the 'fields' array to the format expected by the saveDocument method
-          const updatedFields = fields.map((field) => ({
-            id: field.id,
-            name: field.name,
-            value: field.value, 
-          }));
-  
-          await documentService.saveDocument(id, updatedFields);
-  
-          // Retrieve the updated document after the save operation
-          const updatedDocument = await documentService.getDocument(id);
-          alert("Your document is saved")
-          navigate('/documents');
+        return updatedErrors;
+      });
+    }
 
-          // Update the state with the fields of the updated document
-          setFields(updatedDocument.fields);
-        } else {
-          console.error('ID is undefined.');
-        }
-      } catch (error) {
+    // Map the 'fields' array to the format expected by the saveDocument method
+    const updatedFields = fields.map((field) => ({
+      id: field.id,
+      name: field.name,
+      value: field.value,
+    }));
+
+    documentService.saveDocument(documentId, updatedFields)
+      .then(() => {
+        alert("Your document is saved");
+        navigate('/documents');
+      })
+      .catch((error) => {
         console.error('Error saving or fetching document:', error);
-      }
-    };
-    
+      });
+  };
+
 
   return (
     <MainLayout>
@@ -105,20 +107,21 @@ const DocumentDetailsPage = () => {
             onClick={() => navigate('/documents')}
             startIcon={<ArrowBack />}
           />
-          <PageTitle title={`Edit Document:`} />
+          {/* TODO: use document name instead */}
+          <PageTitle title={'Edit Document'} />
         </Box>
         <form onSubmit={handleSave}>
           {fields.map((field) => (
-              <TextField
-                key={field.id}
-                id={field.id}
-                name={field.name}
-                label={field.name}
-                defaultValue={field.value}
-                onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                margin="normal"
-                fullWidth
-              />
+            <TextField
+              key={field.id}
+              id={field.id}
+              name={field.name}
+              label={field.name}
+              defaultValue={field.value}
+              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              margin="normal"
+              fullWidth
+            />
           ))}
           <Button color="primary" variant="contained" fullWidth type="submit" disabled={hasError || hasEmptyOrNullUndefinedValues}>
             Save
