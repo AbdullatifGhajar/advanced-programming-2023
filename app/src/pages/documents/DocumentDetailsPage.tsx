@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 import { AnyField, TextField, CheckboxField, FileField } from '../../models/Field';
 
-import { Box, Button } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
+import { Box, Button } from '@mui/material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 
 import TextFieldItem from './fields/TextFieldItem';
 import CheckboxFieldItem from './fields/CheckboxFieldItem';
@@ -74,7 +74,7 @@ const DocumentDetailsPage = () => {
     // }
 
     documentService
-      .saveDocument(documentId, fields)
+      .saveFields(documentId, fields)
       .then(() => {
         alert('Your document is saved');
         navigate('/documents');
