@@ -4,9 +4,8 @@ import { HTMLAttributes, ReactNode, useEffect } from 'react';
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
 import { useNavigate } from 'react-router-dom';
-import JsonWebToken from '../models/JsonWebToken';
 
-import { jwtDecode } from 'jwt-decode';
+import AuthenticationHandler from '../services/AuthenticationHandler';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -17,15 +16,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login', {
-        state: {
-          origin: window.location.pathname,
-        },
-      });
+    const authenticationHandler = new AuthenticationHandler(navigate);
+    if (!authenticationHandler.isLoggedIn()) {
+      authenticationHandler.redirect();
     } else {
-      setUsername(jwtDecode<JsonWebToken>(token).name);
+      setUsername(authenticationHandler.getUserName());
     }
   }, [navigate]);
 
