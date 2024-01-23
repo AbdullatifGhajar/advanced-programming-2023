@@ -1,13 +1,30 @@
 import React from 'react';
 import { Checkbox, Box } from '@mui/material';
 
-import { CheckboxField } from '../../../models/Field';
+import { AnyField, CheckboxField } from '../../../models/Field';
 
 type CheckboxFieldProps = {
   checkboxField: CheckboxField;
+  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
 };
 
-const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({ checkboxField }) => {
+const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
+  checkboxField,
+  setFields,
+}) => {
+  const handleFieldChange = (newValue: boolean) => {
+    setFields((prevFields) => {
+      const updatedFields = prevFields.map((field) => {
+        if (field.id === checkboxField.id) {
+          return { ...field, value: newValue } as CheckboxField;
+        }
+        return field;
+      });
+
+      return updatedFields;
+    });
+  };
+
   return (
     <Box
       display="flex"
@@ -16,7 +33,10 @@ const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({ checkboxField }) => {
       margin="normal"
     >
       {checkboxField.name}
-      <Checkbox checked={checkboxField.value} />
+      <Checkbox
+        checked={checkboxField.value}
+        onChange={(event) => handleFieldChange(event.target.checked)}
+      />
     </Box>
   );
 };

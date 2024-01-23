@@ -11,16 +11,13 @@ type TextFieldProps = {
 const TextFieldItem: React.FC<TextFieldProps> = ({ textField, setFields }) => {
   const handleFieldChange = (newValue: string) => {
     setFields((prevFields) => {
-      // Copy of previous fields
-      const updatedFields = [...prevFields];
+      const updatedFields = prevFields.map((field) => {
+        if (field.id === textField.id) {
+          return { ...field, value: newValue } as TextField;
+        }
+        return field;
+      });
 
-      // Find the right fields with the given id
-      const index = updatedFields.findIndex((field) => field.id === textField.id);
-
-      // fields is found so update it
-      if (index !== -1) {
-        updatedFields[index] = { ...updatedFields[index], value: newValue } as TextField;
-      }
       return updatedFields;
     });
   };

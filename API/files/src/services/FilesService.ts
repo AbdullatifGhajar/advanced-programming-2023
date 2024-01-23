@@ -11,7 +11,7 @@ class FilesService {
     this.uploader = new FilesUploader();
   }
 
-  async saveFileFromRequest(req: Request, res: Response): Promise<string> {
+  async saveFileFromRequest(req: Request, res: Response): Promise<File> {
     const db = await DB.getInstance();
 
     const filesRepository = db.manager.getRepository(File);
@@ -22,18 +22,17 @@ class FilesService {
     console.log(newFile);
 
     // save file to disk
-    this.uploader
-      .extractAndSaveFile(req, res, newFile.id.toString())
-      .then((name: string) => {
-        newFile.name = name;
-        filesRepository.save(newFile);
-        console.log('File saved to disk:', name);
-      })
-      .catch((err: Error) => {
-        console.log(err);
-      });
+    const filename = await this.uploader.extractAndSaveFile(
+      req,
+      res,
+      newFile.id.toString(),
+    );
 
-    return newFile.id.toString();
+    newFile.name = filename;
+    filesRepository.save(newFile);
+    console.log('File saved to disk:', filename);
+
+    return newFile;
   }
 
   async downloadFile(fileId: string) {

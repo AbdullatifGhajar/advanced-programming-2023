@@ -11,8 +11,6 @@ import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 import CenteredElement from '../../components/CenteredElement';
 
-
-
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();

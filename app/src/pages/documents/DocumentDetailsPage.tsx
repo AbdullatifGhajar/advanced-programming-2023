@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import PageTitle from '../../components/PageTitle';
-import { AnyField, TextField, CheckboxField, FileField } from '../../models/Field';
+import {
+  AnyField,
+  TextField,
+  CheckboxField,
+  FileField,
+} from '../../models/Field';
 
 import { Box, Button } from '@mui/material';
 import ArrowBack from '@mui/icons-material/ArrowBack';
@@ -20,7 +25,9 @@ const DocumentDetailsPage = () => {
 
   const { id: documentId } = useParams<{ id: string }>();
   const [fields, setFields] = useState<AnyField[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>({});
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>(
+    {},
+  );
 
   const documentService = new DocumentService();
 
@@ -100,11 +107,26 @@ const DocumentDetailsPage = () => {
         <form onSubmit={handleSave}>
           {fields.map((field) => {
             if (field.type === 'text') {
-              return <TextFieldItem textField={field as TextField} setFields={setFields} />;
+              return (
+                <TextFieldItem
+                  textField={field as TextField}
+                  setFields={setFields}
+                />
+              );
             } else if (field.type === 'checkbox') {
-              return <CheckboxFieldItem checkboxField={field as CheckboxField} />;
+              return (
+                <CheckboxFieldItem
+                  checkboxField={field as CheckboxField}
+                  setFields={setFields}
+                />
+              );
             } else if (field.type === 'file') {
-              return <FileFieldItem fileField={field as FileField} />;
+              return (
+                <FileFieldItem
+                  fileField={field as FileField}
+                  setFields={setFields}
+                />
+              );
             }
             return null;
           })}
