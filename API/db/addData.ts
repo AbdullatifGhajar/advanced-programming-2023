@@ -31,6 +31,8 @@ async function addData() {
     id: 1,
     name: 'resume.txt',
   });
+  console.log('File added successfully', file);
+
   const fileFields = await db.manager.save(FileField, [
     { id: 6, name: 'resume', file: { id: 1 } },
   ]);

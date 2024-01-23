@@ -8,6 +8,10 @@ class FileField extends Field {
   @OneToOne(() => File)
   @JoinColumn()
   file!: File;
+
+  get type(): string {
+    return 'file';
+  }
 }
 
 export default FileField;

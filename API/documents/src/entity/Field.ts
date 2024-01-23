@@ -13,6 +13,15 @@ abstract class Field {
 
   @Column()
   name!: string;
+
+  toJSON() {
+    return {
+      ...this,
+      type: this.type,
+    };
+  }
+
+  abstract get type(): string;
 }
 
 export default Field;

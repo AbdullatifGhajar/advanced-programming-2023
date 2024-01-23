@@ -5,6 +5,10 @@ import Field from './Field';
 class CheckboxField extends Field {
   @Column()
   value: boolean = false;
+
+  get type(): string {
+    return 'checkbox';
+  }
 }
 
 export default CheckboxField;
