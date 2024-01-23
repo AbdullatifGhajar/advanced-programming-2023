@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { TextField, Button, Box } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
 import PageTitle from '../../components/PageTitle';
-import Field from '../../models/Field';
+import { Field, TextField, CheckboxField, FileField } from '../../models/Field';
+
+import TextFieldItem from './fields/TextFieldItem';
+import CheckboxFieldItem from './fields/CheckboxFieldItem';
+import FileFieldItem from './fields/FileFieldItem';
 
 import MainLayout from '../../layouts/MainLayout';
-import FileUploadField from './FileUploadField';
 import CenteredElement from '../../components/CenteredElement';
 
 const DocumentDetailsPage = () => {
@@ -17,19 +18,6 @@ const DocumentDetailsPage = () => {
   const [fields, setFields] = useState<Field[]>([]);
 
   const navigate = useNavigate();
-
-  const initialValues = (fields: Field[]) => {
-    return fields.map((field: Field) => ({
-      [field.name]: field.value,
-    }));
-  };
-
-  const validationSchema = (fields: Field[]) => {
-    return fields.map((field: Field) => ({
-      // schema is for now optional, set all to string
-      [field.name]: yup.string(),
-    }));
-  };
 
   // Fetch form template from backend
   useEffect(() => {
@@ -44,16 +32,6 @@ const DocumentDetailsPage = () => {
       });
   }, [id]);
 
-  const formik = useFormik({
-    initialValues: initialValues(fields),
-    validationSchema: validationSchema(fields),
-    onSubmit: (values) => {
-      console.log(values);
-      // add submission logic here
-    },
-    enableReinitialize: true, // reinitialize formik when initialValues change
-  });
-
   return (
     <MainLayout>
       <Box display="flex" flexDirection="column" justifyContent="center">
@@ -66,40 +44,30 @@ const DocumentDetailsPage = () => {
           {/* TODO: use document name instead */}
           <PageTitle title={'Edit Document'} />
         </Box>
-        <form onSubmit={formik.handleSubmit}>
-          {fields.map((field) => (
-            <TextField
-              key={field.id}
-              id={field.id}
-              name={field.name}
-              label={field.name}
-              value={field.value}
-              onChange={formik.handleChange}
-              margin="normal"
-              fullWidth
-            />
-          ))}
+        {fields.map((field) => {
+          if (field.type === 'text') {
+            return <TextFieldItem textField={field as TextField} />;
+          } else if (field.type === 'checkbox') {
+            return <CheckboxFieldItem checkboxField={field as CheckboxField} />;
+          } else if (field.type === 'file') {
+            return <FileFieldItem fileField={field as FileField} />;
+          }
+          return null;
+        })}
 
-          <FileUploadField
-            label="certificate"
-            value={null}
-            onChange={() => {}}
-          />
-
-          <CenteredElement>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => navigate('/documents')}
-              sx={{
-                marginTop: '3em',
-                width: '60%',
-              }}
-            >
-              Save
-            </Button>
-          </CenteredElement>
-        </form>
+        <CenteredElement>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => navigate('/documents')}
+            sx={{
+              marginTop: '3em',
+              width: '60%',
+            }}
+          >
+            Save
+          </Button>
+        </CenteredElement>
       </Box>
     </MainLayout>
   );
