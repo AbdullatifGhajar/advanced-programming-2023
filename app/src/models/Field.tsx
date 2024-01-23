@@ -23,3 +23,5 @@ export interface FileField extends Field {
   type: 'file';
   file: File | null;
 }
+
+export type AnyField = TextField | CheckboxField | FileField;

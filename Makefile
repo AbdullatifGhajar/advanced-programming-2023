@@ -6,6 +6,9 @@ FRONTEND_DIR = app
 
 .PHONY: install
 install:			## Install requirements for both backend and frontend
+	@echo "-------- Installing common requirements --------"
+	@npm install
+	
 	@echo "-------- Installing requirements in the backend --------"
 	@cd $(BACKEND_DIR) && npm install
 	@cd ..
