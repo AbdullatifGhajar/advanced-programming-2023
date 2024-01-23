@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+import CenteredElement from '../../components/CenteredElement';
 
 const RegisterPage = () => {
   const [nameError, setNameError] = React.useState('');
@@ -119,7 +120,7 @@ const RegisterPage = () => {
             />
           </Grid>
         </Grid>
-        <Box display="flex" justifyContent="center">
+        <CenteredElement>
           <Button
             type="submit"
             variant="contained"
@@ -127,7 +128,7 @@ const RegisterPage = () => {
           >
             Register
           </Button>
-        </Box>
+        </CenteredElement>
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link href="/login" variant="body2">

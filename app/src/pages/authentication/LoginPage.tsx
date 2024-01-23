@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+import CenteredElement from '../../components/CenteredElement';
 
 const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +72,7 @@ const LoginPage = () => {
           id="password"
           autoComplete="current-password"
         />
-        <Box display="flex" justifyContent="center">
+        <CenteredElement>
           <Button
             type="submit"
             variant="contained"
@@ -79,7 +80,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
-        </Box>
+        </CenteredElement>
 
         <Grid container justifyContent="flex-end">
           <Grid item sx={{ marginLeft: '0.5em' }}>
