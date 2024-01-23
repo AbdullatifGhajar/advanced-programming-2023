@@ -7,10 +7,11 @@ import {
   TableInheritance,
 } from 'typeorm';
 import Document from '../../../documents/src/entity/Document';
+import Approval from '../../../documents/src/entity/Approval';
 
 @Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
-abstract class User {
+export abstract class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -22,6 +23,9 @@ abstract class User {
 
   @Column()
   name!: string;
+
+   @OneToMany(() => Approval, approval => approval.user)
+  approvals: Approval[] = []; 
 
   @OneToMany(() => Document, (document) => document.user)
   documents!: Document[];

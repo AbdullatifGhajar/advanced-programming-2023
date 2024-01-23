@@ -1,3 +1,4 @@
+// Document.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,9 +6,11 @@ import {
   ManyToMany,
   JoinTable,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import Field from './Field';
 import User from '../../../users/src/entity/User';
+import Approval from './Approval';
 
 @Entity()
 class Document {
@@ -29,6 +32,9 @@ class Document {
 
   @ManyToOne(() => User, (user) => user.documents)
   user!: User;
+
+  @OneToMany(() => Approval, (approval) => approval.document) 
+  approvals!: Approval[];
 }
 
 export default Document;

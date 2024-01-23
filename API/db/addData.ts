@@ -34,6 +34,8 @@ async function addData() {
   console.log('Admin added successfully', admin);
   console.log('Tutor added successfully', tutor);
 
+
+
   // add documents
   const documents = await db.manager.save(Document, [
     {
