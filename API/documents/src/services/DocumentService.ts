@@ -2,7 +2,6 @@ import Document from '../entity/Document';
 import DB from '../../../db/DB';
 import Field from '../entity/Field';
 
-
 class DocumentService {
   async list(): Promise<Document[]> {
     const db = await DB.getInstance();
@@ -36,7 +35,7 @@ class DocumentService {
         .createQueryBuilder()
         .update(Field)
         .set(field)
-        .where("id = :id", { id: field.id })
+        .where('id = :id', { id: field.id })
         .execute();
     }
   }

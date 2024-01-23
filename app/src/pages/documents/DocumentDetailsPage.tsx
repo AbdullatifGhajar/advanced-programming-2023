@@ -9,25 +9,28 @@ import DocumentService from '../../services/DocumentService';
 
 import MainLayout from '../../layouts/MainLayout';
 
-
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();
 
   const { id: documentId } = useParams<{ id: string }>();
   const [fields, setFields] = useState<Field[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>({});
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>(
+    {},
+  );
 
   const documentService = new DocumentService();
 
   const hasError = Object.values(fieldErrors).some((error) => error);
-  const hasEmptyOrNullUndefinedValues = fields.some((field) => field.value == null || field.value.trim() === '');
+  const hasEmptyOrNullUndefinedValues = fields.some(
+    (field) => field.value == null || field.value.trim() === '',
+  );
 
   // ensure that the documentId is defined
   useEffect(() => {
     if (!documentId) {
       navigate('/documents');
     }
-  }, [documentId]);
+  }, [documentId, navigate]);
 
   // Fetch form template from backend
   useEffect(() => {
@@ -66,10 +69,13 @@ const DocumentDetailsPage = () => {
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
     // Check for null or undefined values
-    const hasEmptyOrNullUndefinedValues = fields.some((field) => field.value == null || field.value.trim() === '');
+    const hasEmptyOrNullUndefinedValues = fields.some(
+      (field) => field.value == null || field.value.trim() === '',
+    );
 
     if (hasEmptyOrNullUndefinedValues) {
-      setFieldErrors((prevErrors) => { //add the errors in the array of errors
+      setFieldErrors((prevErrors) => {
+        //add the errors in the array of errors
         const updatedErrors: { [key: string]: boolean } = {};
         fields.forEach((field) => {
           if (field.value == null || field.value.trim() === '') {
@@ -87,16 +93,16 @@ const DocumentDetailsPage = () => {
       value: field.value,
     }));
 
-    documentService.saveDocument(documentId, updatedFields)
+    documentService
+      .saveDocument(documentId, updatedFields)
       .then(() => {
-        alert("Your document is saved");
+        alert('Your document is saved');
         navigate('/documents');
       })
       .catch((error) => {
         console.error('Error saving or fetching document:', error);
       });
   };
-
 
   return (
     <MainLayout>
@@ -123,7 +129,13 @@ const DocumentDetailsPage = () => {
               fullWidth
             />
           ))}
-          <Button color="primary" variant="contained" fullWidth type="submit" disabled={hasError || hasEmptyOrNullUndefinedValues}>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            disabled={hasError || hasEmptyOrNullUndefinedValues}
+          >
             Save
           </Button>
         </form>
