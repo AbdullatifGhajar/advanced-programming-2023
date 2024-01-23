@@ -26,7 +26,7 @@ class DocumentController {
       const updatedDocument = await documentService.saveDocument(req.body);
       return res.json(updatedDocument);
     } catch (error: any) {
-      return res.status(404).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
     }
   }
 }
