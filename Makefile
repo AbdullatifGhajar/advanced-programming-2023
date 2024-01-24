@@ -38,8 +38,18 @@ install-db:			## Install the database
 	@echo "------- Add tables to the database --------"
 	@rm -rf $(BACKEND_DIR)/migrations/**.ts
 	@sleep 5
+
 	@npm run create-migration
 	@npm run migrate
+	@npm run add-data
+	
+.PHONY: update-db
+update-db:			## Update the database
+	@cd $(BACKEND_DIR)
+	@npm run clear-data
+	@npm run create-migration
+	@npm run migrate
+	@npm run add-data
 
 
 .PHONY: add-data

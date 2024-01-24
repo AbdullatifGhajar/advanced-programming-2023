@@ -1,42 +1,53 @@
-import multer, { Multer, StorageEngine } from 'multer';
 import path from 'path';
 import { Request, Response } from 'express';
+import FilesUploader from './FilesUploader';
+import DB from '../../../db/DB';
+
+import File from '../entity/File';
 
 class FilesService {
-  private storage: StorageEngine;
-  private upload: Multer;
-
+  private uploader: FilesUploader;
   constructor() {
-    // Set up multer
-    this.storage = multer.diskStorage({
-      destination: './uploads',
-      filename: function (
-        req: Request,
-        file: Express.Multer.File,
-        cb: (error: Error | null, filename: string) => void,
-      ) {
-        cb(null, Date.now() + path.extname(file.originalname));
-      },
-    });
-
-    this.upload = multer({ storage: this.storage });
+    this.uploader = new FilesUploader();
   }
 
-  extractFileFromRequest(req: Request, res: Response): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.upload.single('file')(req, res, function (err: any) {
-        if (err || !req.file) {
-          reject(err.message);
-        } else {
-          resolve(req.file.filename);
-        }
-      });
+  async saveFileFromRequest(req: Request, res: Response): Promise<File> {
+    const db = await DB.getInstance();
+
+    const filesRepository = db.manager.getRepository(File);
+    const newFile = filesRepository.create({
+      name: 'tmp',
     });
+    await filesRepository.insert(newFile);
+    console.log(newFile);
+
+    // save file to disk
+    const filename = await this.uploader.extractAndSaveFile(
+      req,
+      res,
+      newFile.id.toString(),
+    );
+
+    newFile.name = filename;
+    filesRepository.save(newFile);
+    console.log('File saved to disk:', filename);
+
+    return newFile;
   }
 
-  resolveFile(fileId: string): string {
-    const file = `./uploads/${fileId}`;
-    return path.resolve(file);
+  async downloadFile(fileId: string) {
+    const db = await DB.getInstance();
+    const file = await db
+      .getRepository(File)
+      .createQueryBuilder('file')
+      .where('file.id = :id', { id: fileId })
+      .getOne();
+
+    if (!file) {
+      throw new Error('File not found');
+    }
+
+    return path.resolve(`./uploads/${file.path}`);
   }
 }
 

@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+import CenteredElement from '../../components/CenteredElement';
 
 const ForgotPassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +36,7 @@ const ForgotPassword = () => {
             />
           </Grid>
         </Grid>
-        <Box display="flex" justifyContent="center">
+        <CenteredElement>
           <Button
             type="submit"
             variant="contained"
@@ -43,7 +44,7 @@ const ForgotPassword = () => {
           >
             Reset
           </Button>
-        </Box>
+        </CenteredElement>
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link href="/login" variant="body2">

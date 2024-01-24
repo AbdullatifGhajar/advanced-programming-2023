@@ -1,15 +1,27 @@
-import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  TableInheritance,
+} from 'typeorm';
 
 @Entity()
-class Field {
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
+abstract class Field {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
   name!: string;
 
-  @Column({ type: 'text', nullable: true })
-  value: string | undefined;
+  toJSON() {
+    return {
+      ...this,
+      type: this.type,
+    };
+  }
+
+  abstract get type(): string;
 }
 
 export default Field;

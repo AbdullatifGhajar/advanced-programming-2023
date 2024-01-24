@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -6,7 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import CenteredElement from '../../components/CenteredElement';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -84,7 +87,7 @@ const LoginPage = () => {
           id="password"
           autoComplete="current-password"
         />
-        <Box display="flex" justifyContent="center">
+        <CenteredElement>
           <Button
             type="submit"
             variant="contained"
@@ -92,7 +95,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
-        </Box>
+        </CenteredElement>
 
         <Grid container justifyContent="flex-end">
           <Grid item sx={{ marginLeft: '0.5em' }}>

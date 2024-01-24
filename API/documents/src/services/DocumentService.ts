@@ -14,6 +14,7 @@ class DocumentService {
       .getRepository(Document)
       .createQueryBuilder('document')
       .leftJoinAndSelect('document.fields', 'fields')
+      .leftJoinAndSelect('fields.file', 'file')
       .where('document.id = :id', { id: id })
       .getOne();
   }
@@ -28,7 +29,7 @@ class DocumentService {
     return document;
   }
 
-  async saveDocument(updatedFields: Field[]): Promise<void> {
+  async saveFields(updatedFields: Field[]): Promise<void> {
     const db = await DB.getInstance();
     for (const field of updatedFields) {
       await db
