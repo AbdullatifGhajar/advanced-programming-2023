@@ -29,7 +29,7 @@ class DocumentService {
     return document;
   }
 
-  async saveDocument(updatedFields: Field[]): Promise<void> {
+  async saveFields(updatedFields: Field[]): Promise<void> {
     const db = await DB.getInstance();
     for (const field of updatedFields) {
       await db

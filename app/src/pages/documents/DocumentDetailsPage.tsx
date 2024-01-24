@@ -4,9 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 import {
   AnyField,
-  TextField,
-  CheckboxField,
-  FileField,
+  ITextField,
+  ICheckboxField,
+  IFileField,
+  FieldType,
 } from '../../models/Field';
 
 import { Box, Button } from '@mui/material';
@@ -15,7 +16,7 @@ import ArrowBack from '@mui/icons-material/ArrowBack';
 import TextFieldItem from './fields/TextFieldItem';
 import CheckboxFieldItem from './fields/CheckboxFieldItem';
 import FileFieldItem from './fields/FileFieldItem';
-import FieldError from './fields/FieldError';
+import IFieldError from './fields/FieldError';
 import DocumentService from '../../services/DocumentService';
 
 import MainLayout from '../../layouts/MainLayout';
@@ -27,7 +28,7 @@ const DocumentDetailsPage = () => {
 
   const { id: documentId } = useParams<{ id: string }>();
   const [fields, setFields] = useState<AnyField[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<FieldError>({});
+  const [fieldErrors, setFieldErrors] = useState<IFieldError>({});
   const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
 
   const documentService = new DocumentService();
@@ -45,7 +46,7 @@ const DocumentDetailsPage = () => {
     fetch(`http://localhost:8081/documents/${documentId}`)
       .then((response) => response.json())
       .then((data) => {
-        const fetchedFields: TextField[] = data.fields;
+        const fetchedFields: ITextField[] = data.fields;
         setFields(fetchedFields);
       })
       .catch((error) => {
@@ -57,24 +58,24 @@ const DocumentDetailsPage = () => {
   if (!documentId) return null;
 
   const getFieldItem = (field: AnyField) => {
-    if (field.type === 'text') {
+    if (field.type === FieldType.Text) {
       return (
         <TextFieldItem
-          textField={field as TextField}
+          textField={field as ITextField}
           setFields={setFields}
           setFieldErrors={setFieldErrors}
         />
       );
-    } else if (field.type === 'checkbox') {
+    } else if (field.type === FieldType.Checkbox) {
       return (
         <CheckboxFieldItem
-          checkboxField={field as CheckboxField}
+          checkboxField={field as ICheckboxField}
           setFields={setFields}
         />
       );
-    } else if (field.type === 'file') {
+    } else if (field.type === FieldType.File) {
       return (
-        <FileFieldItem fileField={field as FileField} setFields={setFields} />
+        <FileFieldItem fileField={field as IFileField} setFields={setFields} />
       );
     }
     return null;
@@ -115,7 +116,9 @@ const DocumentDetailsPage = () => {
           {fields.map((field) => (
             <React.Fragment key={field.id}>
               {getFieldItem(field)}
-              {fieldErrors[field.id] && <div style={{ color: 'red' }}>{fieldErrors[field.id]}</div>}
+              {fieldErrors[field.id] && (
+                <div style={{ color: 'red' }}>{fieldErrors[field.id]}</div>
+              )}
             </React.Fragment>
           ))}
 

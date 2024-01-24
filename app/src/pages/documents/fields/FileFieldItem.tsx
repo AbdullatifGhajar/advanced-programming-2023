@@ -1,10 +1,14 @@
 import React, { ChangeEvent } from 'react';
 import { TextField, Button } from '@mui/material';
 
-import { AnyField, FileField, File as FileModel } from '../../../models/Field';
+import {
+  AnyField,
+  IFileField,
+  IFile as FileModel,
+} from '../../../models/Field';
 
 type FileFieldProps = {
-  fileField: FileField;
+  fileField: IFileField;
   setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
 };
 
@@ -34,7 +38,7 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
         setFields((prevFields) => {
           const updatedFields = prevFields.map((field) => {
             if (field.id === fileField.id) {
-              return { ...field, file } as FileField;
+              return { ...field, file } as IFileField;
             }
             return field;
           });

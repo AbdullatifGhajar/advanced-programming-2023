@@ -14,9 +14,9 @@ class FilesUploader {
       filename: (
         req: Request,
         file: Express.Multer.File,
-        cb: (error: Error | null, filename: string) => void,
+        callback: (error: Error | null, filename: string) => void,
       ) => {
-        cb(null, `${fileId}-${file.originalname}`);
+        callback(null, `${fileId}-${file.originalname}`);
       },
     });
 

@@ -1,27 +1,33 @@
-export interface Field {
+export interface FieldModel {
   id: string;
   name: string;
   type: string;
 }
 
-export interface TextField extends Field {
-  type: 'text';
+export enum FieldType {
+  Text = 'text',
+  Checkbox = 'checkbox',
+  File = 'file',
+}
+
+export interface ITextField extends FieldModel {
+  type: FieldType.Text;
   value: string;
 }
 
-export interface CheckboxField extends Field {
-  type: 'checkbox';
+export interface ICheckboxField extends FieldModel {
+  type: FieldType.Checkbox;
   value: boolean;
 }
 
-export interface File {
+export interface IFile {
   id: string;
   name: string;
 }
 
-export interface FileField extends Field {
-  type: 'file';
-  file: File | null;
+export interface IFileField extends FieldModel {
+  type: FieldType.File;
+  file: IFile | null;
 }
 
-export type AnyField = TextField | CheckboxField | FileField;
+export type AnyField = ITextField | ICheckboxField | IFileField;

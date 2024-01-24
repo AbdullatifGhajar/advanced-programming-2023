@@ -1,10 +1,10 @@
-import { Field } from './Field';
+import { FieldModel } from './Field';
 
-interface Document {
+interface DocumentModel {
   id: string;
   name: string;
-  fields: Field[];
+  fields: FieldModel[];
   deadline: Date;
 }
 
-export default Document;
+export default DocumentModel;

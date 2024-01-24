@@ -1,10 +1,10 @@
 import React from 'react';
 import { Checkbox, Box } from '@mui/material';
 
-import { AnyField, CheckboxField } from '../../../models/Field';
+import { AnyField, ICheckboxField } from '../../../models/Field';
 
 type CheckboxFieldProps = {
-  checkboxField: CheckboxField;
+  checkboxField: ICheckboxField;
   setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
 };
 
@@ -16,7 +16,7 @@ const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
     setFields((prevFields) => {
       const updatedFields = prevFields.map((field) => {
         if (field.id === checkboxField.id) {
-          return { ...field, value: newValue } as CheckboxField;
+          return { ...field, value: newValue } as ICheckboxField;
         }
         return field;
       });

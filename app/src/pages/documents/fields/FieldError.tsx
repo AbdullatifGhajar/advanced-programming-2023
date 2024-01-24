@@ -1,5 +1,5 @@
-interface FieldError {
+interface IFieldError {
   [key: string]: string[];
 }
 
-export default FieldError;
+export default IFieldError;
