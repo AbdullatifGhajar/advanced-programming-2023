@@ -34,7 +34,8 @@ const LoginPage = () => {
       password,
     };
 
-    apiAuth.post("/users/login", loginData)
+    apiAuth
+      .post('/users/login', loginData)
       .then((response) => {
         if (response.status === 200) {
           return response.data;

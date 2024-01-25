@@ -16,7 +16,8 @@ const DocumentsPage = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    api.get('/documents')
+    api
+      .get('/documents')
       .then((response) => response.data)
       .then((data) => {
         setDocumentOverviewList(data);

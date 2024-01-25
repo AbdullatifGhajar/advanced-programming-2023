@@ -20,7 +20,8 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    return api.post('/files/upload', formData)
+    return api
+      .post('/files/upload', formData)
       .then((response) => response.data)
       .then((data) => {
         return data as FileModel;

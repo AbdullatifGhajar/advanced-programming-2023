@@ -45,7 +45,8 @@ const DocumentDetailsPage = () => {
   useEffect(() => {
     if (documentId == null) return;
 
-    api.get(`/documents/${documentId}`)
+    api
+      .get(`/documents/${documentId}`)
       .then((response) => response.data)
       .then((data) => {
         const fetchedFields: ITextField[] = data.fields;

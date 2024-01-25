@@ -56,7 +56,8 @@ const RegisterPage = () => {
       password,
     };
 
-    apiAuth.post('/users/register', JSON.stringify(registrationData))
+    apiAuth
+      .post('/users/register', JSON.stringify(registrationData))
       .then((response) => {
         if (response.status === 200) {
           return response.data;
