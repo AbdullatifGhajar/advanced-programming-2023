@@ -3,6 +3,7 @@ include .env
 .ONESHELL:
 BACKEND_DIR = API
 FRONTEND_DIR = app
+INTEGRATION_TESTS_DIR = integration-tests
 
 .PHONY: install
 install:			## Install requirements for both backend and frontend
@@ -15,6 +16,10 @@ install:			## Install requirements for both backend and frontend
 
 	@echo "-------- Installing requirements in the frontend --------"
 	@cd $(FRONTEND_DIR) && npm install
+	@cd ..
+
+	@echo "-------- Installing requirements in the integration tests --------"
+	@cd $(INTEGRATION_TESTS_DIR) && npm install
 	@cd ..
 
 .PHONY: run-backend
@@ -64,6 +69,13 @@ lint:				## Run the the formatter and the linter
 	@npm run format
 	@echo "------- Running the Linter --------"
 	@npm run lint
+
+.PHONY: test-integration
+test-integration:	## Run the integration tests
+	@echo "------- Running the integration tests --------"
+	@echo "MAKE SURE THE APP IS RUNNING"
+	@cd $(INTEGRATION_TESTS_DIR)
+	@npx playwright test
 
 .PHONY: help
 help:            		## Show the help
