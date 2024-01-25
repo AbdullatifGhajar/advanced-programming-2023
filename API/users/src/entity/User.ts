@@ -10,7 +10,7 @@ import Document from '../../../documents/src/entity/Document';
 
 @Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
-export abstract class User {
+abstract class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -22,9 +22,6 @@ export abstract class User {
 
   @Column()
   name!: string;
-
-  @OneToMany(() => Document, (document) => document.user)
-  documents!: Document[];
 
   constructor(email: string, password: string, name: string) {
     this.email = email;

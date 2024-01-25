@@ -10,13 +10,17 @@ class DocumentService {
 
   async getDocumentById(id: string): Promise<Document | null> {
     const db = await DB.getInstance();
-    return await db
-      .getRepository(Document)
-      .createQueryBuilder('document')
-      .leftJoinAndSelect('document.fields', 'fields')
-      .leftJoinAndSelect('document.approvals', 'approvals')
-      .where('document.id = :id', { id: id })
-      .getOne();
+    return await db.getRepository(Document).findOne({
+      where: {
+        id: parseInt(id),
+      },
+      relations: {
+        fields: true,
+        approvals: {
+          tutor: true,
+        },
+      },
+    });
   }
 
   async document(id: string): Promise<Document> {

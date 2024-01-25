@@ -5,6 +5,7 @@ import Field from '../documents/src/entity/Field';
 import Student from '../users/src/entity/Student';
 import Admin from '../users/src/entity/Admin';
 import Tutor from '../users/src/entity/Tutor';
+import Approval from '../documents/src/entity/Approval';
 
 async function addData() {
   const db = await DB.getInstance();
@@ -34,15 +35,13 @@ async function addData() {
   console.log('Admin added successfully', admin);
   console.log('Tutor added successfully', tutor);
 
-  console.log(admin.id)
-
-  // // add approvals
-  // const approvals = await db.manager.save(Approval, [
-  //   { id: 1, user: { id: admin.id } },
-  //   { id: 2, user: { id: tutor.id }, isGiven: true },
-  // ]);
-
-
+  // add approvals
+  const approvals = await db.manager.save(Approval, [
+    { id: 1, tutor: tutor },
+    { id: 2, tutor: tutor, isGiven: true },
+    { id: 3, tutor: tutor },
+  ]);
+  console.log('Approvals added successfully', approvals);
 
   // add documents
   const documents = await db.manager.save(Document, [
@@ -51,15 +50,14 @@ async function addData() {
       name: 'Document 1',
       fields: [{ id: 1 }, { id: 2 }, { id: 3 }],
       user: student,
-      approvals: [],
-      // approvals: [{ id: 1 }, { id: 2 }],
+      approvals: [{ id: 1 }, { id: 2 }],
     },
     {
       id: 2,
       name: 'Document 2',
       fields: [{ id: 1 }, { id: 2 }],
       user: student,
-      approvals: [],
+      approvals: [{ id: 3 }],
     },
   ]);
   console.log('Documents added successfully', documents);

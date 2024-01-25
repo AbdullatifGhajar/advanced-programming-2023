@@ -1,4 +1,3 @@
-// Document.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -30,11 +29,10 @@ class Document {
   @JoinTable()
   fields!: Field[];
 
-  @ManyToOne(() => User, (user) => user.documents)
+  @ManyToOne(() => User)
   user!: User;
 
   @OneToMany(() => Approval, (approval) => approval.document)
-  @JoinTable()
   approvals!: Approval[];
 }
 
