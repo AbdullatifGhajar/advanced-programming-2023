@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 import CenteredElement from '../../components/CenteredElement';
+import { apiAuth } from '../../services/AxiosService';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -33,16 +34,10 @@ const LoginPage = () => {
       password,
     };
 
-    fetch('http://localhost:8081/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    })
+    apiAuth.post("/users/login", loginData)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (response.status === 200) {
+          return response.data;
         } else {
           throw new Error('Error during login');
         }

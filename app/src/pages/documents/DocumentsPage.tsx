@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, List } from '@mui/material';
+import { api } from '../../services/AxiosService';
 
 import DocumentOverview from '../../models/DocumentOverview';
 import DocumentListItem from './DocumentListItem';
@@ -15,8 +16,8 @@ const DocumentsPage = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    fetch('http://localhost:8081/documents')
-      .then((response) => response.json())
+    api.get('/documents')
+      .then((response) => response.data)
       .then((data) => {
         setDocumentOverviewList(data);
       })

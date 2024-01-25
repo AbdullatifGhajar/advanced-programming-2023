@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
-import AuthenticationHandler from '../services/AuthenticationHandler';
+import AuthenticationService from '../services/AuthenticationService';
 
 interface HeaderProps {
   username: string;
@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ username }) => {
   };
 
   const handleLoggedOut = () => {
-    const authenticationHandler = new AuthenticationHandler(navigate);
+    const authenticationHandler = new AuthenticationService(navigate);
     authenticationHandler.logout();
   };
 

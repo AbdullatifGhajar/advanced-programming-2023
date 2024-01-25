@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import CenteredElement from '../../components/CenteredElement';
+import { apiAuth } from '../../services/AxiosService';
 
 const RegisterPage = () => {
   const [nameError, setNameError] = React.useState('');
@@ -55,16 +56,10 @@ const RegisterPage = () => {
       password,
     };
 
-    fetch('http://localhost:8081/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(registrationData),
-    })
+    apiAuth.post('/users/register', JSON.stringify(registrationData))
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (response.status === 200) {
+          return response.data;
         } else {
           throw new Error('Error during registration');
         }

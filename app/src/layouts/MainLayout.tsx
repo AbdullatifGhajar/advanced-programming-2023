@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import PageBody from '../components/PageBody';
 import { useNavigate } from 'react-router-dom';
 
-import AuthenticationHandler from '../services/AuthenticationHandler';
+import AuthenticationService from '../services/AuthenticationService';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -16,7 +16,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    const authenticationHandler = new AuthenticationHandler(navigate);
+    const authenticationHandler = new AuthenticationService(navigate);
     if (!authenticationHandler.isLoggedIn()) {
       authenticationHandler.redirect();
     } else {

@@ -17,11 +17,12 @@ import TextFieldItem from './fields/TextFieldItem';
 import CheckboxFieldItem from './fields/CheckboxFieldItem';
 import FileFieldItem from './fields/FileFieldItem';
 import IFieldError from './fields/FieldError';
-import DocumentService from '../../services/DocumentService';
 
+import { api } from '../../services/AxiosService';
 import MainLayout from '../../layouts/MainLayout';
 import CenteredElement from '../../components/CenteredElement';
 import React from 'react';
+import DocumentService from '../../services/DocumentService';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();
@@ -31,7 +32,6 @@ const DocumentDetailsPage = () => {
   const [fieldErrors, setFieldErrors] = useState<IFieldError>({});
   const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
 
-  const documentService = new DocumentService();
   // ensure that the documentId is defined
   useEffect(() => {
     if (!documentId) {
@@ -39,12 +39,14 @@ const DocumentDetailsPage = () => {
     }
   }, [documentId, navigate]);
 
+  const documentService = new DocumentService();
+
   // Fetch form template from backend
   useEffect(() => {
     if (documentId == null) return;
 
-    fetch(`http://localhost:8081/documents/${documentId}`)
-      .then((response) => response.json())
+    api.get(`/documents/${documentId}`)
+      .then((response) => response.data)
       .then((data) => {
         const fetchedFields: ITextField[] = data.fields;
         setFields(fetchedFields);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { api } from './AxiosService';
 import DocumentModel from '../models/Document';
 import { FieldModel } from '../models/Field';
 
@@ -8,7 +8,7 @@ class DocumentService {
     if (!id) {
       throw new Error('Document ID is undefined');
     }
-    const response = await axios.get(`${this.url}/${id}`);
+    const response = await api.get(`/documents/${id}`);
     return response.data;
   }
 
@@ -19,7 +19,7 @@ class DocumentService {
     updatedFields.forEach((field) => {
       delete (field as { type?: unknown }).type; // remove type
     });
-    await axios.post(`${this.url}/${documentId}/edit`, updatedFields);
+    await api.post(`/documents/${documentId}/edit`, updatedFields);
   }
 }
 

@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router';
 import JsonWebToken from '../models/JsonWebToken';
 import { jwtDecode } from 'jwt-decode';
 
-class AuthenticationHandler {
+class AuthenticationService {
   private navigate: NavigateFunction;
   private token: string | null;
 
@@ -36,4 +36,4 @@ class AuthenticationHandler {
   }
 }
 
-export default AuthenticationHandler;
+export default AuthenticationService;

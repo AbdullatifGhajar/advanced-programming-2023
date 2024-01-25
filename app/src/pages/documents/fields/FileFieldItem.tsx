@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { TextField, Button } from '@mui/material';
+import { api } from '../../../services/AxiosService';
 
 import {
   AnyField,
@@ -19,11 +20,8 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    return fetch('http://localhost:8081/files/upload', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
+    return api.post('/files/upload', formData)
+      .then((response) => response.data)
       .then((data) => {
         return data as FileModel;
       });
