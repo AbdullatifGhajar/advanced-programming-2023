@@ -1,4 +1,4 @@
-include API/.env
+include .env
 
 .ONESHELL:
 BACKEND_DIR = API
