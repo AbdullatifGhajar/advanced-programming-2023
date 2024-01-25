@@ -67,7 +67,7 @@ const RegisterPage = () => {
       })
       .then((jwt) => {
         localStorage.setItem('token', jwt);
-        setToken(jwt)
+        setToken(jwt);
         console.log('Registration successful!');
         navigate('/');
       })
