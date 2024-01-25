@@ -8,4 +8,28 @@ services:
       MARIADB_DATABASE: database
       MARIADB_ROOT_PASSWORD: root
     ports:
-      - 8080:3306
+      - 3306:3306
+    networks:
+      - app-network
+
+  api:
+    build: ./API
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  frontend:
+    build: ./app
+    depends_on:
+      - api
+    ports:
+      - 3000:80
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
