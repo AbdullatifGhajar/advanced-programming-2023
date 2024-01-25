@@ -70,6 +70,11 @@ lint:				## Run the the formatter and the linter
 	@echo "------- Running the Linter --------"
 	@npm run lint
 
+.PHONY: docker-up
+docker-up:			## Run the docker containers
+	@echo "------- Running the docker containers --------"
+	@docker-compose up -d
+	
 .PHONY: test-integration
 test-integration:	## Run the integration tests
 	@echo "------- Running the integration tests --------"
