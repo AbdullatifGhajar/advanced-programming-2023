@@ -12,7 +12,7 @@ export class Approval {
   tutor!: Tutor;
 
   @Column({ default: false })
-  given!: boolean;
+  isGiven!: boolean;
 
   @ManyToOne(() => Document, (document) => document.approvals)
   document!: Document;

@@ -1,13 +1,15 @@
-import { Box, List } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import PageTitle from "../../components/PageTitle";
-import MainLayout from "../../layouts/MainLayout";
-import DocumentOverview from "../../models/DocumentOverview";
-import DocumentListItem from "./DocumentListItem";
+import { Box, List } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import PageTitle from '../../../components/PageTitle';
+import MainLayout from '../../../layouts/MainLayout';
+import DocumentOverview from '../../../models/DocumentOverview';
+import DocumentListItem from './DocumentListItem';
 
 const DocumentsPage: React.FC = () => {
-  const [documentOverviewList, setDocumentOverviewList] = React.useState<DocumentOverview[]>([]);
+  const [documentOverviewList, setDocumentOverviewList] = React.useState<
+    DocumentOverview[]
+  >([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -15,16 +17,8 @@ const DocumentsPage: React.FC = () => {
     fetch('http://localhost:8081/documents')
       .then((response) => response.json())
       .then((data) => {
-        // Ajouter des approbations de test
-        const documentsWithApprovals = data.map((document: DocumentOverview) => {
-          document.approvals = [
-            { id: 1, user: { id: 1, email: 'user1', role: 'tutor' }, given: true },
-            { id: 2, user: { id: 2, email: 'user2', role: 'admin'}, given: false },
-          ];
-          return document;
-        });
-
-        setDocumentOverviewList(documentsWithApprovals);
+        console.log(data);
+        setDocumentOverviewList(data);
       })
       .catch((error) => {
         console.error('Error:', error);

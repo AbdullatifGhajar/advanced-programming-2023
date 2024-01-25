@@ -3,11 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { TextField, Button, Box } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
-import PageTitle from '../../components/PageTitle';
-import Field from '../../models/Field';
-import DocumentService from '../../services/DocumentService';
+import PageTitle from '../../../components/PageTitle';
+import Field from '../../../models/Field';
+import DocumentService from '../../../services/DocumentService';
 
-import MainLayout from '../../layouts/MainLayout';
+import MainLayout from '../../../layouts/MainLayout';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();

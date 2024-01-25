@@ -5,7 +5,13 @@ import Field from '../entity/Field';
 class DocumentService {
   async list(): Promise<Document[]> {
     const db = await DB.getInstance();
-    return await db.manager.find(Document);
+    return await db.getRepository(Document).find({
+      relations: {
+        approvals: {
+          tutor: true,
+        },
+      },
+    });
   }
 
   async getDocumentById(id: string): Promise<Document | null> {

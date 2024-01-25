@@ -2,11 +2,9 @@ import bcrypt from 'bcrypt';
 import {
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   Entity,
   TableInheritance,
 } from 'typeorm';
-import Document from '../../../documents/src/entity/Document';
 
 @Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
