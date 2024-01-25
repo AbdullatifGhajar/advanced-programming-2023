@@ -11,6 +11,16 @@ class UserService {
     this.encryptionService = new EncryptionService();
   }
 
+  async getDocumentById(id: string): Promise<User | null> {
+    const db = await DB.getInstance();
+    return await db
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.documents', 'document')
+      .where('user.id = :id', { id: id })
+      .getOne();
+  }
+
   async login(email: string, password: string): Promise<string> {
     const db = await DB.getInstance();
 

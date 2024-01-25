@@ -1,11 +1,11 @@
 import Document from '../entity/Document';
 import DB from '../../../db/DB';
 import Field from '../entity/Field';
+import User from '../../../users/src/entity/User';
 
 class DocumentService {
-  async list(): Promise<Document[]> {
-    const db = await DB.getInstance();
-    return await db.manager.find(Document);
+  async list(user: User): Promise<Document[]> {
+    return user.documents;
   }
 
   async getDocumentById(id: string): Promise<Document | null> {

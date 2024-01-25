@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 import CenteredElement from '../../components/CenteredElement';
-import { apiAuth } from '../../services/AxiosService';
+import { api, setToken } from '../../services/AxiosService';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const LoginPage = () => {
       password,
     };
 
-    apiAuth
+    api
       .post('/users/login', loginData)
       .then((response) => {
         if (response.status === 200) {
@@ -45,6 +45,7 @@ const LoginPage = () => {
       })
       .then((jwt) => {
         localStorage.setItem('token', jwt);
+        setToken(jwt);
         console.log('Login successful!');
         if (location.state && location.state.origin) {
           navigate(location.state.origin);

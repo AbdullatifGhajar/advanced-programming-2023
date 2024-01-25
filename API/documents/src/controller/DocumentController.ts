@@ -4,7 +4,7 @@ import DocumentService from '../services/DocumentService';
 class DocumentController {
   async documentList(req: Request, res: Response) {
     const documentService = new DocumentService();
-    const list = await documentService.list();
+    const list = await documentService.list(req.body.user);
     console.log(list);
     return res.json(list);
   }

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import CenteredElement from '../../components/CenteredElement';
-import { apiAuth } from '../../services/AxiosService';
+import { api, setToken } from '../../services/AxiosService';
 
 const RegisterPage = () => {
   const [nameError, setNameError] = React.useState('');
@@ -56,8 +56,8 @@ const RegisterPage = () => {
       password,
     };
 
-    apiAuth
-      .post('/users/register', JSON.stringify(registrationData))
+    api
+      .post('/users/register', registrationData)
       .then((response) => {
         if (response.status === 200) {
           return response.data;
@@ -67,6 +67,7 @@ const RegisterPage = () => {
       })
       .then((jwt) => {
         localStorage.setItem('token', jwt);
+        setToken(jwt)
         console.log('Registration successful!');
         navigate('/');
       })
