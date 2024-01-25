@@ -74,7 +74,12 @@ lint:				## Run the the formatter and the linter
 docker-up:			## Run the docker containers
 	@echo "------- Running the docker containers --------"
 	@docker-compose up -d
-	
+
+.PHONY: docker-down
+docker-down:			## Stop the docker containers
+	@echo "------- Stopping the docker containers --------"
+	@docker-compose down
+
 .PHONY: test-integration
 test-integration:	## Run the integration tests
 	@echo "------- Running the integration tests --------"
