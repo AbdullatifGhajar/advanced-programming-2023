@@ -37,10 +37,8 @@ test('Editing a field will save it in the database', async ({ page }) => {
     await page.goto('localhost:3000/documents/1');
 
     await page.getByLabel('name').fill('John');
-    page.once('dialog', dialog => {
-        console.log(`Dialog message: ${dialog.message()}`);
-        dialog.dismiss().catch(() => { });
-    });
+    await page.getByRole('button', { name: 'Save' }).click();
+    // await page.waitForURL('localhost:3000/documents')
 
     await page.goto('localhost:3000/documents/2');
     await expect(page.getByLabel('name')).toHaveValue('John');

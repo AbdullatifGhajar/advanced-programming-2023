@@ -92,7 +92,6 @@ const DocumentDetailsPage = () => {
     documentService
       .saveFields(documentId, fields)
       .then(() => {
-        alert('Your document is saved');
         navigate('/documents');
       })
       .catch((error) => {
