@@ -1,13 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 import User from '../../../users/src/entity/User';
 import Document from '../../../documents/src/entity/Document';
+
 
 @Entity()
 export class Approval {
     @PrimaryGeneratedColumn()
     id!: number;
 
-  @ManyToOne(() => User, (user) => user.approvals)
+  @OneToOne(() => User, (user) => user.approvals)
   user!: User;
 
   @Column({ default: false })

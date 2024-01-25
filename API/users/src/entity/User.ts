@@ -25,7 +25,7 @@ export abstract class User {
   name!: string;
 
    @OneToMany(() => Approval, approval => approval.user)
-  approvals: Approval[] = []; 
+  approvals!: Approval[]; 
 
   @OneToMany(() => Document, (document) => document.user)
   documents!: Document[];
