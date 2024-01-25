@@ -2,11 +2,9 @@ FROM node:14
 
 WORKDIR /api
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 8081
 
