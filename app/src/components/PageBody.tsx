@@ -8,7 +8,7 @@ interface PageBodyProps extends HTMLAttributes<HTMLDivElement> {
 const PageBody = ({ children }: PageBodyProps) => {
   return (
     <Box display="flex" justifyContent="center">
-      <Box width="70%">{children}</Box>
+      <Box width="50%">{children}</Box>
     </Box>
   );
 };

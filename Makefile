@@ -36,16 +36,16 @@ install-db:			## Install the database
 	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=database --env MARIADB_ROOT_PASSWORD=root -p 8080:3306  mariadb:latest
 	
 	@echo "------- Add tables to the database --------"
-	@rm -rf $(BACKEND_DIR)/migrations/**.ts
 	@sleep 5
-	@npm run create-migration
+
 	@npm run migrate
-
-
-.PHONY: add-data
-add-data:			## Add data to the database
-	@echo "------- Adding data to the database --------"
+	@npm run add-data
+	
+.PHONY: update-db
+update-db:			## Update the database
 	@cd $(BACKEND_DIR)
+	@npm run reset
+	@npm run migrate
 	@npm run add-data
 
 .PHONY: lint

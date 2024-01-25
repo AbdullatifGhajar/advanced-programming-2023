@@ -1,22 +1,24 @@
 import { Request, Response } from 'express';
 import FilesService from '../services/FilesService';
 
+import File from '../entity/File';
+
 class FilesController {
-  uploadFile(req: Request, res: Response) {
+  upload(req: Request, res: Response) {
     const filesService = new FilesService();
     filesService
-      .extractFileFromRequest(req, res)
-      .then((fileId: string) => {
-        res.json({ fileId: fileId });
+      .saveFileFromRequest(req, res)
+      .then((file: File) => {
+        res.json(file);
       })
       .catch((err: Error) => {
         res.status(500).send(err);
       });
   }
 
-  downloadFile(req: Request, res: Response) {
+  async download(req: Request, res: Response) {
     const filesService = new FilesService();
-    res.sendFile(filesService.resolveFile(req.params.fileId));
+    res.sendFile(await filesService.downloadFile(req.params.fileId));
   }
 }
 

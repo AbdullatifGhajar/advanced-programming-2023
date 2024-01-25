@@ -1,30 +1,38 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TextField, Button, Box } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
 
-import PageTitle from '../../../components/PageTitle';
-import Field from '../../../models/Field';
 import DocumentService from '../../../services/DocumentService';
 
 import MainLayout from '../../../layouts/MainLayout';
+import PageTitle from '../../../components/PageTitle';
+import {
+  AnyField,
+  TextField,
+  CheckboxField,
+  FileField,
+  FieldType,
+} from '../../../models/Field';
+
+import TextFieldItem from '../fields/TextFieldItem';
+import CheckboxFieldItem from '../fields/CheckboxFieldItem';
+import FileFieldItem from '../fields/FileFieldItem';
+
+import { Box, Button } from '@mui/material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+
+import CenteredElement from '../../../components/CenteredElement';
+import React from 'react';
+import FieldError from '../fields/FieldError';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();
 
   const { id: documentId } = useParams<{ id: string }>();
-  const [fields, setFields] = useState<Field[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>(
-    {},
-  );
+  const [fields, setFields] = useState<AnyField[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<FieldError>({});
+  const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
 
   const documentService = new DocumentService();
-
-  const hasError = Object.values(fieldErrors).some((error) => error);
-  const hasEmptyOrNullUndefinedValues = fields.some(
-    (field) => field.value == null || field.value.trim() === '',
-  );
-
   // ensure that the documentId is defined
   useEffect(() => {
     if (!documentId) {
@@ -39,7 +47,7 @@ const DocumentDetailsPage = () => {
     fetch(`http://localhost:8081/documents/${documentId}`)
       .then((response) => response.json())
       .then((data) => {
-        const fetchedFields: Field[] = data.fields;
+        const fetchedFields: TextField[] = data.fields;
         setFields(fetchedFields);
       })
       .catch((error) => {
@@ -50,53 +58,42 @@ const DocumentDetailsPage = () => {
   // documentId is now defined for the rest of the component
   if (!documentId) return null;
 
-  const handleFieldChange = (fieldId: string, newValue: string) => {
-    setFields((prevFields) => {
-      // Copy of previous fields
-      const updatedFields = [...prevFields];
-
-      // Find the right fields with the given id
-      const index = updatedFields.findIndex((field) => field.id === fieldId);
-
-      // fields is found so update it
-      if (index !== -1) {
-        updatedFields[index] = { ...updatedFields[index], value: newValue };
-      }
-      return updatedFields;
-    });
+  const getFieldItem = (field: AnyField) => {
+    if (field.type === FieldType.Text) {
+      return (
+        <TextFieldItem
+          textField={field as TextField}
+          setFields={setFields}
+          setFieldErrors={setFieldErrors}
+        />
+      );
+    } else if (field.type === FieldType.Checkbox) {
+      return (
+        <CheckboxFieldItem
+          checkboxField={field as CheckboxField}
+          setFields={setFields}
+        />
+      );
+    } else if (field.type === FieldType.File) {
+      return (
+        <FileFieldItem fileField={field as FileField} setFields={setFields} />
+      );
+    }
+    return null;
   };
 
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Check for null or undefined values
-    const hasEmptyOrNullUndefinedValues = fields.some(
-      (field) => field.value == null || field.value.trim() === '',
-    );
 
-    if (hasEmptyOrNullUndefinedValues) {
-      setFieldErrors((prevErrors) => {
-        //add the errors in the array of errors
-        const updatedErrors: { [key: string]: boolean } = {};
-        fields.forEach((field) => {
-          if (field.value == null || field.value.trim() === '') {
-            updatedErrors[field.id] = true;
-          }
-        });
-        return updatedErrors;
-      });
+    if (hasError) {
+      alert('Please fix all errors before saving');
+      return;
     }
 
-    // Map the 'fields' array to the format expected by the saveDocument method
-    const updatedFields = fields.map((field) => ({
-      id: field.id,
-      name: field.name,
-      value: field.value,
-    }));
-
     documentService
-      .saveDocument(documentId, updatedFields)
+      .saveFields(documentId, fields)
       .then(() => {
-        alert('Your document is saved');
+        // alert('Your document is saved');
         navigate('/documents');
       })
       .catch((error) => {
@@ -118,26 +115,25 @@ const DocumentDetailsPage = () => {
         </Box>
         <form onSubmit={handleSave}>
           {fields.map((field) => (
-            <TextField
-              key={field.id}
-              id={field.id}
-              name={field.name}
-              label={field.name}
-              defaultValue={field.value}
-              onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              margin="normal"
-              fullWidth
-            />
+            <React.Fragment key={field.id}>
+              {getFieldItem(field)}
+              {fieldErrors[field.id] && (
+                <div style={{ color: 'red' }}>{fieldErrors[field.id]}</div>
+              )}
+            </React.Fragment>
           ))}
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            disabled={hasError || hasEmptyOrNullUndefinedValues}
-          >
-            Save
-          </Button>
+
+          <CenteredElement>
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              type="submit"
+              disabled={hasError}
+            >
+              Save
+            </Button>
+          </CenteredElement>
         </form>
       </Box>
     </MainLayout>

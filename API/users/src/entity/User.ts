@@ -32,6 +32,13 @@ abstract class User {
     return bcrypt.hashSync(password, 10);
   }
 
+  toJSON() {
+    return {
+      ...this,
+      role: this.role,
+    };
+  }
+
   abstract get role(): string;
 }
 
