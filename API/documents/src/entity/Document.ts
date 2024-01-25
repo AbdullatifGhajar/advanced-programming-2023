@@ -33,7 +33,8 @@ class Document {
   @ManyToOne(() => User, (user) => user.documents)
   user!: User;
 
-  @OneToMany(() => Approval, (approval) => approval.document) 
+  @OneToMany(() => Approval, (approval) => approval.document)
+  @JoinTable()
   approvals!: Approval[];
 }
 

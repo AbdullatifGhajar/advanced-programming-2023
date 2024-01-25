@@ -1,14 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 import User from '../../../users/src/entity/User';
 import Document from '../../../documents/src/entity/Document';
+import { JoinTable } from 'typeorm';
 
 
 @Entity()
 export class Approval {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-  @OneToOne(() => User, (user) => user.approvals)
+  @OneToOne(() => User)
+  @JoinTable()
   user!: User;
 
   @Column({ default: false })

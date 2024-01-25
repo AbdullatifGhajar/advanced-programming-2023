@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, Card, CardHeader, Avatar } from '@mui/material';
+import { ListItem, Card, CardHeader, Avatar, Box } from '@mui/material';
 
 import DocumentOverview from '../../models/DocumentOverview';
 
@@ -16,6 +16,7 @@ const DocumentListItem: React.FC<DocumentListItemProps> = ({
     documentOverview.deadline,
   ).toLocaleDateString();
 
+
   return (
     <ListItem key={documentOverview.id}>
       <Card
@@ -31,6 +32,18 @@ const DocumentListItem: React.FC<DocumentListItemProps> = ({
           title={documentOverview.name}
           subheader={`deadline: ${formattedDeadline}`}
         />
+        <Box display="flex" flexDirection="column">
+          {documentOverview.approvals.map((approval) => (
+            <Box
+              sx={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: approval.given ? 'green' : 'red',
+              }}
+            />
+          ))}
+        </Box>
       </Card>
     </ListItem>
   );

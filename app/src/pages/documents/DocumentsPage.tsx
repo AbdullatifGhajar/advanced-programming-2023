@@ -18,8 +18,8 @@ const DocumentsPage: React.FC = () => {
         // Ajouter des approbations de test
         const documentsWithApprovals = data.map((document: DocumentOverview) => {
           document.approvals = [
-            { userId: 'user1', given: true },
-            { userId: 'user2', given: false },
+            { id: 1, user: { id: 1, email: 'user1', role: 'tutor' }, given: true },
+            { id: 2, user: { id: 2, email: 'user2', role: 'admin'}, given: false },
           ];
           return document;
         });
@@ -37,19 +37,19 @@ const DocumentsPage: React.FC = () => {
 
   return (
     <MainLayout>
-       <Box display="flex" flexDirection="column" justifyContent="center">
-         <PageTitle title="Documents" />
-         <List>
-           {documentOverviewList.map((documentOverview) => (
-             <DocumentListItem
-               key={documentOverview.id}
-               documentOverview={documentOverview}
-               onClick={handleDocumentClick}
-             />
-           ))}
-         </List>
-       </Box>
-     </MainLayout>
+      <Box display="flex" flexDirection="column" justifyContent="center">
+        <PageTitle title="Documents" />
+        <List>
+          {documentOverviewList.map((documentOverview) => (
+            <DocumentListItem
+              key={documentOverview.id}
+              documentOverview={documentOverview}
+              onClick={handleDocumentClick}
+            />
+          ))}
+        </List>
+      </Box>
+    </MainLayout>
   );
 };
 

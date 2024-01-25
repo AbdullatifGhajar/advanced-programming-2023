@@ -1,5 +1,11 @@
+interface User {
+  id: number;
+  email: string;
+  role: string;
+}
+
 interface DocumentOverview {
-  approvals: { userId: string; given: boolean; }[];
+  approvals: { id: number, user: User; given: boolean; }[];
   id: string;
   name: string;
   deadline: Date;
