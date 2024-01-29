@@ -1,4 +1,4 @@
-name: Unit Tests on Backend
+name: Unit Tests on Backend & Frontend
 
 on:
   push:
@@ -10,6 +10,13 @@ on:
 jobs:
   test-backend:
     runs-on: ubuntu-latest
+    env:
+      DB_USERNAME: ${{ DB_USERNAME }}
+      DB_PASSWORD: ${{ DB_PASSWORD }}
+      DB_CONTAINER_NAME: ${{ DB_CONTAINER_NAME }}
+      DB_PORT: ${{ DB_PORT }}
+
+      TOKEN_SECRET: ${{ TOKEN_SECRET }}
 
     steps:
       - uses: actions/checkout@v2
