@@ -24,7 +24,7 @@ jobs:
       - name: Run tests
         working-directory: ./API
         env:
-          TOKEN_SECRET: ${{ secrets.TOKEN_SECRE }}
+          TOKEN_SECRET: ${{ vars.TOKEN_SECRET }}
         run: npm run test
 
   test-frontend:
