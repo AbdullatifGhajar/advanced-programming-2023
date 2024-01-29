@@ -2,5 +2,5 @@ entity: Student
 items:
   student1:
     email: 'student@example.com'
-    password: '$2b$10$9mYDcdeOSf6WHyBSWAjASuFdR4TvRpCs0xDWh2LYa8v5dEJcSdT4e' # hash of 'password'
+    password: 'password'
     name: 'John Student'

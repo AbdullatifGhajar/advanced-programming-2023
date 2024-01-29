@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToOne,
   OneToMany,
+  CreateDateColumn,
 } from 'typeorm';
 import Field from './Field';
 import User from '../../../users/src/entity/User';
@@ -19,10 +20,7 @@ class Document {
   @Column()
   name!: string;
 
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP + INTERVAL 7 DAY',
-  })
+  @CreateDateColumn()
   deadline!: Date;
 
   @ManyToMany(() => Field)
