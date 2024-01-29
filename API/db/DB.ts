@@ -8,6 +8,7 @@ class DB {
   public static async getInstance(): Promise<DataSource> {
     if (!this.isInitialized) {
       await this.instance.initialize();
+      this.isInitialized = true;
     }
     return this.instance;
   }
