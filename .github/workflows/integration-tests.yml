@@ -46,13 +46,17 @@ jobs:
     needs: build-project
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
 
-      - name: Set up Playwright
-        uses: microsoft/playwright-github-action@v1
+      - name: Install dependencies
+        working-directory: ./integration-tests
+        run: npm ci
 
-      - name: Run integration tests
+      - name: Run tests
         working-directory: ./integration-tests
         run: npx playwright test
         env:
