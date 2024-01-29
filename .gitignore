@@ -1,0 +1,15 @@
+# node modules & dependencies
+node_modules
+
+# editor files
+.idea
+.vscode
+
+# migration files
+migrations
+
+# uploads
+uploads
+
+# .env
+.env
