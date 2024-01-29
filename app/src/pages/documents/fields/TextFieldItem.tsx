@@ -1,13 +1,13 @@
 import React from 'react';
 import { TextField as TextFieldComponent } from '@mui/material';
 
-import { AnyField, ITextField } from '../../../models/Field';
-import IFieldError from './FieldError';
+import { AnyField, TextField } from '../../../models/Field';
+import FieldError from './FieldError';
 
 type TextFieldProps = {
-  textField: ITextField;
+  textField: TextField;
   setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
-  setFieldErrors: React.Dispatch<React.SetStateAction<IFieldError>>;
+  setFieldErrors: React.Dispatch<React.SetStateAction<FieldError>>;
 };
 
 const TextFieldItem: React.FC<TextFieldProps> = ({
@@ -33,7 +33,7 @@ const TextFieldItem: React.FC<TextFieldProps> = ({
     setFields((prevFields) => {
       const updatedFields = prevFields.map((field) => {
         if (field.id === textField.id) {
-          return { ...field, value: newValue } as ITextField;
+          return { ...field, value: newValue } as TextField;
         }
         return field;
       });

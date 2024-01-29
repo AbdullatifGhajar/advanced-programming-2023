@@ -1,34 +1,35 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import PageTitle from '../../components/PageTitle';
+import DocumentService from '../../../services/DocumentService';
+
+import MainLayout from '../../../layouts/MainLayout';
+import PageTitle from '../../../components/PageTitle';
 import {
   AnyField,
-  ITextField,
-  ICheckboxField,
-  IFileField,
+  TextField,
+  CheckboxField,
+  FileField,
   FieldType,
-} from '../../models/Field';
+} from '../../../models/Field';
+
+import TextFieldItem from '../fields/TextFieldItem';
+import CheckboxFieldItem from '../fields/CheckboxFieldItem';
+import FileFieldItem from '../fields/FileFieldItem';
 
 import { Box, Button } from '@mui/material';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 
-import TextFieldItem from './fields/TextFieldItem';
-import CheckboxFieldItem from './fields/CheckboxFieldItem';
-import FileFieldItem from './fields/FileFieldItem';
-import IFieldError from './fields/FieldError';
-import DocumentService from '../../services/DocumentService';
-
-import MainLayout from '../../layouts/MainLayout';
-import CenteredElement from '../../components/CenteredElement';
+import CenteredElement from '../../../components/CenteredElement';
 import React from 'react';
+import FieldError from '../fields/FieldError';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();
 
   const { id: documentId } = useParams<{ id: string }>();
   const [fields, setFields] = useState<AnyField[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<IFieldError>({});
+  const [fieldErrors, setFieldErrors] = useState<FieldError>({});
   const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
 
   const documentService = new DocumentService();
@@ -46,7 +47,7 @@ const DocumentDetailsPage = () => {
     fetch(`http://localhost:8081/documents/${documentId}`)
       .then((response) => response.json())
       .then((data) => {
-        const fetchedFields: ITextField[] = data.fields;
+        const fetchedFields: TextField[] = data.fields;
         setFields(fetchedFields);
       })
       .catch((error) => {
@@ -61,7 +62,7 @@ const DocumentDetailsPage = () => {
     if (field.type === FieldType.Text) {
       return (
         <TextFieldItem
-          textField={field as ITextField}
+          textField={field as TextField}
           setFields={setFields}
           setFieldErrors={setFieldErrors}
         />
@@ -69,13 +70,13 @@ const DocumentDetailsPage = () => {
     } else if (field.type === FieldType.Checkbox) {
       return (
         <CheckboxFieldItem
-          checkboxField={field as ICheckboxField}
+          checkboxField={field as CheckboxField}
           setFields={setFields}
         />
       );
     } else if (field.type === FieldType.File) {
       return (
-        <FileFieldItem fileField={field as IFileField} setFields={setFields} />
+        <FileFieldItem fileField={field as FileField} setFields={setFields} />
       );
     }
     return null;
@@ -92,7 +93,7 @@ const DocumentDetailsPage = () => {
     documentService
       .saveFields(documentId, fields)
       .then(() => {
-        alert('Your document is saved');
+        // alert('Your document is saved');
         navigate('/documents');
       })
       .catch((error) => {

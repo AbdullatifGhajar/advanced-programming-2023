@@ -10,24 +10,24 @@ export enum FieldType {
   File = 'file',
 }
 
-export interface ITextField extends FieldModel {
+export interface TextField extends FieldModel {
   type: FieldType.Text;
   value: string;
 }
 
-export interface ICheckboxField extends FieldModel {
+export interface CheckboxField extends FieldModel {
   type: FieldType.Checkbox;
   value: boolean;
 }
 
-export interface IFile {
+export interface File {
   id: string;
   name: string;
 }
 
-export interface IFileField extends FieldModel {
+export interface FileField extends FieldModel {
   type: FieldType.File;
-  file: IFile | null;
+  file: File | null;
 }
 
-export type AnyField = ITextField | ICheckboxField | IFileField;
+export type AnyField = TextField | CheckboxField | FileField;
