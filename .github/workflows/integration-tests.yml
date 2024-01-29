@@ -56,6 +56,10 @@ jobs:
         working-directory: ./integration-tests
         run: npm ci
 
+      - name: Initialize Playwright
+        working-directory: ./integration-tests
+        run: npx playwright install
+
       - name: Run tests
         working-directory: ./integration-tests
         run: npx playwright test
