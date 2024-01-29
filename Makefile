@@ -38,7 +38,7 @@ run-frontend:			## Run the frontend
 install-db:			## Install the database
 	@echo "------- Installing the database --------"
 	@cd $(BACKEND_DIR)
-	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=database --env MARIADB_ROOT_PASSWORD=root -p 8080:3306  mariadb:latest
+	@docker run --detach --name db --env MARIADB_USER=$(DB_USERNAME) --env MARIADB_PASSWORD=$(DB_PASSWORD) --env MARIADB_DATABASE=$(DB_NAME) --env MARIADB_ROOT_PASSWORD=$(DB_ROOT_PASSWORD) -p $(DB_PORT):$(DB_PORT)  mariadb:latest
 	
 	@echo "------- Add tables to the database --------"
 	@sleep 5

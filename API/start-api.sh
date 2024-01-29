@@ -8,7 +8,7 @@ npm run create-migration
 npm run migrate
 
 # if DEBUG mode then add data to the tables
-if [ "$DEBUG" = "true" ]; then
+if [ "$ADD_DATA" = "true" ]; then
     npm run clear-data
     npm run add-data
 fi

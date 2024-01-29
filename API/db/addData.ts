@@ -12,10 +12,9 @@ import Tutor from '../users/src/entity/Tutor';
 import Approval from '../documents/src/entity/Approval';
 
 import File from '../files/src/entity/File';
+import { DataSource } from 'typeorm';
 
-async function addData() {
-  const db = await DB.getInstance();
-
+async function addTestDataToDatabase(db: DataSource) {
   // add text and checkbox fields
   const textFields = await db.manager.save(TextField, [
     { id: 1, name: 'name' },
@@ -95,9 +94,15 @@ async function addData() {
     },
   ]);
   console.log('Documents added successfully', documents);
+}
 
+async function addTestData() {
+  const db = await DB.getInstance();
+  await addTestDataToDatabase(db);
   await db.destroy();
   console.log('Test data added successfully');
 }
 
-addData();
+addTestData();
+
+export default addTestDataToDatabase;
