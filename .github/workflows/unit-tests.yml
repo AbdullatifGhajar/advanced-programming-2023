@@ -13,8 +13,8 @@ jobs:
     env:
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_CONTAINER_NAME: ${{ env.DB_CONTAINER_NAME }}
-      DB_PORT: ${{ env.DB_PORT }}
+      DB_CONTAINER_NAME: ${{ vars.DB_CONTAINER_NAME }}
+      DB_PORT: ${{ vars.DB_PORT }}
 
       TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
