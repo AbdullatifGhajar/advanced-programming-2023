@@ -9,7 +9,7 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "reset": "npm run typeorm schema:drop -- -d ./data-source.ts",
     "migrate": "npm run typeorm schema:sync -- -d ./data-source.ts",
-    "add-data": "ts-node db/addData.ts"
+    "add-data": "fixtures-ts-node-commonjs load ./db/fixtures --dataSource=./data-source.ts --sync"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +33,7 @@
     "@types/multer": "^1.4.11",
     "ts-node": "^10.9.2",
     "typeorm": "^0.3.19",
+    "typeorm-fixtures-cli": "^4.0.0",
     "typescript": "^5.3.3"
   }
 }

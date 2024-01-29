@@ -1,0 +1,8 @@
+entity: TextField
+items:
+  nameField:
+    name: 'Name'
+    value: ''
+  majorField:
+    name: 'Major'
+    value: 'Software Engineering'

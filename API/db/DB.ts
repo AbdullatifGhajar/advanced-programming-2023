@@ -2,13 +2,11 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../data-source';
 
 class DB {
-  private static instance: DataSource | null = null;
-
-  private constructor() {}
+  private static instance = AppDataSource;
+  private static isInitialized = false;
 
   public static async getInstance(): Promise<DataSource> {
-    if (!this.instance) {
-      this.instance = AppDataSource;
+    if (!this.isInitialized) {
       await this.instance.initialize();
     }
     return this.instance;

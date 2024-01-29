@@ -1,0 +1,4 @@
+entity: File
+items:
+  file1:
+    name: 'resume.pdf'

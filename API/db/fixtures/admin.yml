@@ -1,0 +1,6 @@
+entity: Admin
+items:
+  admin1:
+    email: 'admin@example.com'
+    password: '$2b$10$9mYDcdeOSf6WHyBSWAjASuFdR4TvRpCs0xDWh2LYa8v5dEJcSdT4e' # hash of 'password'
+    name: 'John Admin'

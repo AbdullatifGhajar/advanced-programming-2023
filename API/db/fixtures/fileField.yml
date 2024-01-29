@@ -1,0 +1,5 @@
+entity: FileField
+items:
+  fileField1:
+    name: 'Resume'
+    file: '@file1'

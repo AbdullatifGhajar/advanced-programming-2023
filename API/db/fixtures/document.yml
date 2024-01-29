@@ -1,0 +1,13 @@
+entity: Document
+items:
+  document1:
+    name: 'Document 1'
+    user: '@student1'
+    fields: ['@nameField', '@majorField', '@happyField', '@readyField']
+    approvals: ['@givenApprovalFromTutor1ForDocument1']
+
+  document2:
+    name: 'Document 2'
+    user: '@student1'
+    fields: ['@nameField', '@happyField']
+    approvals: ['@notGivenApprovalFromTutor1ForDocument2']
