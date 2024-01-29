@@ -9,6 +9,7 @@ import FileField from '../documents/src/entity/FileField';
 import Student from '../users/src/entity/Student';
 import Admin from '../users/src/entity/Admin';
 import Tutor from '../users/src/entity/Tutor';
+import Approval from '../documents/src/entity/Approval';
 
 import File from '../files/src/entity/File';
 
@@ -61,6 +62,14 @@ async function addData() {
   console.log('Admin added successfully', admin);
   console.log('Tutor added successfully', tutor);
 
+  // add approvals
+  const approvals = await db.manager.save(Approval, [
+    { id: 1, tutor: tutor },
+    { id: 2, tutor: tutor, isGiven: true },
+    { id: 3, tutor: tutor },
+  ]);
+  console.log('Approvals added successfully', approvals);
+
   // add documents
   const documents = await db.manager.save(Document, [
     {
@@ -75,12 +84,14 @@ async function addData() {
         { id: 6 },
       ],
       user: student,
+      approvals: [{ id: 1 }, { id: 2 }],
     },
     {
       id: 2,
       name: 'Document 2',
       fields: [{ id: 1 }, { id: 2 }],
       user: student,
+      approvals: [{ id: 3 }],
     },
   ]);
   console.log('Documents added successfully', documents);
