@@ -11,12 +11,12 @@ jobs:
   test-backend:
     runs-on: ubuntu-latest
     env:
-      DB_USERNAME: ${{ DB_USERNAME }}
-      DB_PASSWORD: ${{ DB_PASSWORD }}
-      DB_CONTAINER_NAME: ${{ DB_CONTAINER_NAME }}
-      DB_PORT: ${{ DB_PORT }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_CONTAINER_NAME: ${{ env.DB_CONTAINER_NAME }}
+      DB_PORT: ${{ env.DB_PORT }}
 
-      TOKEN_SECRET: ${{ TOKEN_SECRET }}
+      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
     steps:
       - uses: actions/checkout@v2
