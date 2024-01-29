@@ -3,15 +3,15 @@ import { test, expect } from '@playwright/test';
 test('Entering website unauthenticated will redirect to login page', async ({
   page,
 }) => {
-  await page.goto('http://localhost:3000');
+  await page.goto('/');
 
-  await page.waitForURL('http://localhost:3000/login');
+  await page.waitForURL('/login');
 });
 
 test('Example student can log in with his email and password', async ({
   page,
 }) => {
-  await page.goto('http://localhost:3000/login');
+  await page.goto('/login');
 
   await page.getByLabel('Email address').fill('student@example.com');
   await page.getByLabel('Password').fill('password');
@@ -19,7 +19,7 @@ test('Example student can log in with his email and password', async ({
   await page.getByRole('button', { name: 'Login' }).click();
 
   // wait for the page to redirect to the home page
-  await page.waitForURL('http://localhost:3000');
+  await page.waitForURL('');
 
   // Use expect to check if the account of the student is visible
   await expect(page.getByLabel('account of current user')).toBeVisible();
@@ -29,7 +29,7 @@ test('Example student can log in with his email and password', async ({
 test('New user can register and will be redirected to the home page', async ({
   page,
 }) => {
-  await page.goto('http://localhost:3000/register');
+  await page.goto('/register');
 
   await page.getByLabel('Name').fill('Bob');
   const randomEmail =
@@ -39,7 +39,7 @@ test('New user can register and will be redirected to the home page', async ({
   await page.getByRole('button', { name: 'Register' }).click();
 
   // wait for the page to redirect to the home page
-  await page.waitForURL('http://localhost:3000');
+  await page.waitForURL('');
 
   // Use expect to check if the account of the student is visible
   await expect(page.getByLabel('account of current user')).toBeVisible();
