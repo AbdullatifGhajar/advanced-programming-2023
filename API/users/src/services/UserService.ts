@@ -58,7 +58,7 @@ class UserService {
     return jwt;
   }
 
-  async userInfo(user: User) {
+  userInfo(user: User) {
     return {
       id: user.id,
       name: user.name,
