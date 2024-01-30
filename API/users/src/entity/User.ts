@@ -4,6 +4,7 @@ import {
   Column,
   Entity,
   TableInheritance,
+  BeforeInsert,
 } from 'typeorm';
 
 @Entity()
@@ -16,20 +17,14 @@ abstract class User {
   email!: string;
 
   @Column()
-  passwordHash!: string;
+  password!: string;
 
   @Column()
   name!: string;
 
-  constructor(email: string, password: string, name: string) {
-    this.email = email;
-    this.passwordHash = this.hashPassword(password);
-    this.name = name;
-  }
-
-  private hashPassword(password: string): string {
-    if (!password) return ''; // needed for migration
-    return bcrypt.hashSync(password, 10);
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
   }
 
   toJSON() {

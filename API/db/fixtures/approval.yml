@@ -1,0 +1,9 @@
+entity: Approval
+items:
+  givenApprovalFromTutor1ForDocument1:
+    isGiven: true
+    tutor: '@tutor1'
+
+  notGivenApprovalFromTutor1ForDocument2:
+    isGiven: false
+    tutor: '@tutor1'

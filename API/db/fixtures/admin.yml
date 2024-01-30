@@ -1,0 +1,6 @@
+entity: Admin
+items:
+  admin1:
+    email: 'admin@example.com'
+    password: 'password'
+    name: 'John Admin'

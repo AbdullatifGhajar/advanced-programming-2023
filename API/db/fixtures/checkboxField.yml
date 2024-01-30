@@ -1,0 +1,8 @@
+entity: CheckboxField
+items:
+  happyField:
+    name: 'Happy?'
+    value: true
+  readyField:
+    name: 'Ready?'
+    value: false

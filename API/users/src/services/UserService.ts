@@ -24,7 +24,7 @@ class UserService {
 
     const passwordMatch = await this.encryptionService.comparePassword(
       password,
-      user.passwordHash,
+      user.password,
     );
     if (!passwordMatch) throw new Error('WRONG_PASSWORD');
 
@@ -49,15 +49,16 @@ class UserService {
       throw new Error('USER_ALREADY_EXISTS');
     }
 
-    const newUser = await db.manager.save(
-      Student,
-      new Student(email, password, name),
-    );
+    const newUser = await db.manager.save(Student, {
+      name: name,
+      email: email,
+      password: password,
+    });
     const jwt = await this.encryptionService.encodeToken(newUser);
     return jwt;
   }
 
-  async userInfo(user: User) {
+  userInfo(user: User) {
     return {
       id: user.id,
       name: user.name,

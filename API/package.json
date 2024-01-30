@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --runInBand --coverage",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "reset": "npm run typeorm schema:drop -- -d ./data-source.ts",
     "migrate": "npm run typeorm schema:sync -- -d ./data-source.ts",
-    "add-data": "ts-node db/addData.ts"
+    "add-data": "fixtures-ts-node-commonjs load ./db/fixtures --dataSource=./data-source.ts --sync"
   },
   "author": "",
   "license": "ISC",
@@ -27,12 +27,19 @@
     "reflect-metadata": "^0.2.1"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.1.2",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.11",
     "@types/multer": "^1.4.11",
+    "jest": "^29.7.0",
+    "jest-serial-runner": "^1.2.1",
+    "sql.js": "^1.10.2",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typeorm": "^0.3.19",
+    "typeorm-fixtures-cli": "^4.0.0",
     "typescript": "^5.3.3"
   }
 }
