@@ -60,15 +60,15 @@ lint:				## Run the the formatter and the linter
 	@echo "------- Running the Linter --------"
 	@npm run lint
 
-.PHONY: docker-up
-docker-up:			## Run the docker containers
-	@echo "------- Running the docker containers --------"
+.PHONY: docker-start
+docker-start:			## Start the docker containers
+	@echo "------- Starting the docker containers --------"
 	@docker-compose up -d
 
-.PHONY: docker-down
-docker-down:			## Stop the docker containers
+.PHONY: docker-stop
+docker-stop:			## Stop the docker containers
 	@echo "------- Stopping the docker containers --------"
-	@docker-compose down
+	@docker-compose stop
 
 .PHONY: test-integration
 test-integration:	## Run the integration tests
