@@ -16,7 +16,7 @@ abstract class User {
   @Column()
   email!: string;
 
-  @Column()
+  @Column({ select: false }) // don't show password in queries
   password!: string;
 
   @Column()

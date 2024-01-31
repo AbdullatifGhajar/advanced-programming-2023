@@ -1,6 +1,7 @@
 entity: Tutor
 items:
   tutor1:
+    id: 42
     email: 'tutor@example.com'
     password: 'password'
     name: 'John Tutor'

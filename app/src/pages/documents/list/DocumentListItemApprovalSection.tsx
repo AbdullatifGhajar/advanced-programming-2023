@@ -14,7 +14,7 @@ const DocumentListItemApprovalSection: React.FC<
   return (
     <Box sx={{ justifyContent: 'flex-end' }}>
       {approvals.map((approval) => (
-        <Tooltip title={approval.tutor.name} key={approval.id}>
+        <Tooltip title={approval.tutor?.name} key={approval.id}>
           <IconButton sx={{ color: approval.isGiven ? green[500] : red[500] }}>
             {approval.isGiven ? <CheckCircle /> : <Cancel />}
           </IconButton>

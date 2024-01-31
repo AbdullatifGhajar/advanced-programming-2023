@@ -4,17 +4,13 @@ import DocumentService from '../services/DocumentService';
 class DocumentController {
   async documentList(req: Request, res: Response) {
     const documentService = new DocumentService();
-    const list = await documentService.list();
-    console.log(list);
-    return res.json(list);
+    return res.json(await documentService.list());
   }
 
   async document(req: Request, res: Response) {
     const documentService = new DocumentService();
     try {
-      const document = await documentService.document(req.params.id);
-      console.log(document);
-      return res.json(document);
+      return res.json(await documentService.document(req.params.id));
     } catch (error: any) {
       return res.status(404).json({ error: error.message });
     }

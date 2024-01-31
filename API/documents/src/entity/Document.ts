@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import Field from './Field';
 import User from '../../../users/src/entity/User';
-import Approval from './Approval';
+import Approval from '../../../approvals/src/entity/Approval';
 
 @Entity()
 class Document {

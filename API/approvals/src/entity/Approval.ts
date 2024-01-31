@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 import Tutor from '../../../users/src/entity/Tutor';
-import Document from './Document';
+import Document from '../../../documents/src/entity/Document';
 
 @Entity()
 export class Approval {
