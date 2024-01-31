@@ -4,7 +4,7 @@ import Field from './Field';
 @ChildEntity()
 class CheckboxField extends Field {
   @Column()
-  value: boolean = false;
+  isChecked: boolean = false;
 
   get type(): string {
     return 'checkbox';

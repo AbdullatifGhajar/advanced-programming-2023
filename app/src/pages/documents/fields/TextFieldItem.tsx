@@ -6,13 +6,13 @@ import FieldError from './FieldError';
 
 type TextFieldProps = {
   textField: TextField;
-  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
+  setField: React.Dispatch<React.SetStateAction<AnyField>>;
   setFieldErrors: React.Dispatch<React.SetStateAction<FieldError>>;
 };
 
 const TextFieldItem: React.FC<TextFieldProps> = ({
   textField,
-  setFields,
+  setField,
   setFieldErrors,
 }) => {
   const validate = (value: string) => {
@@ -30,21 +30,14 @@ const TextFieldItem: React.FC<TextFieldProps> = ({
       return updatedErrors;
     });
 
-    setFields((prevFields) => {
-      const updatedFields = prevFields.map((field) => {
-        if (field.id === textField.id) {
-          return { ...field, value: newValue } as TextField;
-        }
-        return field;
-      });
+    console.log('handleFieldChange', newValue);
 
-      return updatedFields;
-    });
+    // change only the value of the field
+    setField({ ...textField, value: newValue });
   };
 
   return (
     <TextFieldComponent
-      key={textField.id}
       id={textField.id}
       name={textField.name}
       label={textField.name}

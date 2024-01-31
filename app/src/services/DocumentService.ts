@@ -1,6 +1,5 @@
 import axios from 'axios';
 import DocumentModel from '../models/Document';
-import { FieldModel } from '../models/Field';
 
 class DocumentService {
   url: string = 'http://localhost:8081/documents';
@@ -12,14 +11,11 @@ class DocumentService {
     return response.data;
   }
 
-  async saveFields(
-    documentId: string,
-    updatedFields: FieldModel[],
-  ): Promise<void> {
-    updatedFields.forEach((field) => {
-      delete (field as { type?: unknown }).type; // remove type
+  async saveDocument(document: DocumentModel): Promise<void> {
+    document.fields.forEach((field) => {
+      delete (field as { type?: unknown }).type; // remove attribute 'type'
     });
-    await axios.post(`${this.url}/${documentId}/edit`, updatedFields);
+    await axios.post(`${this.url}/${document.id}/edit`, document.fields);
   }
 }
 

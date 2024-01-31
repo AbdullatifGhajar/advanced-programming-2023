@@ -1,9 +1,9 @@
-import { FieldModel } from './Field';
+import { AnyField } from './Field';
 
 interface DocumentModel {
   id: string;
   name: string;
-  fields: FieldModel[];
+  fields: AnyField[];
   deadline: Date;
 }
 

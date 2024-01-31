@@ -5,24 +5,15 @@ import { AnyField, CheckboxField } from '../../../models/Field';
 
 type CheckboxFieldProps = {
   checkboxField: CheckboxField;
-  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
+  setField: React.Dispatch<React.SetStateAction<AnyField>>;
 };
 
 const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
   checkboxField,
-  setFields,
+  setField,
 }) => {
-  const handleFieldChange = (newValue: boolean) => {
-    setFields((prevFields) => {
-      const updatedFields = prevFields.map((field) => {
-        if (field.id === checkboxField.id) {
-          return { ...field, value: newValue } as CheckboxField;
-        }
-        return field;
-      });
-
-      return updatedFields;
-    });
+  const handleFieldChange = (newIsChecked: boolean) => {
+    setField({ ...checkboxField, isChecked: newIsChecked });
   };
 
   return (
@@ -34,7 +25,7 @@ const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
     >
       {checkboxField.name}
       <Checkbox
-        checked={checkboxField.value}
+        checked={checkboxField.isChecked}
         onChange={(event) => handleFieldChange(event.target.checked)}
       />
     </Box>

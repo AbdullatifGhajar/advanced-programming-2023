@@ -5,10 +5,10 @@ import { AnyField, FileField, File as FileModel } from '../../../models/Field';
 
 type FileFieldProps = {
   fileField: FileField;
-  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
+  setField: React.Dispatch<React.SetStateAction<AnyField>>;
 };
 
-const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
+const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setField }) => {
   const filename = fileField.file?.name;
 
   const uploadFile = async (file: File): Promise<FileModel> => {
@@ -31,16 +31,7 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
 
     uploadFile(rawFile)
       .then((file) => {
-        setFields((prevFields) => {
-          const updatedFields = prevFields.map((field) => {
-            if (field.id === fileField.id) {
-              return { ...field, file } as FileField;
-            }
-            return field;
-          });
-
-          return updatedFields;
-        });
+        setField({ ...fileField, file });
       })
       .catch((error) => {
         console.error('Error:', error);
