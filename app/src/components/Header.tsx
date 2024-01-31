@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ username }) => {
   };
 
   const goToDocuments = () => {
-    navigate('/documents');
+    navigate('/student/documents');
   };
 
   const handleLoggedOut = () => {

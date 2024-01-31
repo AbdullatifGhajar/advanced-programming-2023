@@ -14,7 +14,7 @@ const DocumentList: React.FC<DocumentListProps> = ({
   const navigate = useNavigate();
 
   const handleDocumentClick = (id: string) => {
-    navigate(`/student/documents/${id}`);
+    navigate(`${id}`);
   };
 
   return (

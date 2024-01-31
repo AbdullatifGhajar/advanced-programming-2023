@@ -13,7 +13,6 @@ const StudentDocumentListPage = () => {
     fetch('http://localhost:8081/documents')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setDocumentOverviewList(data);
       })
       .catch((error) => {

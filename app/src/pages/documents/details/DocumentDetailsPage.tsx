@@ -79,7 +79,7 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
 
     saveDocument()
       .then(() => {
-        navigate('/student/documents');
+        navigate('..'); // return to document page
       })
       .catch((error) => {
         console.error('Error:', error);

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import StudentDocumentListPage from './StudentDocumentListPage';
 import StudentDocumentDetailsPage from './StudentDocumentDetailsPage';
 
@@ -7,6 +7,7 @@ function StudentRoutes() {
   return (
     <MainLayout>
       <Routes>
+        <Route path="/" element={<Navigate to="documents" />} />
         <Route path="documents" element={<StudentDocumentListPage />} />
         <Route path="documents/:id" element={<StudentDocumentDetailsPage />} />
       </Routes>

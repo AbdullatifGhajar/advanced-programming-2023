@@ -14,13 +14,6 @@ const StudentDocumentDetailsPage = () => {
   const { id: documentId } = useParams<{ id: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-  // ensure that the documentId is defined
-  useEffect(() => {
-    if (!documentId) {
-      navigate('/student/documents');
-    }
-  }, [documentId, navigate]);
-
   // Fetch form template from backend
   useEffect(() => {
     if (documentId == null) return;
@@ -48,7 +41,7 @@ const StudentDocumentDetailsPage = () => {
       <Box display="flex" justifyContent="center">
         <Button
           color="primary"
-          onClick={() => navigate('/student/documents')}
+          onClick={() => navigate('..')}
           startIcon={<ArrowBack />}
         />
         <PageTitle title={document.name} />
