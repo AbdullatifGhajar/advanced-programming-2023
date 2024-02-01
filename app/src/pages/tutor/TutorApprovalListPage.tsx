@@ -1,21 +1,26 @@
 import { Box, List } from '@mui/material';
-import PageTitle from '../../components/PageTitle';
 import React from 'react';
+import PageTitle from '../../components/PageTitle';
 
-import ApprovalOverview from '../../models/ApprovalOverview';
-import ApprovalListItem from '../approvals/ApprovalListItem';
+import User from '../../models/User';
+import UserListItem from '../users/UserListItem';
+
+interface UserApprovalOverview {
+  user: User;
+  documentCount: number;
+}
 
 const TutorApprovalListPage = () => {
-  const [approvalOverviews, setApprovalOverviews] = React.useState<
-    ApprovalOverview[]
+  const [userApprovalOverviews, setUserApprovalOverviews] = React.useState<
+    UserApprovalOverview[]
   >([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:8081/approvals/42')
+    fetch('http://localhost:8081/approvals/users')
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
-        setApprovalOverviews(data);
+        setUserApprovalOverviews(data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -24,13 +29,14 @@ const TutorApprovalListPage = () => {
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
-      <PageTitle title="Students Waiting for Approvals" />
+      <PageTitle title="Students to Approve" />
       <List>
-        {approvalOverviews.map((approvalOverview) => {
+        {userApprovalOverviews.map((userApprovalOverview) => {
           return (
-            <Box key={approvalOverview.user.id}>
-              <ApprovalListItem approvalOverview={approvalOverview} />
-            </Box>
+            <UserListItem
+              user={userApprovalOverview.user}
+              documentCount={userApprovalOverview.documentCount}
+            />
           );
         })}
       </List>

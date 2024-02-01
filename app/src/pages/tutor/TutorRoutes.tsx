@@ -1,8 +1,8 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from '../../layouts/MainLayout';
 
 import TutorUserListPage from './TutorApprovalListPage';
-import TutorStudentDetailsPage from './TutorStudentDetailsPage';
+import TutorStudentDetailsPage from './TutorStudentApprovalsPage';
 function TutorRoutes() {
   return (
     <MainLayout>

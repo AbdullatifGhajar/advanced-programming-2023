@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 
 import HomePage from './pages/HomePage';
-import Register from './pages/authentication/RegisterPage';
-import Login from './pages/authentication/LoginPage';
 import ForgotPassword from './pages/authentication/ForgotPasswordPage';
+import Login from './pages/authentication/LoginPage';
+import Register from './pages/authentication/RegisterPage';
 import StudentRoutes from './pages/student/StudentRoutes';
 import TutorRoutes from './pages/tutor/TutorRoutes';
 

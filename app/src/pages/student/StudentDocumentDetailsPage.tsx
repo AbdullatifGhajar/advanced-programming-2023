@@ -1,16 +1,13 @@
-import { Box, Button } from '@mui/material';
-import PageTitle from '../../components/PageTitle';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import PageTitle from '../../components/PageTitle';
 
 import Document from '../../models/Document';
-import DocumentDetails from '../documents/details/DocumentDetailsPage';
 import DocumentService from '../../services/DocumentService';
-import { ArrowBack } from '@mui/icons-material';
+import DocumentDetails from '../documents/details/DocumentDetailsPage';
 
 const StudentDocumentDetailsPage = () => {
-  const navigate = useNavigate();
-
   const { id: documentId } = useParams<{ id: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
@@ -38,14 +35,7 @@ const StudentDocumentDetailsPage = () => {
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
-      <Box display="flex" justifyContent="center">
-        <Button
-          color="primary"
-          onClick={() => navigate('..')}
-          startIcon={<ArrowBack />}
-        />
-        <PageTitle title={document.name} />
-      </Box>
+      <PageTitle title={document.name} backButton={true} />
       <DocumentDetails
         document={document}
         setDocument={setDocument}

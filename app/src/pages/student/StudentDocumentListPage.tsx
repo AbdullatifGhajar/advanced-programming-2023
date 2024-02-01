@@ -1,8 +1,8 @@
-import DocumentList from '../documents/list/DocumentList';
 import { Box } from '@mui/material';
-import PageTitle from '../../components/PageTitle';
 import React from 'react';
+import PageTitle from '../../components/PageTitle';
 import DocumentOverview from '../../models/DocumentOverview';
+import DocumentList from '../documents/list/DocumentList';
 
 const StudentDocumentListPage = () => {
   const [documentOverviewList, setDocumentOverviewList] = React.useState<

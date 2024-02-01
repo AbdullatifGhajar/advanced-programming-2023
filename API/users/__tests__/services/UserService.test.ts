@@ -1,8 +1,8 @@
-import UserService from '../../src/services/UserService';
 import DB from '../../../db/DB';
 import MockDB from '../../../db/MockDB';
 import Student from '../../src/entity/Student';
 import User from '../../src/entity/User';
+import UserService from '../../src/services/UserService';
 
 describe('UserService', () => {
   let userService: UserService;

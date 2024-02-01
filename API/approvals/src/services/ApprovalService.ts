@@ -1,14 +1,16 @@
 import DB from '../../../db/DB';
 
 import _ from 'lodash';
-import User from '../../../users/src/entity/User';
-import Tutor from '../../../users/src/entity/Tutor';
 import { In } from 'typeorm';
+import Document from '../../../documents/src/entity/Document';
+import Tutor from '../../../users/src/entity/Tutor';
+import User from '../../../users/src/entity/User';
 
 class ApprovalService {
   async list(tutorId: number) {
     const db = await DB.getInstance();
     const tutor = await db.getRepository(Tutor).findOne({
+      // loadRelationIds: true, // TODO: check if you can refactor this using loading
       relations: {
         approvals: {
           document: {
@@ -56,6 +58,36 @@ class ApprovalService {
         documentCount: documentCountPerUser[user.id],
       };
     });
+  }
+
+  async listForUser(tutorId: number, userId: number) {
+    const db = await DB.getInstance();
+    const user = await db.getRepository(User).findOne({
+      where: {
+        id: userId,
+      },
+    });
+    const documents = await db.getRepository(Document).find({
+      relations: {
+        fields: true,
+      },
+      where: {
+        user: {
+          id: userId,
+        },
+        approvals: {
+          tutor: {
+            id: tutorId,
+          },
+          isGiven: false,
+        },
+      },
+    });
+
+    return {
+      user: user,
+      documents: documents,
+    };
   }
 }
 

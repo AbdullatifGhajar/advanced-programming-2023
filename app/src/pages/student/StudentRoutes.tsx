@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import StudentDocumentListPage from './StudentDocumentListPage';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import StudentDocumentDetailsPage from './StudentDocumentDetailsPage';
+import StudentDocumentListPage from './StudentDocumentListPage';
 
 import MainLayout from '../../layouts/MainLayout';
 function StudentRoutes() {

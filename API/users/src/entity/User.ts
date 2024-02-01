@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import {
-  PrimaryGeneratedColumn,
+  BeforeInsert,
   Column,
   Entity,
+  PrimaryGeneratedColumn,
   TableInheritance,
-  BeforeInsert,
 } from 'typeorm';
 
 @Entity()

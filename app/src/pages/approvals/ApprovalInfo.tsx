@@ -1,7 +1,7 @@
-import React from 'react';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { green, red } from '@mui/material/colors';
-import { CheckCircle, Cancel } from '@mui/icons-material';
+import React from 'react';
 import Approval from '../../models/Approval';
 
 interface DocumentListItemApprovalSectionProps {

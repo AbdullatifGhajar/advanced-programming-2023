@@ -1,16 +1,16 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  CreateDateColumn,
+  Entity,
   JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
-  CreateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import Field from './Field';
-import User from '../../../users/src/entity/User';
 import Approval from '../../../approvals/src/entity/Approval';
+import User from '../../../users/src/entity/User';
+import Field from './Field';
 
 @Entity()
 class Document {

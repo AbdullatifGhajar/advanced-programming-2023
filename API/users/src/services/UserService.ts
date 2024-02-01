@@ -1,8 +1,8 @@
-import User from '../entity/User';
 import DB from '../../../db/DB';
+import User from '../entity/User';
 
-import EncryptionService from './EncryptionService';
 import Student from '../entity/Student';
+import EncryptionService from './EncryptionService';
 
 class UserService {
   private encryptionService: EncryptionService;

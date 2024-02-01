@@ -1,6 +1,6 @@
+import { jwtDecode } from 'jwt-decode';
 import { NavigateFunction } from 'react-router';
 import JsonWebToken from '../models/JsonWebToken';
-import { jwtDecode } from 'jwt-decode';
 
 class AuthenticationHandler {
   private navigate: NavigateFunction;

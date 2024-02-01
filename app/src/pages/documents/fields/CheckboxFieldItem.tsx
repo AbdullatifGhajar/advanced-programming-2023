@@ -1,5 +1,5 @@
+import { Box, Checkbox } from '@mui/material';
 import React from 'react';
-import { Checkbox, Box } from '@mui/material';
 
 import { AnyField, CheckboxField } from '../../../models/Field';
 

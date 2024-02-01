@@ -1,12 +1,12 @@
-import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import dotenv from 'dotenv';
+import express from 'express';
+import path from 'path';
 
+import ApprovalRouter from './approvals/src/routes/ApprovalRouter';
 import DocumentRouter from './documents/src/routes/DocumentRouter';
 import FilesRouter from './files/src/routes/FilesRouter';
 import UsersRouter from './users/src/routes/UserRouter';
-import ApprovalRouter from './approvals/src/routes/ApprovalRouter';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 

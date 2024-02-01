@@ -1,8 +1,8 @@
-import { DataSource } from 'typeorm';
 import path from 'path';
+import { DataSource } from 'typeorm';
 
 import { join } from 'path';
-import { Loader, Parser, Resolver, Builder } from 'typeorm-fixtures-cli/dist';
+import { Builder, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 
 import MockDataSource from '../mock-data-source';
 

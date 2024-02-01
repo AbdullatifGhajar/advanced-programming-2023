@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
-import User from '../entity/User';
-import DB from '../../../db/DB';
-import { verify } from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import { JwtPayload, verify } from 'jsonwebtoken';
 import moment from 'moment';
+import DB from '../../../db/DB';
+import User from '../entity/User';
 
 /* Ensures that user is authenticated when attached to a router 
 and adds user to the request body */

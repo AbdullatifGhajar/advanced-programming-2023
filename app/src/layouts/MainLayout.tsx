@@ -1,9 +1,8 @@
-import React from 'react';
-import { HTMLAttributes, ReactNode, useEffect } from 'react';
+import React, { HTMLAttributes, ReactNode, useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
-import { useNavigate } from 'react-router-dom';
 
 import AuthenticationHandler from '../services/AuthenticationHandler';
 

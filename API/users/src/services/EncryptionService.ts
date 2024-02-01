@@ -1,7 +1,7 @@
-import { sign } from 'jsonwebtoken';
-import User from '../entity/User';
 import bcrypt from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 import moment from 'moment';
+import User from '../entity/User';
 
 const daysForJwtToExpire = 14;
 

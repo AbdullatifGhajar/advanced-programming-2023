@@ -1,5 +1,5 @@
-import multer from 'multer';
 import { Request, Response } from 'express';
+import multer from 'multer';
 
 const destination = './uploads';
 

@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   AnyField,
-  TextField,
-  FieldType,
   CheckboxField,
+  FieldType,
   FileField,
+  TextField,
 } from '../../../models/Field';
 
 import TextFieldItem from '../fields/TextFieldItem';
 
 import { Button } from '@mui/material';
 
-import CenteredElement from '../../../components/CenteredElement';
 import React from 'react';
+import CenteredElement from '../../../components/CenteredElement';
 import FieldError from '../fields/FieldError';
 
 import Document from '../../../models/Document';

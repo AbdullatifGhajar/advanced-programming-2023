@@ -1,5 +1,5 @@
+import { Box, Card, CardContent, ListItem } from '@mui/material';
 import React from 'react';
-import { ListItem, Card, CardContent, Box } from '@mui/material';
 
 import DocumentOverview from '../../../models/DocumentOverview';
 import DocumentListItemApprovalSection from '../../approvals/ApprovalInfo';
@@ -28,9 +28,11 @@ const DocumentListItem: React.FC<DocumentListItemProps> = ({
             justifyContent={'space-between'}
           >
             <DocumentListItemMainSection documentOverview={documentOverview} />
-            <DocumentListItemApprovalSection
-              approvals={documentOverview.approvals}
-            />
+            {documentOverview.approvals && (
+              <DocumentListItemApprovalSection
+                approvals={documentOverview.approvals}
+              />
+            )}
           </Box>
         </CardContent>
       </Card>

@@ -1,21 +1,23 @@
+import { Box, Card, CardContent, ListItem } from '@mui/material';
 import React from 'react';
-import { ListItem, Card, CardContent, Box } from '@mui/material';
-import ApprovalOverview from '../../models/ApprovalOverview';
 import { useNavigate } from 'react-router-dom';
+import User from '../../models/User';
 
-interface ApprovalListItemProps {
-  approvalOverview: ApprovalOverview;
+interface UserListItemProps {
+  user: User;
+  documentCount: number | undefined;
 }
 
-const ApprovalListItem: React.FC<ApprovalListItemProps> = ({
-  approvalOverview,
+const UserListItem: React.FC<UserListItemProps> = ({
+  user,
+  documentCount: count,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <ListItem key={approvalOverview.user.id}>
+    <ListItem key={user.id}>
       <Card
-        onClick={() => navigate(String(approvalOverview.user.id))}
+        onClick={() => navigate(String(user.id))}
         sx={{ width: '100%', cursor: 'pointer' }}
       >
         <CardContent>
@@ -30,7 +32,7 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({
               justifyContent={'space-between'}
             >
               <Box fontWeight={'bold'} fontSize={24} display={'inline'} mr={1}>
-                {approvalOverview.user.name}
+                {user.name}
               </Box>
               <Box
                 fontWeight={'normal'}
@@ -38,11 +40,11 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({
                 display={'inline'}
                 mr={1}
               >
-                {approvalOverview.user.email}
+                {user.email}
               </Box>
             </Box>
             <Box fontWeight={'bold'} fontSize={32} display={'inline'} mr={2}>
-              {approvalOverview.documentCount}
+              {count}
             </Box>
           </Box>
         </CardContent>
@@ -51,4 +53,4 @@ const ApprovalListItem: React.FC<ApprovalListItemProps> = ({
   );
 };
 
-export default ApprovalListItem;
+export default UserListItem;
