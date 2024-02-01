@@ -8,7 +8,7 @@ const BackButton = () => {
   return (
     <Button
       color="primary"
-      onClick={() => navigate('..')}
+      onClick={() => navigate('..')} // TODO: refactor
       startIcon={<ArrowBack />}
     />
   );

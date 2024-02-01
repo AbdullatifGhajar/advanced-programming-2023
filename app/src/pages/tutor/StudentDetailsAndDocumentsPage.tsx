@@ -16,14 +16,14 @@ interface StudentDetailsAndDocuments {
 }
 
 const StudentDetailsAndDocumentsPage = () => {
-  const { id: userId } = useParams<{ id: string }>();
+  const { studentId: studentId } = useParams<{ studentId: string }>();
   const [detailsAndDocuments, setDetailsAndDocuments] =
     useState<StudentDetailsAndDocuments | null>(null);
 
   useEffect(() => {
-    if (userId == null) return;
+    if (studentId == null) return;
 
-    fetch(`http://localhost:8081/approvals/users/${userId}`)
+    fetch(`http://localhost:8081/approvals/students/${studentId}`)
       .then((response) => response.json())
       .then((data) => {
         setDetailsAndDocuments(data);
@@ -31,7 +31,7 @@ const StudentDetailsAndDocumentsPage = () => {
       .catch((error) => {
         console.error('Error:', error);
       });
-  }, [userId]);
+  }, [studentId]);
 
   // studentDocuments are now defined for the rest of the component
   if (!detailsAndDocuments) return null;
@@ -44,9 +44,7 @@ const StudentDetailsAndDocumentsPage = () => {
       />
       <UserListItem user={detailsAndDocuments.student} />
       {detailsAndDocuments.documents.map((document: Document) => {
-        return (
-          <DocumentListItem documentOverview={document} onClick={() => {}} />
-        );
+        return <DocumentListItem documentOverview={document} />;
       })}
     </Box>
   );

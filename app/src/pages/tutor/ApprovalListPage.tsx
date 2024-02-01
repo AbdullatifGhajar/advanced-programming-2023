@@ -16,7 +16,7 @@ const ApprovalListPage = () => {
   >([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:8081/approvals/users')
+    fetch('http://localhost:8081/approvals/students')
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);

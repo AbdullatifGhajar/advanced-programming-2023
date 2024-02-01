@@ -5,7 +5,7 @@ const ApprovalRouter = express.Router();
 
 const approvalController = new ApprovalController();
 
-ApprovalRouter.get('/users/', approvalController.approvalList);
-ApprovalRouter.get('/users/:id', approvalController.approvalListForUser);
+ApprovalRouter.get('/students/', approvalController.approvalList);
+ApprovalRouter.get('/students/:id', approvalController.approvalListForUser);
 
 export default ApprovalRouter;

@@ -4,7 +4,7 @@ import PageTitle from '../../components/PageTitle';
 import DocumentOverview from '../../models/DocumentOverview';
 import DocumentList from '../documents/list/DocumentList';
 
-const StudentDocumentListPage = () => {
+const DocumentListPage = () => {
   const [documentOverviewList, setDocumentOverviewList] = React.useState<
     DocumentOverview[]
   >([]);
@@ -22,10 +22,10 @@ const StudentDocumentListPage = () => {
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
-      <PageTitle title="Documents" />
+      <PageTitle title="Documents" backButton={true} />
       <DocumentList documentOverviewList={documentOverviewList} />
     </Box>
   );
 };
 
-export default StudentDocumentListPage;
+export default DocumentListPage;

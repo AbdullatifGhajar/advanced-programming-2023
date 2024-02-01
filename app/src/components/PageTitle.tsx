@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { HTMLAttributes } from 'react';
-import BackButton from './BackButton';
+import BackButton from './buttons/BackButton';
 
 interface PageBodyProps extends HTMLAttributes<HTMLDivElement> {
   title: string;

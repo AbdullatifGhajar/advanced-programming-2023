@@ -7,8 +7,8 @@ import Document from '../../models/Document';
 import DocumentService from '../../services/DocumentService';
 import DocumentDetails from '../documents/details/DocumentDetailsPage';
 
-const StudentDocumentDetailsPage = () => {
-  const { id: documentId } = useParams<{ id: string }>();
+const DocumentDetailsPage = () => {
+  const { documentId: documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
   // Fetch form template from backend
@@ -45,4 +45,4 @@ const StudentDocumentDetailsPage = () => {
   );
 };
 
-export default StudentDocumentDetailsPage;
+export default DocumentDetailsPage;
