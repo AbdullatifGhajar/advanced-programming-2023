@@ -12,7 +12,9 @@ class ApprovalController {
     const approvalService = new ApprovalService();
     const tutorId = parseInt('42'); // TODO: replace with authentication token
     const userId = parseInt(req.params.id);
-    return res.json(await approvalService.listForUser(tutorId, userId));
+    return res.json(
+      await approvalService.documentsToApproveForStudent(tutorId, userId),
+    );
   }
 }
 

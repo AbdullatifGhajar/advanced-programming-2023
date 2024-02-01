@@ -5,14 +5,14 @@ import PageTitle from '../../components/PageTitle';
 import User from '../../models/User';
 import UserListItem from '../users/UserListItem';
 
-interface UserApprovalOverview {
-  user: User;
+interface DocumentsForStudent {
+  student: User;
   documentCount: number;
 }
 
-const TutorApprovalListPage = () => {
-  const [userApprovalOverviews, setUserApprovalOverviews] = React.useState<
-    UserApprovalOverview[]
+const ApprovalListPage = () => {
+  const [documentsForStudents, setDocumentsForStudents] = React.useState<
+    DocumentsForStudent[]
   >([]);
 
   React.useEffect(() => {
@@ -20,7 +20,7 @@ const TutorApprovalListPage = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
-        setUserApprovalOverviews(data);
+        setDocumentsForStudents(data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -31,11 +31,11 @@ const TutorApprovalListPage = () => {
     <Box display="flex" flexDirection="column" justifyContent="center">
       <PageTitle title="Students to Approve" />
       <List>
-        {userApprovalOverviews.map((userApprovalOverview) => {
+        {documentsForStudents.map((documentsForStudent) => {
           return (
             <UserListItem
-              user={userApprovalOverview.user}
-              documentCount={userApprovalOverview.documentCount}
+              user={documentsForStudent.student}
+              documentCount={documentsForStudent.documentCount}
             />
           );
         })}
@@ -44,4 +44,4 @@ const TutorApprovalListPage = () => {
   );
 };
 
-export default TutorApprovalListPage;
+export default ApprovalListPage;

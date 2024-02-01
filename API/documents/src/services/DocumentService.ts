@@ -25,13 +25,8 @@ class DocumentService {
         approvals: {
           tutor: true,
         },
-        user: true,
+        student: true,
       },
-      // select: {
-      //   user: {
-      //     id: true,
-      //   },
-      // }
     });
   }
 

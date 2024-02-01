@@ -5,7 +5,7 @@ interface DocumentOverview {
   id: string;
   name: string;
   deadline: Date;
-  user?: User;
+  student?: User;
   approvals?: Approval[];
 }
 

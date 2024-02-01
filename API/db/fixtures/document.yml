@@ -2,18 +2,18 @@ entity: Document
 items:
   document1:
     name: 'Document 1'
-    user: '@student1'
+    student: '@student1'
     fields: ['@nameField', '@majorField', '@happyField', '@readyField']
     approvals: ['@givenApprovalFromTutor1ForDocument1']
 
   document2:
     name: 'Document 2'
-    user: '@student1'
+    student: '@student1'
     fields: ['@nameField', '@happyField']
     approvals: ['@notGivenApprovalFromTutor1ForDocument2']
 
   document3:
     name: 'Document 1'
-    user: '@student2'
+    student: '@student2'
     fields: ['@nameField', '@majorField', '@happyField', '@readyField']
     approvals: ['@notGivenApprovalFromTutor1ForDocument3']

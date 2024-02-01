@@ -1,11 +1,11 @@
-import { Box, Card, CardContent, ListItem } from '@mui/material';
+import { Box, Card, CardContent, ListItem, Tooltip } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import User from '../../models/User';
 
 interface UserListItemProps {
   user: User;
-  documentCount: number | undefined;
+  documentCount?: number;
 }
 
 const UserListItem: React.FC<UserListItemProps> = ({
@@ -44,7 +44,9 @@ const UserListItem: React.FC<UserListItemProps> = ({
               </Box>
             </Box>
             <Box fontWeight={'bold'} fontSize={32} display={'inline'} mr={2}>
-              {count}
+              <Tooltip title={`Number of documents to approve`}>
+                <span>{count}</span>
+              </Tooltip>
             </Box>
           </Box>
         </CardContent>

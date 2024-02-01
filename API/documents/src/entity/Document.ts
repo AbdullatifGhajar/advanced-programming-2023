@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Approval from '../../../approvals/src/entity/Approval';
-import User from '../../../users/src/entity/User';
+import Student from '../../../users/src/entity/Student';
 import Field from './Field';
 
 @Entity()
@@ -27,8 +27,8 @@ class Document {
   @JoinTable()
   fields!: Field[];
 
-  @ManyToOne(() => User)
-  user!: User;
+  @ManyToOne(() => Student, (student) => student.documents)
+  student!: Student;
 
   @OneToMany(() => Approval, (approval) => approval.document)
   approvals!: Approval[];

@@ -20,6 +20,7 @@ class DocumentController {
     const documentService = new DocumentService();
     try {
       await documentService.saveFields(req.body);
+      // TODO: only accept if the user is the owner of the document or admin
       return res.json({ message: 'Document saved' });
     } catch (error: any) {
       return res.status(400).json({ error: error.message });

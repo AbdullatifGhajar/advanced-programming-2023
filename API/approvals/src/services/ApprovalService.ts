@@ -3,8 +3,8 @@ import DB from '../../../db/DB';
 import _ from 'lodash';
 import { In } from 'typeorm';
 import Document from '../../../documents/src/entity/Document';
+import Student from '../../../users/src/entity/Student';
 import Tutor from '../../../users/src/entity/Tutor';
-import User from '../../../users/src/entity/User';
 
 class ApprovalService {
   async list(tutorId: number) {
@@ -14,7 +14,7 @@ class ApprovalService {
       relations: {
         approvals: {
           document: {
-            user: true,
+            student: true,
           },
         },
       },
@@ -24,7 +24,7 @@ class ApprovalService {
           id: true,
           document: {
             id: true,
-            user: {
+            student: {
               id: true,
             },
           },
@@ -42,29 +42,31 @@ class ApprovalService {
       throw new Error('Tutor not found');
     }
 
-    // get for every userId the count of documents {"userId": "documentCount"}
-    const documentCountPerUser = _.countBy(
+    console.log(tutor);
+
+    // get for every studentId the count of documents {"studentId": "documentCount"}
+    const documentCountPerStudent = _.countBy(
       tutor.approvals,
-      (approval) => approval.document.user.id,
+      (approval) => approval.document.student.id,
     );
 
-    // return the user info and documentCount
-    const users = await db
-      .getRepository(User)
-      .findBy({ id: In(Object.keys(documentCountPerUser)) });
-    return users.map((user) => {
+    // return the student info and documentCount
+    const students = await db
+      .getRepository(Student)
+      .findBy({ id: In(Object.keys(documentCountPerStudent)) });
+    return students.map((student) => {
       return {
-        user: user,
-        documentCount: documentCountPerUser[user.id],
+        student: student,
+        documentCount: documentCountPerStudent[student.id],
       };
     });
   }
 
-  async listForUser(tutorId: number, userId: number) {
+  async documentsToApproveForStudent(tutorId: number, studentId: number) {
     const db = await DB.getInstance();
-    const user = await db.getRepository(User).findOne({
+    const student = await db.getRepository(Student).findOne({
       where: {
-        id: userId,
+        id: studentId,
       },
     });
     const documents = await db.getRepository(Document).find({
@@ -72,8 +74,8 @@ class ApprovalService {
         fields: true,
       },
       where: {
-        user: {
-          id: userId,
+        student: {
+          id: studentId,
         },
         approvals: {
           tutor: {
@@ -85,7 +87,7 @@ class ApprovalService {
     });
 
     return {
-      user: user,
+      student: student,
       documents: documents,
     };
   }
