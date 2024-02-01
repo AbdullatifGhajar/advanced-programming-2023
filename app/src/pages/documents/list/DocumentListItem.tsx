@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem, Card, CardContent, Box } from '@mui/material';
 
 import DocumentOverview from '../../../models/DocumentOverview';
-import DocumentListItemApprovalSection from './DocumentListItemApprovalSection';
+import DocumentListItemApprovalSection from '../../approvals/ApprovalInfo';
 import DocumentListItemMainSection from './DocumentListItemMainSection';
 
 interface DocumentListItemProps {

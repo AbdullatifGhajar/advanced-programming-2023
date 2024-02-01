@@ -7,3 +7,7 @@ items:
   notGivenApprovalFromTutor1ForDocument2:
     isGiven: false
     tutor: '@tutor1'
+
+  notGivenApprovalFromTutor1ForDocument3:
+    isGiven: false
+    tutor: '@tutor1'
