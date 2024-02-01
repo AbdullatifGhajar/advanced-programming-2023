@@ -16,7 +16,7 @@ interface StudentDetailsAndDocuments {
 }
 
 const StudentDetailsAndDocumentsPage = () => {
-  const { studentId: studentId } = useParams<{ studentId: string }>();
+  const { studentId } = useParams<{ studentId: string }>();
   const [detailsAndDocuments, setDetailsAndDocuments] =
     useState<StudentDetailsAndDocuments | null>(null);
 

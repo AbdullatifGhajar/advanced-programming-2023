@@ -8,7 +8,7 @@ import DocumentService from '../../services/DocumentService';
 import DocumentDetails from '../documents/details/DocumentDetailsPage';
 
 const DocumentDetailsPage = () => {
-  const { documentId: documentId } = useParams<{ documentId: string }>();
+  const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
   // Fetch form template from backend
