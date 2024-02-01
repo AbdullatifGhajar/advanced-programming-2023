@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
 
+import UsersButton from '../components/buttons/ApprovalsButton';
+import DocumentsButton from '../components/buttons/DocumentsButton';
+import HomeButton from '../components/buttons/HomeButton';
 import AuthenticationHandler from '../services/AuthenticationHandler';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -25,7 +28,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <>
-      <Header username={username} />
+      <Header
+        username={username}
+        navigationButtons={[
+          // TODO: based on the user role, show different buttons
+          <HomeButton />,
+          <DocumentsButton />,
+          <UsersButton />,
+        ]}
+      />
+
       <PageBody>{children}</PageBody>
     </>
   );
