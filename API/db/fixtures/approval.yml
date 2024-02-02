@@ -3,11 +3,15 @@ items:
   givenApprovalFromTutor1ForDocument1:
     isGiven: true
     tutor: '@tutor1'
+    comment: 'This is a good document'
 
   notGivenApprovalFromTutor1ForDocument2:
     isGiven: false
     tutor: '@tutor1'
+    comment: 'You need to specify the purpose of the document'
 
-  notGivenApprovalFromTutor1ForDocument3:
-    isGiven: false
+  pendingGivenApprovalFromTutor1ForDocument3:
     tutor: '@tutor1'
+
+  pendingApprovalFromTutor2ForDocument1:
+    tutor: '@tutor2'

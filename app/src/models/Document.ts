@@ -1,3 +1,4 @@
+import Approval from './Approval';
 import { AnyField } from './Field';
 
 interface DocumentModel {
@@ -5,6 +6,7 @@ interface DocumentModel {
   name: string;
   fields: AnyField[];
   deadline: Date;
+  approvals: Approval[];
 }
 
 export default DocumentModel;

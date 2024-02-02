@@ -5,6 +5,7 @@ import PageTitle from '../../components/PageTitle';
 
 import Document from '../../models/Document';
 import DocumentService from '../../services/DocumentService';
+import ApprovalDetails from '../approvals/ApprovalList';
 import DocumentDetails from '../documents/details/DocumentDetailsPage';
 
 const DocumentDetailsPage = () => {
@@ -41,6 +42,7 @@ const DocumentDetailsPage = () => {
         setDocument={setDocument}
         saveDocument={saveDocument}
       />
+      <ApprovalDetails approvals={document.approvals} />
     </Box>
   );
 };

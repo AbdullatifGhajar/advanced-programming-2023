@@ -5,3 +5,9 @@ items:
     email: 'tutor@example.com'
     password: 'password'
     name: 'John Tutor'
+
+  tutor2:
+    id: 43
+    email: 'tutor2@example.com'
+    password: 'password'
+    name: 'Jane Tutor'

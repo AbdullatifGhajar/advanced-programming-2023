@@ -4,7 +4,11 @@ items:
     name: 'Document 1'
     student: '@student1'
     fields: ['@nameField', '@majorField', '@happyField', '@readyField']
-    approvals: ['@givenApprovalFromTutor1ForDocument1']
+    approvals:
+      [
+        '@givenApprovalFromTutor1ForDocument1',
+        '@pendingApprovalFromTutor2ForDocument1',
+      ]
 
   document2:
     name: 'Document 2'
@@ -16,4 +20,4 @@ items:
     name: 'Document 1'
     student: '@student2'
     fields: ['@nameField', '@majorField', '@happyField', '@readyField']
-    approvals: ['@notGivenApprovalFromTutor1ForDocument3']
+    approvals: ['@pendingGivenApprovalFromTutor1ForDocument3']

@@ -11,8 +11,11 @@ export class Approval {
   @ManyToOne(() => Tutor, (tutor) => tutor.approvals)
   tutor!: Tutor;
 
-  @Column({ default: false })
-  isGiven!: boolean;
+  @Column({ nullable: true })
+  isGiven?: boolean;
+
+  @Column({ default: '' })
+  comment!: string;
 
   @ManyToOne(() => Document, (document) => document.approvals)
   document!: Document;

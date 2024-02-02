@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import DocumentOverview from '../../../models/DocumentOverview';
-import DocumentListItemApprovalSection from '../../approvals/ApprovalInfo';
+import ApprovalSummary from '../../approvals/ApprovalSummary';
 import DocumentListItemMainSection from './DocumentListItemMainSection';
 
 interface DocumentListItemProps {
@@ -34,9 +34,7 @@ const DocumentListItem: React.FC<DocumentListItemProps> = ({
           >
             <DocumentListItemMainSection documentOverview={documentOverview} />
             {documentOverview.approvals && (
-              <DocumentListItemApprovalSection
-                approvals={documentOverview.approvals}
-              />
+              <ApprovalSummary approvals={documentOverview.approvals} />
             )}
           </Box>
         </CardContent>
