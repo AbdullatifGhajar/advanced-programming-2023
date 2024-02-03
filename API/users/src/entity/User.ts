@@ -16,7 +16,7 @@ abstract class User {
   @Column()
   email!: string;
 
-  @Column({ select: false }) // don't show password in queries
+  @Column()
   password!: string;
 
   @Column()
@@ -28,9 +28,10 @@ abstract class User {
   }
 
   toJSON() {
+    const { password, ...rest } = this; // remove password from the returned object
     return {
-      ...this,
-      role: this.role,
+      ...rest,
+      role: this.role, // add role to the returned object
     };
   }
 

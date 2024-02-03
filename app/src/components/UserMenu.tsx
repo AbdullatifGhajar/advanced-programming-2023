@@ -28,7 +28,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
   };
 
   const handleLoggedOut = () => {
-    const authenticationHandler = new AuthenticationHandler(navigate);
+    const authenticationHandler = new AuthenticationHandler();
     authenticationHandler.logout();
   };
 

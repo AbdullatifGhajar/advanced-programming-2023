@@ -1,13 +1,14 @@
 import { jwtDecode } from 'jwt-decode';
-import { NavigateFunction } from 'react-router';
 import JsonWebToken from '../models/JsonWebToken';
 
 class AuthenticationHandler {
-  private navigate: NavigateFunction;
   private token: string | null;
 
-  constructor(navigate: NavigateFunction) {
-    this.navigate = navigate;
+  getToken() {
+    return this.token;
+  }
+
+  constructor() {
     this.token = localStorage.getItem('token');
   }
 
@@ -18,21 +19,17 @@ class AuthenticationHandler {
     return true;
   }
 
-  redirect() {
-    this.navigate('/login', { state: { origin: window.location.pathname } });
-  }
-
-  getUserName() {
+  getUserName(): string | null {
     if (!this.token) {
-      return '';
+      return null;
     }
+
     return jwtDecode<JsonWebToken>(this.token).name;
   }
 
   logout() {
     localStorage.removeItem('token');
     this.token = null;
-    this.redirect();
   }
 }
 

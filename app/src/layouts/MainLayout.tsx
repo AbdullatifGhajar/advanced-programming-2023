@@ -1,6 +1,5 @@
-import React, { HTMLAttributes, ReactNode, useEffect } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
 
@@ -14,17 +13,8 @@ interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const [username, setUsername] = React.useState('');
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    const authenticationHandler = new AuthenticationHandler(navigate);
-    if (!authenticationHandler.isLoggedIn()) {
-      authenticationHandler.redirect();
-    } else {
-      setUsername(authenticationHandler.getUserName());
-    }
-  }, [navigate]);
+  const authenticationHandler = new AuthenticationHandler();
+  const username = authenticationHandler.getUserName();
 
   return (
     <>

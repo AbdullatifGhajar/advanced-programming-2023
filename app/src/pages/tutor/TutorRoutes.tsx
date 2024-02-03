@@ -4,7 +4,8 @@ import MainLayout from '../../layouts/MainLayout';
 import StudentListPage from './ApprovalListPage';
 import DocumentDetailsPage from './DocumentDetailsPage';
 import StudentDetailsAndDocumentsPage from './StudentDetailsAndDocumentsPage';
-function TutorRoutes() {
+
+const TutorRoutes = () => {
   return (
     <MainLayout>
       <Routes>
@@ -26,6 +27,6 @@ function TutorRoutes() {
       </Routes>
     </MainLayout>
   );
-}
+};
 
 export default TutorRoutes;
