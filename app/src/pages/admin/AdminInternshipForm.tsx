@@ -7,17 +7,22 @@ import {
   FormControlLabel,
   Checkbox,
   MenuItem,
+  Link,
 } from '@mui/material';
 
 const AdminInternshipForm = () => {
   const [afterDeadline, setAfterDeadline] = React.useState(false);
   const [promotion, setPromotion] = React.useState('');
 
-  const handleCheckboxChange = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+  const handleCheckboxChange = (event: {
+    target: { checked: boolean | ((prevState: boolean) => boolean) };
+  }) => {
     setAfterDeadline(event.target.checked);
   };
 
-  const handlePromotionChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handlePromotionChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setPromotion(event.target.value);
   };
 
@@ -99,7 +104,7 @@ const AdminInternshipForm = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
         <Button variant="outlined" color="secondary">
-          Cancel
+          <Link href="/adminSpace">Cancel</Link>
         </Button>
         <Button variant="outlined" color="primary">
           Save in draft

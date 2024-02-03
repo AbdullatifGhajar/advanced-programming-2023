@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography, useTheme } from '@mui/material';
+import { Box, Button, Link, Typography, useTheme } from '@mui/material';
 import Header from '../../components/Header';
 
 const AdminSpace = () => {
@@ -37,17 +37,17 @@ const AdminSpace = () => {
   // Styles spécifiques pour rendre les boutons plus attractifs
   const addButtonStyle = {
     ...buttonStyle,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light, // Utilisation de la couleur secondaire claire du thème
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: theme.palette.primary.light,
     },
   };
 
   const manageButtonStyle = {
     ...buttonStyle,
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: theme.palette.warning.light,
     '&:hover': {
-      backgroundColor: theme.palette.warning.dark,
+      backgroundColor: theme.palette.warning.light,
     },
   };
 
@@ -82,10 +82,10 @@ const AdminSpace = () => {
 
       <div style={displayColumn}>
         <Button style={addButtonStyle} variant="contained">
-          Add a new internship
+          <Link href="/admin-internship-form">Add a new internship</Link>
         </Button>
         <Button style={manageButtonStyle} variant="contained">
-          Manage internships
+          <Link href="/admin-internship-form">Manage internships</Link>
         </Button>
         <Button style={deleteButtonStyle} variant="contained">
           Delete an internship
