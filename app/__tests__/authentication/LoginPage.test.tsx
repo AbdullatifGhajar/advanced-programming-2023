@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter as Router } from 'react-router-dom'; // Import the MemoryRouter
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import LoginPage from '../../src/pages/authentication/LoginPage';
 import AuthenticationService from '../../src/services/AuthenticationService';
@@ -49,12 +47,15 @@ test('should call login function with email and password on form submission', ()
   fireEvent.click(submitButton);
 
   expect(AuthenticationService).toHaveBeenCalled();
-  expect(new AuthenticationService().login).toHaveBeenCalledWith(testEmail, testPassword);
+  expect(new AuthenticationService().login).toHaveBeenCalledWith(
+    testEmail,
+    testPassword,
+  );
 });
 
 it('should redirect to home page when valid email and password are entered and previous page is not available', () => {
   // Mock the navigate function
-  mockNavigate.mockImplementationOnce(() => { });
+  mockNavigate.mockImplementationOnce(() => {});
 
   // Set the location state to null
   mockLocation.mockReturnValueOnce({ state: null });

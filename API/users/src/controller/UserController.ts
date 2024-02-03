@@ -29,7 +29,7 @@ class UserController {
   async userInfo(req: Request, res: Response) {
     const userService = new UserService();
     try {
-      const userInfo = await userService.userInfo(req.body.user);
+      const userInfo = userService.userInfo(req.body.user);
       return res.json(userInfo);
     } catch (error: any) {
       return res.status(500).json({ error: error.message });
