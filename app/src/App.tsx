@@ -7,6 +7,7 @@ import DocumentsPage from './pages/documents/list/DocumentsPage';
 import Register from './pages/authentication/RegisterPage';
 import Login from './pages/authentication/LoginPage';
 import ForgotPassword from './pages/authentication/ForgotPasswordPage';
+import AdminSpace from './pages/admin/AdminSpace';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/documents/:id" element={<DocumentDetailsPage />} />
+          <Route path="/adminSpace" element={<AdminSpace />} />
         </Routes>
       </Router>
     </>
