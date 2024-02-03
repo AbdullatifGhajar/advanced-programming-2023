@@ -6,11 +6,13 @@ import { AnyField, CheckboxField } from '../../../models/Field';
 type CheckboxFieldProps = {
   checkboxField: CheckboxField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
+  disabled?: boolean;
 };
 
 const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
   checkboxField,
   setField,
+  disabled = false,
 }) => {
   const handleFieldChange = (newIsChecked: boolean) => {
     setField({ ...checkboxField, isChecked: newIsChecked });
@@ -27,6 +29,7 @@ const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
       <Checkbox
         checked={checkboxField.isChecked}
         onChange={(event) => handleFieldChange(event.target.checked)}
+        disabled={disabled}
       />
     </Box>
   );

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import {
   AnyField,
@@ -24,18 +23,18 @@ import FileFieldItem from '../fields/FileFieldItem';
 interface DocumentDetailsProps {
   document: Document;
   setDocument: React.Dispatch<React.SetStateAction<Document | null>>;
-  saveDocument: () => Promise<void>;
+  handleSubmit?: (event: React.FormEvent) => void;
 }
 
 const DocumentDetails: React.FC<DocumentDetailsProps> = ({
   document,
   setDocument,
-  saveDocument,
+  handleSubmit,
 }) => {
-  const navigate = useNavigate();
-
   const [fieldErrors, setFieldErrors] = useState<FieldError>({});
   const hasError = Object.values(fieldErrors).some((value) => value.length > 0);
+
+  const isReadOnly = handleSubmit === undefined; // if handleSubmit is undefined, the form is read-only
 
   const getFieldItem = (field: AnyField, index: number) => {
     const setField: React.Dispatch<React.SetStateAction<AnyField>> = (
@@ -52,6 +51,7 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
           textField={field as TextField}
           setField={setField}
           setFieldErrors={setFieldErrors}
+          disabled={isReadOnly}
         />
       );
     } else if (field.type === FieldType.Checkbox) {
@@ -59,35 +59,23 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
         <CheckboxFieldItem
           checkboxField={field as CheckboxField}
           setField={setField}
+          disabled={isReadOnly}
         />
       );
     } else if (field.type === FieldType.File) {
       return (
-        <FileFieldItem fileField={field as FileField} setField={setField} />
+        <FileFieldItem
+          fileField={field as FileField}
+          setField={setField}
+          disabled={isReadOnly}
+        />
       );
     }
     return null;
   };
 
-  const handleSave = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (hasError) {
-      alert('Please fix all errors before saving');
-      return;
-    }
-
-    saveDocument()
-      .then(() => {
-        navigate('..'); // return to document page
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-
   return (
-    <form onSubmit={handleSave}>
+    <form onSubmit={handleSubmit}>
       {document.fields.map((field, index) => (
         <React.Fragment key={field.id}>
           {getFieldItem(field, index)}
@@ -96,18 +84,19 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
           )}
         </React.Fragment>
       ))}
-
-      <CenteredElement>
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          disabled={hasError}
-        >
-          Save
-        </Button>
-      </CenteredElement>
+      {!isReadOnly && (
+        <CenteredElement>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            disabled={hasError}
+          >
+            Save
+          </Button>
+        </CenteredElement>
+      )}
     </form>
   );
 };

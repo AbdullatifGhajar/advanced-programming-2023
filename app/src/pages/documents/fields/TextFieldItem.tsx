@@ -4,16 +4,18 @@ import React from 'react';
 import { AnyField, TextField } from '../../../models/Field';
 import FieldError from './FieldError';
 
-type TextFieldProps = {
+interface TextFieldProps {
   textField: TextField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
   setFieldErrors: React.Dispatch<React.SetStateAction<FieldError>>;
-};
+  disabled?: boolean;
+}
 
 const TextFieldItem: React.FC<TextFieldProps> = ({
   textField,
   setField,
   setFieldErrors,
+  disabled = false,
 }) => {
   const validate = (value: string) => {
     let errorMessages: string[] = [];
@@ -45,6 +47,7 @@ const TextFieldItem: React.FC<TextFieldProps> = ({
       onChange={(event) => handleFieldChange(event.target.value)}
       fullWidth
       margin="normal"
+      disabled={disabled}
     />
   );
 };
