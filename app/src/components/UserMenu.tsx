@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AuthenticationHandler from '../services/AuthenticationHandler';
+import AuthenticationHandler from '../services/authentication/AuthenticationHandler';
 
 interface UserMenuProps {
   username: string;
@@ -30,6 +30,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
   const handleLoggedOut = () => {
     const authenticationHandler = new AuthenticationHandler();
     authenticationHandler.logout();
+    navigate('/');
   };
 
   const handleClickedOnProfile = () => {

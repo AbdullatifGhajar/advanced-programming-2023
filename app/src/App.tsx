@@ -9,7 +9,7 @@ import StudentRoutes from './pages/student/StudentRoutes';
 import TutorRoutes from './pages/tutor/TutorRoutes';
 
 import { UserRole } from './models/User';
-import ProtectRoutes from './services/ProtectedRoutes';
+import ProtectRoutes from './services/authentication/ProtectedRoutes';
 
 function App() {
   return (

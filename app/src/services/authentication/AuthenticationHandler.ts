@@ -1,35 +1,34 @@
 import { jwtDecode } from 'jwt-decode';
-import JsonWebToken from '../models/JsonWebToken';
+import JsonWebToken from '../../models/JsonWebToken';
 
 class AuthenticationHandler {
-  private token: string | null;
-
   getToken() {
-    return this.token;
+    return localStorage.getItem('token');
   }
 
-  constructor() {
-    this.token = localStorage.getItem('token');
+  setToken(jwt: string) {
+    localStorage.setItem('token', jwt);
   }
 
   isLoggedIn() {
-    if (!this.token) {
+    const token = this.getToken();
+    if (!token) {
       return false;
     }
     return true;
   }
 
   getUserName(): string | null {
-    if (!this.token) {
+    const token = this.getToken();
+    if (!token) {
       return null;
     }
 
-    return jwtDecode<JsonWebToken>(this.token).name;
+    return jwtDecode<JsonWebToken>(token).name;
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.token = null;
   }
 }
 

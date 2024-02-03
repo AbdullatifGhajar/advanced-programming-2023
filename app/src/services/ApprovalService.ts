@@ -1,15 +1,18 @@
-import axios from 'axios';
 import Approval from '../models/Approval';
 
+import Api from './Api';
+
 class ApprovalService {
-  url: string = 'http://localhost:8081/approvals';
+  private url = 'approvals';
+  private api = new Api();
+
   // async getApproval(id: string): Promise<Approval> {
-  //   const response = await axios.get(`${this.url}/${id}`);
+  //   const response = await this.api.get(`${this.url}/${id}`);
   //   return response.data;
   // }
 
   async saveApproval(approval: Approval): Promise<void> {
-    await axios.post(`${this.url}/${approval.id}/edit`, approval);
+    await this.api.post(`${this.url}/${approval.id}/edit`, approval);
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthenticationHandler from './AuthenticationHandler';
 
-import { UserRole } from '../models/User';
+import { UserRole } from '../../models/User';
 
 interface ProtectedRoutesProps {
   routes: React.ReactNode;

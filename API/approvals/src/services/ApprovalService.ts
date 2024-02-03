@@ -57,7 +57,7 @@ class ApprovalService {
       where: {
         id: tutorId,
         approvals: {
-          isGiven: false,
+          isGiven: false || undefined,
         },
       },
     });
@@ -65,8 +65,6 @@ class ApprovalService {
     if (!tutor) {
       throw new Error('Tutor not found');
     }
-
-    console.log(tutor);
 
     // get for every studentId the count of documents {"studentId": "documentCount"}
     const documentCountPerStudent = _.countBy(
@@ -105,7 +103,7 @@ class ApprovalService {
           tutor: {
             id: tutorId,
           },
-          isGiven: false,
+          isGiven: false || undefined,
         },
       },
     });

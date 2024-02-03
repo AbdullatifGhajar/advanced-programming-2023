@@ -1,18 +1,20 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
+import User from '../models/User';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import UserMenu from './UserMenu';
 import LoginButton from './buttons/LoginButton';
 
 interface HeaderProps {
-  username: string | null;
+  user: User | undefined;
   navigationButtons?: React.ReactNode;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  username,
+  user,
   navigationButtons: actionButtons,
 }) => {
   return (
@@ -29,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
           <Box>{actionButtons}</Box>
 
           {/* LOGIN BUTTON OR USER MENU */}
-          {username ? <UserMenu username={username} /> : <LoginButton />}
+          {user ? <UserMenu username={user.name} /> : <LoginButton />}
         </Toolbar>
       </AppBar>
     </Box>

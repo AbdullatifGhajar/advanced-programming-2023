@@ -1,21 +1,24 @@
-import axios from 'axios';
-import DocumentModel from '../models/Document';
+import Document from '../models/Document';
+
+import Api from './Api';
 
 class DocumentService {
-  url: string = 'http://localhost:8081/documents';
-  async getDocument(id: string | undefined): Promise<DocumentModel> {
+  private url = 'documents';
+  private api = new Api();
+
+  async getDocument(id: string | undefined): Promise<Document> {
     if (!id) {
       throw new Error('Document ID is undefined');
     }
-    const response = await axios.get(`${this.url}/${id}`);
-    return response.data;
+    const response = await this.api.get(`${this.url}/${id}`);
+    return response.data as Document;
   }
 
-  async saveDocument(document: DocumentModel): Promise<void> {
+  async saveDocument(document: Document): Promise<void> {
     document.fields.forEach((field) => {
       delete (field as { type?: unknown }).type; // remove attribute 'type'
     });
-    await axios.post(`${this.url}/${document.id}/edit`, document.fields);
+    await this.api.post(`${this.url}/${document.id}/edit`, document.fields);
   }
 }
 

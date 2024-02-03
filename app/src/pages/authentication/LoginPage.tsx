@@ -10,10 +10,13 @@ import Typography from '@mui/material/Typography';
 import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 import CenteredElement from '../../components/CenteredElement';
+import AuthenticationService from '../../services/AuthenticationService';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const authenticationService = new AuthenticationService();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,34 +31,11 @@ const LoginPage = () => {
       return;
     }
 
-    const loginData = {
-      email,
-      password,
-    };
-
-    fetch('http://localhost:8081/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Error during login');
-        }
-      })
-      .then((jwt) => {
-        localStorage.setItem('token', jwt);
-        console.log('Login successful!');
-        if (location.state && location.state.origin) {
-          navigate(location.state.origin);
-        } else {
-          navigate('/');
-        }
-      })
+    authenticationService
+      .login(email, password)
+      .then(() => {
+        navigate('/');
+      }) // TODO: navigate to history location or home
       .catch((error) => {
         console.error('Error during API request:', error);
       });
