@@ -8,10 +8,21 @@ import Register from './pages/authentication/RegisterPage';
 import StudentRoutes from './pages/student/StudentRoutes';
 import TutorRoutes from './pages/tutor/TutorRoutes';
 
-import { UserRole } from './models/User';
-import ProtectRoutes from './services/authentication/ProtectedRoutes';
-
 function App() {
+  // const [user, setUser] = useState<User>();
+
+  // useEffect(() => {
+  //   const authenticationService = new AuthenticationService();
+  //   authenticationService
+  //     .userInfo()
+  //     .then((data) => {
+  //       setUser(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // });
+
   return (
     <Router>
       <Routes>
@@ -21,20 +32,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         {/* only allow students to access students routes, same for tutor */}
-        <Route
-          path="/student/*"
-          element={ProtectRoutes({
-            routes: <StudentRoutes />,
-            role: UserRole.Student,
-          })}
-        />
-        <Route
-          path="/tutor/*"
-          element={ProtectRoutes({
-            routes: <TutorRoutes />,
-            role: UserRole.Tutor,
-          })}
-        />
+        <Route path="/student/*" element={<StudentRoutes />} />
+        <Route path="/tutor/*" element={<TutorRoutes />} />
       </Routes>
     </Router>
   );

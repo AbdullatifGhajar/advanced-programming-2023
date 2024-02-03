@@ -3,7 +3,7 @@ import { HTMLAttributes, ReactNode, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
 
-import UsersButton from '../components/buttons/ApprovalsButton';
+import ApprovalsButton from '../components/buttons/ApprovalsButton';
 import DocumentsButton from '../components/buttons/DocumentsButton';
 import HomeButton from '../components/buttons/HomeButton';
 import AuthenticationService from '../services/AuthenticationService';
@@ -15,7 +15,6 @@ interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
@@ -35,10 +34,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Header
         user={user}
         navigationButtons={[
-          // TODO: based on the user role, show different buttons
           <HomeButton />,
-          <DocumentsButton />,
-          <UsersButton />,
+          user && user.role === 'student' && <DocumentsButton />,
+          user && user.role === 'tutor' && <ApprovalsButton />,
         ]}
       />
 
