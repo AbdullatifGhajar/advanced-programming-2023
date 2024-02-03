@@ -5,8 +5,32 @@ import { In } from 'typeorm';
 import Document from '../../../documents/src/entity/Document';
 import Student from '../../../users/src/entity/Student';
 import Tutor from '../../../users/src/entity/Tutor';
+import Approval from '../entity/Approval';
 
 class ApprovalService {
+  async approval(id: string): Promise<Approval> {
+    const db = await DB.getInstance();
+    const approval = await db.getRepository(Approval).findOne({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!approval) {
+      throw new Error('Approval not found');
+    }
+
+    return approval;
+  }
+  async saveApproval(approval: Approval) {
+    const db = await DB.getInstance();
+    await db
+      .createQueryBuilder()
+      .update(Approval)
+      .set(approval)
+      .where('id = :id', { id: approval.id })
+      .execute();
+  }
   async list(tutorId: number) {
     const db = await DB.getInstance();
     const tutor = await db.getRepository(Tutor).findOne({

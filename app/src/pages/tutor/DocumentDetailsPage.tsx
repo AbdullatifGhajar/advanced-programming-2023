@@ -7,6 +7,7 @@ import PageTitle from '../../components/PageTitle';
 
 import Approval from '../../models/Approval';
 import Document from '../../models/Document';
+import ApprovalService from '../../services/ApprovalService';
 import ApprovalSection from '../approvals/ApprovalSection';
 import DocumentDetails from '../documents/details/DocumentDetails';
 
@@ -42,6 +43,13 @@ const DocumentDetailsPage = () => {
     return setter;
   };
 
+  const handleSubmit = (index: number) => {
+    const approvalService = new ApprovalService();
+    return () => {
+      approvalService.saveApproval(document.approvals[index]);
+    };
+  };
+
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
       <PageTitle title={document.name} backButton={true} />
@@ -52,7 +60,7 @@ const DocumentDetailsPage = () => {
           <ApprovalSection
             approval={approval}
             setApproval={setApproval(index)}
-            handleSubmit={() => {}} // TODO: save the approval to the backend
+            handleSubmit={handleSubmit(index)}
           />
         );
       })}
