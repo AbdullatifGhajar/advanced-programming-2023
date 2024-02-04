@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "ts-node index.ts",
     "test": "jest --runInBand --coverage",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
