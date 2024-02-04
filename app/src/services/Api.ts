@@ -3,7 +3,7 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from 'axios';
-import AuthenticationHandler from './authentication/AuthenticationHandler';
+import AuthenticationTokenHandler from './authentication/AuthenticationTokenHandler';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -12,10 +12,10 @@ class Api {
     baseURL: 'http://localhost:8081/',
   });
 
-  private authHandler: AuthenticationHandler;
+  private authHandler: AuthenticationTokenHandler;
 
   constructor() {
-    this.authHandler = new AuthenticationHandler();
+    this.authHandler = new AuthenticationTokenHandler();
     this.apiInstance.interceptors.request.use(
       (config: AxiosRequestConfig) =>
         this.handleRequest(config) as InternalAxiosRequestConfig,
@@ -26,7 +26,7 @@ class Api {
   private handleRequest = (
     config: AxiosRequestConfig<any>,
   ): AxiosRequestConfig<any> => {
-    if (this.authHandler.isLoggedIn()) {
+    if (this.authHandler.hasToken()) {
       config.headers = {
         ...config.headers,
         Authorization: `Bearer ${this.authHandler.getToken()}`,
@@ -38,7 +38,7 @@ class Api {
 
   private handleError = (error: AxiosError) => {
     if (error.response?.status === 401) {
-      this.authHandler.logout();
+      this.authHandler.removeToken();
       const navigate = useNavigate();
       navigate('/login');
     }

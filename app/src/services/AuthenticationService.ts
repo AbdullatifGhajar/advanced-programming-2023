@@ -1,12 +1,12 @@
 import User from '../models/User';
 
 import Api from './Api';
-import AuthenticationHandler from './authentication/AuthenticationHandler';
+import AuthenticationTokenHandler from './authentication/AuthenticationTokenHandler';
 
 class AuthenticationService {
   private url = 'users';
   private api = new Api();
-  private authenticationHandler = new AuthenticationHandler();
+  private authenticationHandler = new AuthenticationTokenHandler();
 
   async login(email: string, password: string): Promise<void> {
     const response = await this.api.post(`${this.url}/login`, {
@@ -30,6 +30,10 @@ class AuthenticationService {
   async userInfo(): Promise<User> {
     const response = await this.api.get(`${this.url}/me`);
     return response.data;
+  }
+
+  logout() {
+    this.authenticationHandler.removeToken();
   }
 }
 

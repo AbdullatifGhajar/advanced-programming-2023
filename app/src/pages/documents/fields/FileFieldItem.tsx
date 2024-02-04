@@ -35,8 +35,8 @@ const FileFieldItem: React.FC<FileFieldProps> = ({
     if (!rawFile) return;
 
     uploadFile(rawFile)
-      .then((file) => {
-        setField({ ...fileField, file });
+      .then((fileName) => {
+        setField({ ...fileField, file: fileName });
       })
       .catch((error) => {
         console.error('Error:', error);
