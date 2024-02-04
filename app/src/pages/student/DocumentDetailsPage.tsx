@@ -15,7 +15,7 @@ const DocumentDetailsPage = () => {
   const [document, setDocument] = useState<Document | null>(null);
 
   const documentService = new DocumentService();
-  
+
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (documentId == null) return;

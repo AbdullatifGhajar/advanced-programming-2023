@@ -53,7 +53,7 @@ const FileFieldItem: React.FC<FileFieldProps> = ({
       InputProps={{
         endAdornment: (
           <>
-            {disabled && (
+            {!disabled && (
               <Button component="label" variant="contained" color="primary">
                 {filename ? 'Change' : 'Upload'}
                 <input
