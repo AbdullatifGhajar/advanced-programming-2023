@@ -30,9 +30,9 @@ test('Clicking on a document leads to editing it', async ({ page }) => {
 test('In document overview you see all fields of the document', async ({
   page,
 }) => {
-  await page.goto('/student/documents/1');
+  await page.goto('/student/documents/2');
 
-  await expect(page.getByLabel('name')).toHaveValue('John');
+  await expect(page.getByLabel('major')).toHaveValue('Software Engineering');
 });
 
 test('Editing a field will save it in the database', async ({ page }) => {
