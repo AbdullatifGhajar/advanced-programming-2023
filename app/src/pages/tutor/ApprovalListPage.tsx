@@ -3,21 +3,19 @@ import React from 'react';
 import PageTitle from '../../components/PageTitle';
 
 import UserListItem from '../../components/users/UserListItem';
-import User from '../../models/User';
+import ApprovalService from '../../services/ApprovalService';
 
-interface DocumentsForStudent {
-  student: User;
-  documentCount: number;
-}
+import { StudentWithDocumentCount } from '../../models/User';
 
 const ApprovalListPage = () => {
   const [documentsForStudents, setDocumentsForStudents] = React.useState<
-    DocumentsForStudent[]
+    StudentWithDocumentCount[]
   >([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:8081/approvals/students')
-      .then((response) => response.json())
+    const approvalService = new ApprovalService();
+    approvalService
+      .fetchStudentsWithDocumentCount()
       .then((data) => {
         console.log('Success:', data);
         setDocumentsForStudents(data);

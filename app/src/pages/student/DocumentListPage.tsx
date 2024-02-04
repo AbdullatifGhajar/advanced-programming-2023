@@ -10,7 +10,6 @@ const DocumentListPage = () => {
     DocumentOverview[]
   >([]);
 
-
   React.useEffect(() => {
     const documentService = new DocumentService();
     documentService

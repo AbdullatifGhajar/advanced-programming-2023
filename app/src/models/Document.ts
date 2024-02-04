@@ -1,7 +1,7 @@
 import Approval from './Approval';
 import { AnyField } from './Field';
 
-interface DocumentModel {
+interface Document {
   id: string;
   name: string;
   fields: AnyField[];
@@ -9,4 +9,4 @@ interface DocumentModel {
   approvals: Approval[];
 }
 
-export default DocumentModel;
+export default Document;

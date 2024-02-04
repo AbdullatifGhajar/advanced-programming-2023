@@ -14,7 +14,6 @@ const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-
   useEffect(() => {
     if (documentId == null) return;
 
