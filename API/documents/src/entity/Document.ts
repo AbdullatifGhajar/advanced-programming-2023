@@ -1,16 +1,16 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  CreateDateColumn,
+  Entity,
   JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
-  CreateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import Approval from '../../../approvals/src/entity/Approval';
+import Student from '../../../users/src/entity/Student';
 import Field from './Field';
-import User from '../../../users/src/entity/User';
-import Approval from './Approval';
 
 @Entity()
 class Document {
@@ -27,8 +27,8 @@ class Document {
   @JoinTable()
   fields!: Field[];
 
-  @ManyToOne(() => User)
-  user!: User;
+  @ManyToOne(() => Student, (student) => student.documents)
+  student!: Student;
 
   @OneToMany(() => Approval, (approval) => approval.document)
   approvals!: Approval[];

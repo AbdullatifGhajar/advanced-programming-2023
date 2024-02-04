@@ -1,23 +1,28 @@
+import { Box, Card, CardContent, ListItem } from '@mui/material';
 import React from 'react';
-import { ListItem, Card, CardContent, Box } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
 import DocumentOverview from '../../../models/DocumentOverview';
-import DocumentListItemApprovalSection from './DocumentListItemApprovalSection';
+import ApprovalSummary from '../../approvals/ApprovalSummary';
 import DocumentListItemMainSection from './DocumentListItemMainSection';
 
 interface DocumentListItemProps {
   documentOverview: DocumentOverview;
-  onClick: (id: string) => void;
 }
 
 const DocumentListItem: React.FC<DocumentListItemProps> = ({
   documentOverview,
-  onClick,
 }) => {
+  const navigate = useNavigate();
+
+  const handleDocumentClick = (id: string) => {
+    navigate(`${id}`);
+  };
+
   return (
     <ListItem key={documentOverview.id}>
       <Card
-        onClick={() => onClick(documentOverview.id)}
+        onClick={() => handleDocumentClick(documentOverview.id)}
         sx={{ width: '100%', cursor: 'pointer' }}
       >
         <CardContent>
@@ -28,9 +33,9 @@ const DocumentListItem: React.FC<DocumentListItemProps> = ({
             justifyContent={'space-between'}
           >
             <DocumentListItemMainSection documentOverview={documentOverview} />
-            <DocumentListItemApprovalSection
-              approvals={documentOverview.approvals}
-            />
+            {documentOverview.approvals && (
+              <ApprovalSummary approvals={documentOverview.approvals} />
+            )}
           </Box>
         </CardContent>
       </Card>

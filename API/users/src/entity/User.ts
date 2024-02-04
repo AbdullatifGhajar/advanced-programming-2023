@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import {
-  PrimaryGeneratedColumn,
+  BeforeInsert,
   Column,
   Entity,
+  PrimaryGeneratedColumn,
   TableInheritance,
-  BeforeInsert,
 } from 'typeorm';
 
 @Entity()
@@ -28,9 +28,10 @@ abstract class User {
   }
 
   toJSON() {
+    const { password, ...rest } = this; // remove password from the returned object
     return {
-      ...this,
-      role: this.role,
+      ...rest,
+      role: this.role, // add role to the returned object
     };
   }
 

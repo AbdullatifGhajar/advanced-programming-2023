@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+import Document from '../../../documents/src/entity/Document';
 import Tutor from '../../../users/src/entity/Tutor';
-import Document from './Document';
 
 @Entity()
 export class Approval {
@@ -11,8 +11,11 @@ export class Approval {
   @ManyToOne(() => Tutor, (tutor) => tutor.approvals)
   tutor!: Tutor;
 
-  @Column({ default: false })
-  isGiven!: boolean;
+  @Column({ nullable: true })
+  isGiven?: boolean;
+
+  @Column({ default: '' })
+  comment!: string;
 
   @ManyToOne(() => Document, (document) => document.approvals)
   document!: Document;

@@ -1,5 +1,5 @@
-import Document from '../entity/Document';
 import DB from '../../../db/DB';
+import Document from '../entity/Document';
 import Field from '../entity/Field';
 
 class DocumentService {
@@ -25,6 +25,7 @@ class DocumentService {
         approvals: {
           tutor: true,
         },
+        student: true,
       },
     });
   }

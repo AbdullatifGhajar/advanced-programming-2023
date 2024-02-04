@@ -58,7 +58,7 @@ lint:				## Run the the formatter and the linter
 	@echo "------- Running the Formatter --------"
 	@npm run format
 	@echo "------- Running the Linter --------"
-	@npm run lint
+	@npm run lint -- --fix
 
 .PHONY: docker-start
 docker-start:			## Start the docker containers

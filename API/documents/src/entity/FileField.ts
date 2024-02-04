@@ -1,4 +1,4 @@
-import { JoinColumn, ChildEntity, OneToOne } from 'typeorm';
+import { ChildEntity, JoinColumn, OneToOne } from 'typeorm';
 import Field from './Field';
 
 import File from '../../../files/src/entity/File';

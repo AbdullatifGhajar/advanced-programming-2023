@@ -1,19 +1,21 @@
-import React from 'react';
 import { TextField as TextFieldComponent } from '@mui/material';
+import React from 'react';
 
 import { AnyField, TextField } from '../../../models/Field';
 import FieldError from './FieldError';
 
-type TextFieldProps = {
+interface TextFieldProps {
   textField: TextField;
-  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
+  setField: React.Dispatch<React.SetStateAction<AnyField>>;
   setFieldErrors: React.Dispatch<React.SetStateAction<FieldError>>;
-};
+  disabled?: boolean;
+}
 
 const TextFieldItem: React.FC<TextFieldProps> = ({
   textField,
-  setFields,
+  setField,
   setFieldErrors,
+  disabled = false,
 }) => {
   const validate = (value: string) => {
     let errorMessages: string[] = [];
@@ -30,21 +32,14 @@ const TextFieldItem: React.FC<TextFieldProps> = ({
       return updatedErrors;
     });
 
-    setFields((prevFields) => {
-      const updatedFields = prevFields.map((field) => {
-        if (field.id === textField.id) {
-          return { ...field, value: newValue } as TextField;
-        }
-        return field;
-      });
+    console.log('handleFieldChange', newValue);
 
-      return updatedFields;
-    });
+    // change only the value of the field
+    setField({ ...textField, value: newValue });
   };
 
   return (
     <TextFieldComponent
-      key={textField.id}
       id={textField.id}
       name={textField.name}
       label={textField.name}
@@ -52,6 +47,7 @@ const TextFieldItem: React.FC<TextFieldProps> = ({
       onChange={(event) => handleFieldChange(event.target.value)}
       fullWidth
       margin="normal"
+      disabled={disabled}
     />
   );
 };

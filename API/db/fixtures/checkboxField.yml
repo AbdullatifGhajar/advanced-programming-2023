@@ -2,7 +2,6 @@ entity: CheckboxField
 items:
   happyField:
     name: 'Happy?'
-    value: true
+    isChecked: true
   readyField:
     name: 'Ready?'
-    value: false

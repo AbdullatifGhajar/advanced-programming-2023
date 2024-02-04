@@ -1,7 +1,7 @@
 import {
-  PrimaryGeneratedColumn,
   Column,
   Entity,
+  PrimaryGeneratedColumn,
   TableInheritance,
 } from 'typeorm';
 

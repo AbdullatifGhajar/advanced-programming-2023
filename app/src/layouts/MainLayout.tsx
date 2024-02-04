@@ -1,32 +1,45 @@
-import React from 'react';
-import { HTMLAttributes, ReactNode, useEffect } from 'react';
+import { HTMLAttributes, ReactNode, useEffect, useState } from 'react';
 
 import Header from '../components/Header';
 import PageBody from '../components/PageBody';
-import { useNavigate } from 'react-router-dom';
 
-import AuthenticationHandler from '../services/AuthenticationHandler';
+import ApprovalsButton from '../components/buttons/ApprovalsButton';
+import DocumentsButton from '../components/buttons/DocumentsButton';
+import HomeButton from '../components/buttons/HomeButton';
+import AuthenticationService from '../services/AuthenticationService';
+
+import User from '../models/User';
 
 interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const [username, setUsername] = React.useState('');
+  const [user, setUser] = useState<User>();
 
-  const navigate = useNavigate();
   useEffect(() => {
-    const authenticationHandler = new AuthenticationHandler(navigate);
-    if (!authenticationHandler.isLoggedIn()) {
-      authenticationHandler.redirect();
-    } else {
-      setUsername(authenticationHandler.getUserName());
-    }
-  }, [navigate]);
+    const authenticationService = new AuthenticationService();
+    authenticationService
+      .userInfo()
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <>
-      <Header username={username} />
+      <Header
+        user={user}
+        navigationButtons={[
+          <HomeButton />,
+          user && user.role === 'student' && <DocumentsButton />,
+          user && user.role === 'tutor' && <ApprovalsButton />,
+        ]}
+      />
+
       <PageBody>{children}</PageBody>
     </>
   );

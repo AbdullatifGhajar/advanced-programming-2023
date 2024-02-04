@@ -1,14 +1,19 @@
+import { Button, TextField } from '@mui/material';
 import React, { ChangeEvent } from 'react';
-import { TextField, Button } from '@mui/material';
 
 import { AnyField, FileField, File as FileModel } from '../../../models/Field';
 
 type FileFieldProps = {
   fileField: FileField;
-  setFields: React.Dispatch<React.SetStateAction<AnyField[]>>;
+  setField: React.Dispatch<React.SetStateAction<AnyField>>;
+  disabled?: boolean;
 };
 
-const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
+const FileFieldItem: React.FC<FileFieldProps> = ({
+  fileField,
+  setField,
+  disabled = false,
+}) => {
   const filename = fileField.file?.name;
 
   const uploadFile = async (file: File): Promise<FileModel> => {
@@ -31,16 +36,7 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
 
     uploadFile(rawFile)
       .then((file) => {
-        setFields((prevFields) => {
-          const updatedFields = prevFields.map((field) => {
-            if (field.id === fileField.id) {
-              return { ...field, file } as FileField;
-            }
-            return field;
-          });
-
-          return updatedFields;
-        });
+        setField({ ...fileField, file });
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -56,15 +52,19 @@ const FileFieldItem: React.FC<FileFieldProps> = ({ fileField, setFields }) => {
       margin="normal"
       InputProps={{
         endAdornment: (
-          <Button component="label" variant="contained" color="primary">
-            {filename ? 'Change' : 'Upload'}
-            <input
-              type="file"
-              hidden
-              multiple={false}
-              onChange={handleFieldChange}
-            />
-          </Button>
+          <>
+            {disabled && (
+              <Button component="label" variant="contained" color="primary">
+                {filename ? 'Change' : 'Upload'}
+                <input
+                  type="file"
+                  hidden
+                  multiple={false}
+                  onChange={handleFieldChange}
+                />
+              </Button>
+            )}
+          </>
         ),
       }}
     />

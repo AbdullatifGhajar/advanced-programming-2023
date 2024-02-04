@@ -1,6 +1,6 @@
 import { ChildEntity, OneToMany } from 'typeorm';
+import Approval from '../../../approvals/src/entity/Approval';
 import User from './User';
-import Approval from '../../../documents/src/entity/Approval';
 
 @ChildEntity()
 class Tutor extends User {

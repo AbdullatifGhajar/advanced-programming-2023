@@ -1,19 +1,23 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import CenteredElement from '../../components/CenteredElement';
+import AuthenticationLayout from '../../layouts/AuthenticationLayout';
+import AuthenticationService from '../../services/AuthenticationService';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const [nameError, setNameError] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
-  const navigate = useNavigate();
+
+  const authenticationService = new AuthenticationService();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,33 +53,13 @@ const RegisterPage = () => {
       return;
     }
 
-    const registrationData = {
-      name,
-      email,
-      password,
-    };
-
-    fetch('http://localhost:8081/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(registrationData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Error during registration');
-        }
-      })
-      .then((jwt) => {
-        localStorage.setItem('token', jwt);
-        console.log('Registration successful!');
+    authenticationService
+      .register(name, email, password)
+      .then(() => {
         navigate('/');
       })
       .catch((error) => {
-        console.error('API request error:', error);
+        console.error('Error during API request:', error);
       });
   };
 

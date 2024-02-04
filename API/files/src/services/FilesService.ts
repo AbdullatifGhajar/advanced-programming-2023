@@ -1,7 +1,7 @@
-import path from 'path';
 import { Request, Response } from 'express';
-import FilesUploader from './FilesUploader';
+import path from 'path';
 import DB from '../../../db/DB';
+import FilesUploader from './FilesUploader';
 
 import File from '../entity/File';
 

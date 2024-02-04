@@ -17,7 +17,7 @@ export interface TextField extends FieldModel {
 
 export interface CheckboxField extends FieldModel {
   type: FieldType.Checkbox;
-  value: boolean;
+  isChecked: boolean;
 }
 
 export interface File {
