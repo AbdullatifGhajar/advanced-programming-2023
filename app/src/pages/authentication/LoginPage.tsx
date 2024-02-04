@@ -7,8 +7,6 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import AuthenticationLayout from '../../layouts/AuthenticationLayout';
-
 import CenteredElement from '../../components/CenteredElement';
 import AuthenticationService from '../../services/AuthenticationService';
 
@@ -42,7 +40,7 @@ const LoginPage = () => {
   };
 
   return (
-    <AuthenticationLayout>
+    <>
       <Typography component="h1" variant="h5">
         Login
       </Typography>
@@ -90,7 +88,7 @@ const LoginPage = () => {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationLayout>
+    </>
   );
 };
 

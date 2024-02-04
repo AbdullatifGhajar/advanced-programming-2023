@@ -3,9 +3,9 @@ import PageTitle from '../../components/PageTitle';
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import UserListItem from '../users/UserListItem';
+import UserListItem from '../../components/users/UserListItem';
 
-import DocumentListItem from '../documents/list/DocumentListItem';
+import DocumentListItem from '../../components/documents/list/DocumentListItem';
 
 import Document from '../../models/Document';
 import User from '../../models/User';

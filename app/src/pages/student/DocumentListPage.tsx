@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import PageTitle from '../../components/PageTitle';
+import DocumentList from '../../components/documents/list/DocumentList';
 import DocumentOverview from '../../models/DocumentOverview';
-import DocumentList from '../documents/list/DocumentList';
 
 const DocumentListPage = () => {
   const [documentOverviewList, setDocumentOverviewList] = React.useState<

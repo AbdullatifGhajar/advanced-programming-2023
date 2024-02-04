@@ -2,8 +2,8 @@ import { Box, List } from '@mui/material';
 import React from 'react';
 import PageTitle from '../../components/PageTitle';
 
+import UserListItem from '../../components/users/UserListItem';
 import User from '../../models/User';
-import UserListItem from '../users/UserListItem';
 
 interface DocumentsForStudent {
   student: User;

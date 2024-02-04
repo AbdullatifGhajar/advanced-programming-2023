@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 
+import ApprovalSection from '../../components/approvals/ApprovalSection';
+import DocumentDetails from '../../components/documents/details/DocumentDetails';
 import Approval from '../../models/Approval';
 import Document from '../../models/Document';
 import ApprovalService from '../../services/ApprovalService';
-import ApprovalSection from '../approvals/ApprovalSection';
-import DocumentDetails from '../documents/details/DocumentDetails';
 
 const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();

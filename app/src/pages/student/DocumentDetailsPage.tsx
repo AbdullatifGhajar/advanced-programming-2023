@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 
+import ApprovalDetails from '../../components/approvals/ApprovalList';
+import DocumentDetails from '../../components/documents/details/DocumentDetails';
 import Document from '../../models/Document';
 import DocumentService from '../../services/DocumentService';
-import ApprovalDetails from '../approvals/ApprovalList';
-import DocumentDetails from '../documents/details/DocumentDetails';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();

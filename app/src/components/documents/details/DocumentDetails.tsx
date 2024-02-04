@@ -13,7 +13,7 @@ import TextFieldItem from '../fields/TextFieldItem';
 import { Button } from '@mui/material';
 
 import React from 'react';
-import CenteredElement from '../../../components/CenteredElement';
+import CenteredElement from '../../CenteredElement';
 import FieldError from '../fields/FieldError';
 
 import Document from '../../../models/Document';

@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 
 import CenteredElement from '../../components/CenteredElement';
-import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 
 const ForgotPassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +20,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthenticationLayout>
+    <>
       <Typography component="h1" variant="h5">
         Forgot Password
       </Typography>
@@ -55,7 +54,7 @@ const ForgotPassword = () => {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationLayout>
+    </>
   );
 };
 
