@@ -14,10 +14,12 @@ const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
+  const documentService = new DocumentService();
+  
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (documentId == null) return;
 
-    const documentService = new DocumentService();
     documentService
       .fetchDocument(documentId)
       .then((document) => {
@@ -32,7 +34,6 @@ const DocumentDetailsPage = () => {
   if (!document) return null;
 
   const saveDocument = async () => {
-    const documentService = new DocumentService();
     documentService.saveDocument(document);
   };
 

@@ -16,10 +16,13 @@ const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
+  const documentService = new DocumentService();
+  const approvalService = new ApprovalService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (documentId == null) return;
 
-    const documentService = new DocumentService();
     documentService
       .fetchDocument(documentId)
       .then((data) => {
@@ -45,7 +48,6 @@ const DocumentDetailsPage = () => {
   };
 
   const handleSubmit = (index: number) => {
-    const approvalService = new ApprovalService();
     return () => {
       approvalService.saveApproval(document.approvals[index]);
     };

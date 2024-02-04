@@ -17,8 +17,10 @@ interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const [user, setUser] = useState<User>();
 
+  const authenticationService = new AuthenticationService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    const authenticationService = new AuthenticationService();
     authenticationService
       .userInfo()
       .then((data) => {

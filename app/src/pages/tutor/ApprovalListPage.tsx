@@ -12,8 +12,10 @@ const ApprovalListPage = () => {
     StudentWithDocumentCount[]
   >([]);
 
+  const approvalService = new ApprovalService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    const approvalService = new ApprovalService();
     approvalService
       .fetchStudentsWithDocumentCount()
       .then((data) => {

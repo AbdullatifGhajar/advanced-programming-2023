@@ -10,8 +10,10 @@ const DocumentListPage = () => {
     DocumentOverview[]
   >([]);
 
+  const documentService = new DocumentService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    const documentService = new DocumentService();
     documentService
       .fetchDocumentOverview()
       .then((data) => {

@@ -19,6 +19,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
   );
   const open = Boolean(userOptionMenu);
 
+  const authenticationService = new AuthenticationService();
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuOptions(event.currentTarget);
   };
@@ -28,7 +30,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
   };
 
   const handleLoggedOut = () => {
-    const authenticationService = new AuthenticationService();
     authenticationService.logout();
     navigate('/');
   };
