@@ -9,6 +9,7 @@ import Login from './pages/authentication/LoginPage';
 import ForgotPassword from './pages/authentication/ForgotPasswordPage';
 import AdminSpace from './pages/admin/AdminSpace';
 import AdminInternshipForm from './pages/admin/AdminInternshipForm';
+import ManageInternships from './pages/admin/ManageInterships';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/documents/:id" element={<DocumentDetailsPage />} />
           <Route path="/adminSpace" element={<AdminSpace />} />
           <Route path="/admin-internship-form" element={<AdminInternshipForm />} />
+          <Route path="/manage-internships" element={<ManageInternships />} />
 
         </Routes>
       </Router>

@@ -85,7 +85,7 @@ const AdminSpace = () => {
           <Link href="/admin-internship-form">Add a new internship</Link>
         </Button>
         <Button style={manageButtonStyle} variant="contained">
-          <Link href="/admin-internship-form">Manage internships</Link>
+          <Link href="/manage-internships">Manage internships</Link>
         </Button>
         <Button style={deleteButtonStyle} variant="contained">
           Delete an internship
