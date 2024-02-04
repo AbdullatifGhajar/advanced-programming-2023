@@ -10,17 +10,19 @@ import DocumentDetails from '../../components/documents/details/DocumentDetails'
 import Approval from '../../models/Approval';
 import Document from '../../models/Document';
 import ApprovalService from '../../services/ApprovalService';
+import DocumentService from '../../services/DocumentService';
 
 const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-  // Fetch form template from backend
+
   useEffect(() => {
     if (documentId == null) return;
 
-    fetch(`http://localhost:8081/documents/${documentId}`)
-      .then((response) => response.json())
+    const documentService = new DocumentService();
+    documentService
+      .fetchDocument(documentId)
       .then((data) => {
         setDocument(data);
       })

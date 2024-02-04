@@ -3,15 +3,18 @@ import React from 'react';
 import PageTitle from '../../components/PageTitle';
 import DocumentList from '../../components/documents/list/DocumentList';
 import DocumentOverview from '../../models/DocumentOverview';
+import DocumentService from '../../services/DocumentService';
 
 const DocumentListPage = () => {
   const [documentOverviewList, setDocumentOverviewList] = React.useState<
     DocumentOverview[]
   >([]);
 
+
   React.useEffect(() => {
-    fetch('http://localhost:8081/documents')
-      .then((response) => response.json())
+    const documentService = new DocumentService();
+    documentService
+      .fetchDocumentOverview()
       .then((data) => {
         setDocumentOverviewList(data);
       })

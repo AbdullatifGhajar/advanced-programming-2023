@@ -14,14 +14,15 @@ const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-  // Fetch form template from backend
+
   useEffect(() => {
     if (documentId == null) return;
 
-    fetch(`http://localhost:8081/documents/${documentId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDocument(data);
+    const documentService = new DocumentService();
+    documentService
+      .fetchDocument(documentId)
+      .then((document) => {
+        setDocument(document);
       })
       .catch((error) => {
         console.error('Error:', error);
