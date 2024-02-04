@@ -40,6 +40,9 @@ jobs:
           ADD_DATA: ${{ vars.ADD_DATA }}
         run: docker-compose up -d --build
 
+      - name: Wait for containers to start
+        run: sleep 30
+
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
