@@ -9,8 +9,8 @@ const AuthenticationRoutes = () => {
   return (
     <AuthenticationLayout>
       <Routes>
-        <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
     </AuthenticationLayout>

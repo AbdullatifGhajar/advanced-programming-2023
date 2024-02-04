@@ -13,8 +13,8 @@ import TextFieldItem from '../fields/TextFieldItem';
 import { Button } from '@mui/material';
 
 import React from 'react';
+import FieldError from '../../../models/FieldError';
 import CenteredElement from '../../CenteredElement';
-import FieldError from '../fields/FieldError';
 
 import Document from '../../../models/Document';
 import CheckboxFieldItem from '../fields/CheckboxFieldItem';

@@ -2,7 +2,7 @@ import { TextField as TextFieldComponent } from '@mui/material';
 import React from 'react';
 
 import { AnyField, TextField } from '../../../models/Field';
-import FieldError from './FieldError';
+import FieldError from '../../../models/FieldError';
 
 interface TextFieldProps {
   textField: TextField;

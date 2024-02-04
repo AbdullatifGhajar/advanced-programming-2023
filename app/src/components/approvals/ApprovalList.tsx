@@ -3,6 +3,8 @@ import React from 'react';
 import Approval from '../../models/Approval';
 import ApprovalListItem from './ApprovalListItem';
 
+import CenteredElement from '../CenteredElement';
+
 interface ApprovalListProps {
   approvals: Approval[];
 }
@@ -10,7 +12,9 @@ interface ApprovalListProps {
 const ApprovalList: React.FC<ApprovalListProps> = ({ approvals }) => {
   return (
     <Box>
-      <h1>ApprovalDetails</h1>
+      <CenteredElement>
+        <h2>ApprovalDetails</h2>
+      </CenteredElement>
       <List>
         {approvals.map((approval) => (
           <ApprovalListItem approval={approval} />

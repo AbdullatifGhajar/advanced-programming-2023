@@ -13,6 +13,7 @@ class Api {
   });
 
   private authHandler: AuthenticationTokenHandler;
+  private navigate = useNavigate();
 
   constructor() {
     this.authHandler = new AuthenticationTokenHandler();
@@ -39,8 +40,7 @@ class Api {
   private handleError = (error: AxiosError) => {
     if (error.response?.status === 401) {
       this.authHandler.removeToken();
-      const navigate = useNavigate();
-      navigate('/login');
+      this.navigate('/login');
     }
     return Promise.reject(error);
   };

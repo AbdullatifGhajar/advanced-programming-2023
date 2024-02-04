@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AuthenticationService from '../services/AuthenticationService';
+import AuthenticationService from '../../services/AuthenticationService';
 
 interface UserMenuProps {
   username: string;
