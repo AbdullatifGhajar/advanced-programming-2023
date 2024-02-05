@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import User from '../../../users/src/entity/User';
 import ApprovalService from '../services/ApprovalService';
 
 class ApprovalController {
@@ -22,16 +23,30 @@ class ApprovalController {
   }
   async approvalList(req: Request, res: Response) {
     const approvalService = new ApprovalService();
-    const tutorId = parseInt('42'); // TODO: replace with authentication token
+    const user: User = req.body.user;
+
+    if (user.role !== 'tutor') {
+      return res
+        .status(401)
+        .json({ status: 'Only tutors can perform this task}' });
+    }
+    const tutorId = user.id;
     return res.json(await approvalService.list(tutorId));
   }
 
   async approvalListForUser(req: Request, res: Response) {
     const approvalService = new ApprovalService();
-    const tutorId = parseInt('42'); // TODO: replace with authentication token
-    const userId = parseInt(req.params.id);
+    const user: User = req.body.user;
+
+    if (user.role !== 'tutor') {
+      return res
+        .status(401)
+        .json({ status: 'Only tutors can perform this task}' });
+    }
+    const tutorId = user.id;
+    const studentId = parseInt(req.params.id);
     return res.json(
-      await approvalService.documentsToApproveForStudent(tutorId, userId),
+      await approvalService.documentsToApproveForStudent(tutorId, studentId),
     );
   }
 }

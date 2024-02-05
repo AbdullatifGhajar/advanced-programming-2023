@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import moment from 'moment';
 import DB from '../../../db/DB';
-import User from '../entity/User';
+import User from '../../../users/src/entity/User';
 
 /* Ensures that user is authenticated when attached to a router 
 and adds user to the request body */
@@ -31,7 +31,7 @@ const AuthenticationHandler = async (
     .getOne();
 
   if (!user) {
-    return res.status(401).json({ status: 'Malformed login token' });
+    return res.status(401).json({ status: 'Please login (again)' });
   }
 
   req.body.user = user;

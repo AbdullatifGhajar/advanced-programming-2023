@@ -9,6 +9,7 @@ import DocumentListItem from '../../components/documents/list/DocumentListItem';
 
 import Document from '../../models/Document';
 import User from '../../models/User';
+import ApprovalService from '../../services/ApprovalService';
 
 interface StudentDetailsAndDocuments {
   student: User;
@@ -20,11 +21,14 @@ const StudentDetailsAndDocumentsPage = () => {
   const [detailsAndDocuments, setDetailsAndDocuments] =
     useState<StudentDetailsAndDocuments | null>(null);
 
+  const approvalService = new ApprovalService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (studentId == null) return;
 
-    fetch(`http://localhost:8081/approvals/students/${studentId}`)
-      .then((response) => response.json())
+    approvalService
+      .fetchStudentDetailsAndDocuments(studentId)
       .then((data) => {
         setDetailsAndDocuments(data);
       })
@@ -44,7 +48,9 @@ const StudentDetailsAndDocumentsPage = () => {
       />
       <UserListItem user={detailsAndDocuments.student} />
       {detailsAndDocuments.documents.map((document: Document) => {
-        return <DocumentListItem documentOverview={document} />;
+        return (
+          <DocumentListItem key={document.id} documentOverview={document} />
+        );
       })}
     </Box>
   );

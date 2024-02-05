@@ -12,6 +12,11 @@ class ApprovalService {
     return response.data;
   }
 
+  async fetchStudentDetailsAndDocuments(studentId: string) {
+    const response = await this.api.get(`${this.url}/students/${studentId}`);
+    return response.data;
+  }
+
   async saveApproval(approval: Approval): Promise<void> {
     await this.api.post(`${this.url}/${approval.id}/edit`, approval);
   }
