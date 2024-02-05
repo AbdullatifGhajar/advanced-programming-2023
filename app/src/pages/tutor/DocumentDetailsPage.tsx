@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 
@@ -61,6 +60,7 @@ const DocumentDetailsPage = () => {
         // TODO: only show sections for approvals that belongs to the tutor and are not yet approved
         return (
           <ApprovalSection
+            key={approval.id}
             approval={approval}
             setApproval={setApproval(index)}
             handleSubmit={handleSubmit(index)}

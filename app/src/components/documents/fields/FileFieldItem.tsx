@@ -4,13 +4,13 @@ import React, { ChangeEvent } from 'react';
 import { AnyField, FileField, File as FileModel } from '../../../models/Field';
 
 type FileFieldProps = {
-  fileField: FileField;
+  field: FileField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
   disabled?: boolean;
 };
 
 const FileFieldItem: React.FC<FileFieldProps> = ({
-  fileField,
+  field: fileField,
   setField,
   disabled = false,
 }) => {
@@ -46,7 +46,7 @@ const FileFieldItem: React.FC<FileFieldProps> = ({
   return (
     <TextField
       label={fileField.name}
-      value={filename || ''}
+      value={filename ?? ''}
       disabled
       fullWidth
       margin="normal"

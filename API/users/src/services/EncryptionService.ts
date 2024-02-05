@@ -24,7 +24,7 @@ class EncryptionService {
       sub: user.id,
       name: user.name,
     };
-    return await sign(payload, process.env.TOKEN_SECRET!);
+    return sign(payload, process.env.TOKEN_SECRET!);
   }
 }
 

@@ -8,11 +8,19 @@ export interface ApprovalStatusIconProps {
 }
 
 const ApprovalStatusIcon: React.FC<ApprovalStatusIconProps> = ({ isGiven }) => {
-  const [iconClass, color] = isGiven
-    ? [CheckCircle, green]
-    : isGiven === null
-      ? [AccessTimeFilled, yellow]
-      : [Cancel, red];
+  let iconClass;
+  let color;
+
+  if (isGiven) {
+    iconClass = CheckCircle;
+    color = green;
+  } else if (isGiven === null) {
+    iconClass = AccessTimeFilled;
+    color = yellow;
+  } else {
+    iconClass = Cancel;
+    color = red;
+  }
 
   return (
     <IconButton sx={{ color: color[500] }}>

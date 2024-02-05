@@ -9,7 +9,7 @@ interface ApprovalListItemProps {
 
 const ApprovalListItem: React.FC<ApprovalListItemProps> = ({ approval }) => {
   return (
-    <ListItem key={approval.id}>
+    <ListItem>
       <Card sx={{ width: '100%' }}>
         <CardContent>
           <Box

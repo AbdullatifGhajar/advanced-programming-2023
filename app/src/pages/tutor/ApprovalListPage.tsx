@@ -34,6 +34,7 @@ const ApprovalListPage = () => {
         {documentsForStudents.map((documentsForStudent) => {
           return (
             <UserListItem
+              key={documentsForStudent.student.id}
               user={documentsForStudent.student}
               documentCount={documentsForStudent.documentCount}
             />

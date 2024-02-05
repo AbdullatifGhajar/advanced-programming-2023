@@ -5,14 +5,14 @@ import { AnyField, TextField } from '../../../models/Field';
 import FieldError from '../../../models/FieldError';
 
 interface TextFieldProps {
-  textField: TextField;
+  field: TextField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
   setFieldErrors: React.Dispatch<React.SetStateAction<FieldError>>;
   disabled?: boolean;
 }
 
 const TextFieldItem: React.FC<TextFieldProps> = ({
-  textField,
+  field: textField,
   setField,
   setFieldErrors,
   disabled = false,

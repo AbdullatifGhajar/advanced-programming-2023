@@ -1,12 +1,11 @@
 import path from 'path';
 import { DataSource } from 'typeorm';
 
-import { join } from 'path';
 import { Builder, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 
 import MockDataSource from '../mock-data-source';
 
-const fixturePath = join(__dirname, './fixtures');
+const fixturePath = path.join(__dirname, './fixtures');
 
 export class MockDB {
   private static instance = MockDataSource;
@@ -33,7 +32,7 @@ export class MockDB {
       try {
         await dataSource.getRepository(fixture.entity).save(entity);
       } catch (e) {
-        throw e;
+        console.error(e);
       }
     }
   }

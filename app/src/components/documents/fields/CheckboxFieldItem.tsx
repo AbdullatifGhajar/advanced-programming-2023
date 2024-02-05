@@ -4,13 +4,13 @@ import React from 'react';
 import { AnyField, CheckboxField } from '../../../models/Field';
 
 type CheckboxFieldProps = {
-  checkboxField: CheckboxField;
+  field: CheckboxField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
   disabled?: boolean;
 };
 
 const CheckboxFieldItem: React.FC<CheckboxFieldProps> = ({
-  checkboxField,
+  field: checkboxField,
   setField,
   disabled = false,
 }) => {

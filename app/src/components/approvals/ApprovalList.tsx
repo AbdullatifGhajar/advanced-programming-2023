@@ -17,7 +17,7 @@ const ApprovalList: React.FC<ApprovalListProps> = ({ approvals }) => {
       </CenteredElement>
       <List>
         {approvals.map((approval) => (
-          <ApprovalListItem approval={approval} />
+          <ApprovalListItem key={approval.id} approval={approval} />
         ))}
       </List>
     </Box>

@@ -11,7 +11,7 @@ const AuthenticationHandler = async (
   res: Response,
   next: NextFunction,
 ) => {
-  if (!(req.headers && req.headers.authorization)) {
+  if (!req.headers?.authorization) {
     return res.status(401).json({ status: 'Please log in' });
   }
 
@@ -31,7 +31,9 @@ const AuthenticationHandler = async (
     .getOne();
 
   if (!user) {
-    return res.status(401).json({ status: 'Please login (again)' });
+    return res
+      .status(401)
+      .json({ status: 'Invalid authentication token. Log in again' });
   }
 
   req.body.user = user;

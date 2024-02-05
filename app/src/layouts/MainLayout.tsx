@@ -36,9 +36,13 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Header
         user={user}
         navigationButtons={[
-          <HomeButton />,
-          user && user.role === 'student' && <DocumentsButton />,
-          user && user.role === 'tutor' && <ApprovalsButton />,
+          <HomeButton key={'home-button'} />,
+          user && user.role === 'student' && (
+            <DocumentsButton key={'documents-button'} />
+          ),
+          user && user.role === 'tutor' && (
+            <ApprovalsButton key={'approvals-button'} />
+          ),
         ]}
       />
 
