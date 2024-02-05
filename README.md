@@ -20,6 +20,8 @@ Make sure you installed the database using `make install-db`.
 Open two terminals and run the following commands in each of them.
 `make run-backend` and `make run-frontend`
 
+You can find the frontend on `localhost:3000`
+
 ### Docker-Compose
 
 To run the project with docker-compose, run `make docker-start`. 
