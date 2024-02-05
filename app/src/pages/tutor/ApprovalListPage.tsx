@@ -2,22 +2,22 @@ import { Box, List } from '@mui/material';
 import React from 'react';
 import PageTitle from '../../components/PageTitle';
 
-import User from '../../models/User';
-import UserListItem from '../users/UserListItem';
+import UserListItem from '../../components/users/UserListItem';
+import ApprovalService from '../../services/ApprovalService';
 
-interface DocumentsForStudent {
-  student: User;
-  documentCount: number;
-}
+import { StudentWithDocumentCount } from '../../models/User';
 
 const ApprovalListPage = () => {
   const [documentsForStudents, setDocumentsForStudents] = React.useState<
-    DocumentsForStudent[]
+    StudentWithDocumentCount[]
   >([]);
 
+  const approvalService = new ApprovalService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    fetch('http://localhost:8081/approvals/students')
-      .then((response) => response.json())
+    approvalService
+      .fetchStudentsWithDocumentCount()
       .then((data) => {
         console.log('Success:', data);
         setDocumentsForStudents(data);
@@ -34,6 +34,7 @@ const ApprovalListPage = () => {
         {documentsForStudents.map((documentsForStudent) => {
           return (
             <UserListItem
+              key={documentsForStudent.student.id}
               user={documentsForStudent.student}
               documentCount={documentsForStudent.documentCount}
             />

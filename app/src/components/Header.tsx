@@ -5,8 +5,8 @@ import User from '../models/User';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import UserMenu from './UserMenu';
 import LoginButton from './buttons/LoginButton';
+import UserMenu from './users/UserMenu';
 
 interface HeaderProps {
   user: User | undefined;

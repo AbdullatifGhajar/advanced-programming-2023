@@ -1,20 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import {
-  AnyField,
-  CheckboxField,
-  FieldType,
-  FileField,
-  TextField,
-} from '../../../models/Field';
+import { AnyField, FieldType } from '../../../models/Field';
 
 import TextFieldItem from '../fields/TextFieldItem';
 
 import { Button } from '@mui/material';
 
-import React from 'react';
-import CenteredElement from '../../../components/CenteredElement';
-import FieldError from '../fields/FieldError';
+import FieldError from '../../../models/FieldError';
+import CenteredElement from '../../CenteredElement';
 
 import Document from '../../../models/Document';
 import CheckboxFieldItem from '../fields/CheckboxFieldItem';
@@ -48,7 +41,7 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
     if (field.type === FieldType.Text) {
       return (
         <TextFieldItem
-          textField={field as TextField}
+          field={field}
           setField={setField}
           setFieldErrors={setFieldErrors}
           disabled={isReadOnly}
@@ -57,7 +50,7 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
     } else if (field.type === FieldType.Checkbox) {
       return (
         <CheckboxFieldItem
-          checkboxField={field as CheckboxField}
+          field={field}
           setField={setField}
           disabled={isReadOnly}
         />
@@ -65,7 +58,7 @@ const DocumentDetails: React.FC<DocumentDetailsProps> = ({
     } else if (field.type === FieldType.File) {
       return (
         <FileFieldItem
-          fileField={field as FileField}
+          field={field}
           setField={setField}
           disabled={isReadOnly}
         />

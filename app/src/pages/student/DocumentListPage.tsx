@@ -1,17 +1,21 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import PageTitle from '../../components/PageTitle';
+import DocumentList from '../../components/documents/list/DocumentList';
 import DocumentOverview from '../../models/DocumentOverview';
-import DocumentList from '../documents/list/DocumentList';
+import DocumentService from '../../services/DocumentService';
 
 const DocumentListPage = () => {
   const [documentOverviewList, setDocumentOverviewList] = React.useState<
     DocumentOverview[]
   >([]);
 
+  const documentService = new DocumentService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    fetch('http://localhost:8081/documents')
-      .then((response) => response.json())
+    documentService
+      .fetchDocumentOverview()
       .then((data) => {
         setDocumentOverviewList(data);
       })

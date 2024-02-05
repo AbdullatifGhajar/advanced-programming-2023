@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AuthenticationHandler from '../services/authentication/AuthenticationHandler';
+import AuthenticationService from '../../services/AuthenticationService';
 
 interface UserMenuProps {
   username: string;
@@ -14,22 +14,21 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
   const navigate = useNavigate();
 
-  const [userOptionMenu, setMenuOptions] = React.useState<null | HTMLElement>(
-    null,
-  );
-  const open = Boolean(userOptionMenu);
+  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
+  const isMenuOpen = Boolean(menu);
+
+  const authenticationService = new AuthenticationService();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setMenuOptions(event.currentTarget);
+    setMenu(event.currentTarget);
   };
 
   const handleClose = () => {
-    setMenuOptions(null);
+    setMenu(null);
   };
 
   const handleLoggedOut = () => {
-    const authenticationHandler = new AuthenticationHandler();
-    authenticationHandler.logout();
+    authenticationService.logout();
     navigate('/');
   };
 
@@ -43,8 +42,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
         variant="outlined"
         size="large"
         aria-label="account of current user"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
+        aria-controls={isMenuOpen ? 'basic-menu' : undefined}
+        aria-expanded={isMenuOpen ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleMenu}
         color="inherit"
@@ -56,7 +55,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
       {/* USER OPTION MENU */}
       <Menu
         id="menu-appbar"
-        anchorEl={userOptionMenu}
+        anchorEl={menu}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -66,7 +65,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ username }) => {
           vertical: 'top',
           horizontal: 'center',
         }}
-        open={open}
+        open={isMenuOpen}
         onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',

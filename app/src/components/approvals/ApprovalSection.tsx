@@ -7,8 +7,8 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import CenteredElement from '../../components/CenteredElement';
 import Approval from '../../models/Approval';
+import CenteredElement from '../CenteredElement';
 
 interface ApprovalSectionProps {
   approval: Approval;

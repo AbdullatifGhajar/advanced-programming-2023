@@ -58,6 +58,19 @@ class UserService {
     return jwt;
   }
 
+  async user(id: number): Promise<User> {
+    const db = await DB.getInstance();
+    const user = await db.manager.findOne(User, {
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) throw new Error('User not found');
+
+    return user;
+  }
+
   userInfo(user: User) {
     return {
       id: user.id,

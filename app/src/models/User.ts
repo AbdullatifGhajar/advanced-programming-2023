@@ -11,4 +11,9 @@ interface User {
   role: UserRole;
 }
 
+export interface StudentWithDocumentCount {
+  student: User;
+  documentCount: number;
+}
+
 export default User;

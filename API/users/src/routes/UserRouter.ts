@@ -1,7 +1,7 @@
 import express from 'express';
 import UserController from '../controller/UserController';
 
-import AuthenticationHandler from '../auth/AuthenticationHandler';
+import AuthenticationHandler from '../../../common/src/auth/AuthenticationHandler';
 
 const UsersRouter = express.Router();
 

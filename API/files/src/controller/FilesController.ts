@@ -16,9 +16,16 @@ class FilesController {
       });
   }
 
-  async download(req: Request, res: Response) {
+  download(req: Request, res: Response) {
     const filesService = new FilesService();
-    res.sendFile(await filesService.downloadFile(req.params.fileId));
+    filesService
+      .downloadFile(req.params.fileId)
+      .then((file) => {
+        res.sendFile(file);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   }
 }
 

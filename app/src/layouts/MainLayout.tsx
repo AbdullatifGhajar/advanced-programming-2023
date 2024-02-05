@@ -17,8 +17,10 @@ interface MainLayoutProps extends HTMLAttributes<HTMLDivElement> {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const [user, setUser] = useState<User>();
 
+  const authenticationService = new AuthenticationService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    const authenticationService = new AuthenticationService();
     authenticationService
       .userInfo()
       .then((data) => {
@@ -34,9 +36,13 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Header
         user={user}
         navigationButtons={[
-          <HomeButton />,
-          user && user.role === 'student' && <DocumentsButton />,
-          user && user.role === 'tutor' && <ApprovalsButton />,
+          <HomeButton key={'home-button'} />,
+          user && user.role === 'student' && (
+            <DocumentsButton key={'documents-button'} />
+          ),
+          user && user.role === 'tutor' && (
+            <ApprovalsButton key={'approvals-button'} />
+          ),
         ]}
       />
 

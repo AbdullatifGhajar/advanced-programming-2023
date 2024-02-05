@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 
+import ApprovalDetails from '../../components/approvals/ApprovalList';
+import DocumentDetails from '../../components/documents/details/DocumentDetails';
 import Document from '../../models/Document';
 import DocumentService from '../../services/DocumentService';
-import ApprovalDetails from '../approvals/ApprovalList';
-import DocumentDetails from '../documents/details/DocumentDetails';
 
 const DocumentDetailsPage = () => {
   const navigate = useNavigate();
@@ -14,14 +14,16 @@ const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-  // Fetch form template from backend
+  const documentService = new DocumentService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (documentId == null) return;
 
-    fetch(`http://localhost:8081/documents/${documentId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDocument(data);
+    documentService
+      .fetchDocument(documentId)
+      .then((document) => {
+        setDocument(document);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -32,7 +34,6 @@ const DocumentDetailsPage = () => {
   if (!document) return null;
 
   const saveDocument = async () => {
-    const documentService = new DocumentService();
     documentService.saveDocument(document);
   };
 

@@ -8,11 +8,11 @@ import Tutor from '../../../users/src/entity/Tutor';
 import Approval from '../entity/Approval';
 
 class ApprovalService {
-  async approval(id: string): Promise<Approval> {
+  async approval(id: number): Promise<Approval> {
     const db = await DB.getInstance();
     const approval = await db.getRepository(Approval).findOne({
       where: {
-        id: parseInt(id),
+        id: id,
       },
     });
 

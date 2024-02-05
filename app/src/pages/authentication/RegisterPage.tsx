@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import CenteredElement from '../../components/CenteredElement';
-import AuthenticationLayout from '../../layouts/AuthenticationLayout';
 import AuthenticationService from '../../services/AuthenticationService';
 
 const RegisterPage = () => {
@@ -64,7 +63,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <AuthenticationLayout>
+    <>
       <Typography component="h1" variant="h5">
         Register
       </Typography>
@@ -126,7 +125,7 @@ const RegisterPage = () => {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationLayout>
+    </>
   );
 };
 

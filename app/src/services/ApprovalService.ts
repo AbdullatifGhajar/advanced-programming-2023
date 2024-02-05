@@ -1,4 +1,5 @@
 import Approval from '../models/Approval';
+import { StudentWithDocumentCount } from '../models/User';
 
 import Api from './Api';
 
@@ -6,10 +7,15 @@ class ApprovalService {
   private url = 'approvals';
   private api = new Api();
 
-  // async getApproval(id: string): Promise<Approval> {
-  //   const response = await this.api.get(`${this.url}/${id}`);
-  //   return response.data;
-  // }
+  async fetchStudentsWithDocumentCount(): Promise<StudentWithDocumentCount[]> {
+    const response = await this.api.get(`${this.url}/students`);
+    return response.data;
+  }
+
+  async fetchStudentDetailsAndDocuments(studentId: string) {
+    const response = await this.api.get(`${this.url}/students/${studentId}`);
+    return response.data;
+  }
 
   async saveApproval(approval: Approval): Promise<void> {
     await this.api.post(`${this.url}/${approval.id}/edit`, approval);

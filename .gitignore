@@ -13,3 +13,7 @@ uploads
 
 # .env
 .env
+
+# sonar-scanner
+sonar-scanner
+.scannerwork

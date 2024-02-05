@@ -4,13 +4,13 @@ import React, { ChangeEvent } from 'react';
 import { AnyField, FileField, File as FileModel } from '../../../models/Field';
 
 type FileFieldProps = {
-  fileField: FileField;
+  field: FileField;
   setField: React.Dispatch<React.SetStateAction<AnyField>>;
   disabled?: boolean;
 };
 
 const FileFieldItem: React.FC<FileFieldProps> = ({
-  fileField,
+  field: fileField,
   setField,
   disabled = false,
 }) => {
@@ -35,8 +35,8 @@ const FileFieldItem: React.FC<FileFieldProps> = ({
     if (!rawFile) return;
 
     uploadFile(rawFile)
-      .then((file) => {
-        setField({ ...fileField, file });
+      .then((fileName) => {
+        setField({ ...fileField, file: fileName });
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -46,14 +46,14 @@ const FileFieldItem: React.FC<FileFieldProps> = ({
   return (
     <TextField
       label={fileField.name}
-      value={filename || ''}
+      value={filename ?? ''}
       disabled
       fullWidth
       margin="normal"
       InputProps={{
         endAdornment: (
           <>
-            {disabled && (
+            {!disabled && (
               <Button component="label" variant="contained" color="primary">
                 {filename ? 'Change' : 'Upload'}
                 <input

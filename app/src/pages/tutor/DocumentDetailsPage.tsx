@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 
+import ApprovalSection from '../../components/approvals/ApprovalSection';
+import DocumentDetails from '../../components/documents/details/DocumentDetails';
 import Approval from '../../models/Approval';
 import Document from '../../models/Document';
 import ApprovalService from '../../services/ApprovalService';
-import ApprovalSection from '../approvals/ApprovalSection';
-import DocumentDetails from '../documents/details/DocumentDetails';
+import DocumentService from '../../services/DocumentService';
 
 const DocumentDetailsPage = () => {
   const { documentId } = useParams<{ documentId: string }>();
   const [document, setDocument] = useState<Document | null>(null);
 
-  // Fetch form template from backend
+  const documentService = new DocumentService();
+  const approvalService = new ApprovalService();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (documentId == null) return;
 
-    fetch(`http://localhost:8081/documents/${documentId}`)
-      .then((response) => response.json())
+    documentService
+      .fetchDocument(documentId)
       .then((data) => {
         setDocument(data);
       })
@@ -44,7 +47,6 @@ const DocumentDetailsPage = () => {
   };
 
   const handleSubmit = (index: number) => {
-    const approvalService = new ApprovalService();
     return () => {
       approvalService.saveApproval(document.approvals[index]);
     };
@@ -58,6 +60,7 @@ const DocumentDetailsPage = () => {
         // TODO: only show sections for approvals that belongs to the tutor and are not yet approved
         return (
           <ApprovalSection
+            key={approval.id}
             approval={approval}
             setApproval={setApproval(index)}
             handleSubmit={handleSubmit(index)}

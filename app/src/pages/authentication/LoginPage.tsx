@@ -7,14 +7,11 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import AuthenticationLayout from '../../layouts/AuthenticationLayout';
-
 import CenteredElement from '../../components/CenteredElement';
 import AuthenticationService from '../../services/AuthenticationService';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  // const location = useLocation();
 
   const authenticationService = new AuthenticationService();
 
@@ -35,14 +32,15 @@ const LoginPage = () => {
       .login(email, password)
       .then(() => {
         navigate('/');
-      }) // TODO: navigate to history location or home
+        // TODO: navigate to history location or home
+      })
       .catch((error) => {
         console.error('Error during API request:', error);
       });
   };
 
   return (
-    <AuthenticationLayout>
+    <>
       <Typography component="h1" variant="h5">
         Login
       </Typography>
@@ -90,7 +88,7 @@ const LoginPage = () => {
           </Grid>
         </Grid>
       </Box>
-    </AuthenticationLayout>
+    </>
   );
 };
 

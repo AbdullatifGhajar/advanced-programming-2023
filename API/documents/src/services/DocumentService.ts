@@ -16,18 +16,16 @@ class DocumentService {
 
   async getDocumentById(id: string): Promise<Document | null> {
     const db = await DB.getInstance();
-    return await db.getRepository(Document).findOne({
-      where: {
-        id: parseInt(id),
-      },
-      relations: {
-        fields: true,
-        approvals: {
-          tutor: true,
-        },
-        student: true,
-      },
-    });
+    return await db
+      .getRepository(Document)
+      .createQueryBuilder('document')
+      .leftJoinAndSelect('document.fields', 'fields')
+      .leftJoinAndSelect('fields.file', 'file')
+      .leftJoinAndSelect('document.approvals', 'approvals')
+      .leftJoinAndSelect('approvals.tutor', 'tutor')
+      .leftJoinAndSelect('document.student', 'student')
+      .where('document.id = :id', { id: parseInt(id) })
+      .getOne();
   }
 
   async document(id: string): Promise<Document> {

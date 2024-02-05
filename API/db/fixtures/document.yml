@@ -3,7 +3,8 @@ items:
   document1:
     name: 'Document 1'
     student: '@student1'
-    fields: ['@nameField', '@majorField', '@happyField', '@readyField']
+    fields:
+      ['@nameField', '@majorField', '@happyField', '@readyField', '@fileField1']
     approvals:
       [
         '@givenApprovalFromTutor1ForDocument1',
