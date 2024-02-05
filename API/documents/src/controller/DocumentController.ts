@@ -2,28 +2,28 @@ import { Request, Response } from 'express';
 import DocumentService from '../services/DocumentService';
 
 class DocumentController {
-  async documentList(req: Request, res: Response) {
+  documentList(req: Request, res: Response) {
     const documentService = new DocumentService();
-    return res.json(await documentService.list());
+    documentService
+      .list()
+      .then((result) => res.json(result))
+      .catch((error) => res.status(500).json({ error: error.message }));
   }
 
-  async document(req: Request, res: Response) {
+  document(req: Request, res: Response) {
     const documentService = new DocumentService();
-    try {
-      return res.json(await documentService.document(req.params.id));
-    } catch (error: any) {
-      return res.status(404).json({ error: error.message });
-    }
+    documentService
+      .document(req.params.id)
+      .then((result) => res.json(result))
+      .catch((error) => res.status(404).json({ error: error.message }));
   }
 
-  async saveDocument(req: Request, res: Response) {
+  saveDocument(req: Request, res: Response) {
     const documentService = new DocumentService();
-    try {
-      await documentService.saveFields(req.body);
-      return res.json({ message: 'Document saved' });
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
-    }
+    documentService
+      .saveFields(req.body)
+      .then(() => res.json({ message: 'Document saved' }))
+      .catch((error) => res.status(400).json({ error: error.message }));
   }
 }
 

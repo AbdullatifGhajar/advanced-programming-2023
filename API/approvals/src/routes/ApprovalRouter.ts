@@ -18,10 +18,6 @@ ApprovalRouter.get(
   approvalController.approvalListForUser,
 );
 ApprovalRouter.get('/:id', AuthenticationHandler, approvalController.approval);
-ApprovalRouter.post(
-  '/:id/edit',
-  AuthenticationHandler,
-  approvalController.saveApproval,
-);
+ApprovalRouter.post('/:id/edit', approvalController.saveApproval);
 
 export default ApprovalRouter;
